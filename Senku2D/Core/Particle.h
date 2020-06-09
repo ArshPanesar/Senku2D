@@ -1,7 +1,5 @@
 #pragma once
 #include "Vector2.h"
-//Pow Operator
-#define Real_Pow powf
 
 namespace Senku2D
 {

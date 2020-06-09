@@ -150,6 +150,7 @@
     <ClCompile Include="Core\Particle Force Registry.cpp" />
     <ClCompile Include="Core\Particle Gravity.cpp" />
     <ClCompile Include="Core\Particle.cpp" />
+    <ClCompile Include="Core\Springs\Particle Anchored Spring.cpp" />
     <ClCompile Include="Core\Springs\Particle Spring.cpp" />
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Core\Particle Gravity.h" />
     <ClInclude Include="Core\Particle.h" />
     <ClInclude Include="Core\Precision.h" />
+    <ClInclude Include="Core\Springs\Particle Anchored Spring.h" />
     <ClInclude Include="Core\Springs\Particle Spring.h" />
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="pch.h" />

@@ -1,7 +1,5 @@
 #pragma once
 #include "../Particle Force Generator.h"
-//Defines
-#define Real_Abs fabsf
 
 namespace Senku2D
 {
