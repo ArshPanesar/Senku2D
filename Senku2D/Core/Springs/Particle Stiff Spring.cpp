@@ -36,6 +36,5 @@ void Senku2D::ParticleStiffSpring::UpdateForce(Particle* _Particle, const Real& 
 	Vector2 Acc = (Target - Position) * (1.0f / Timestep * Timestep) - _Particle->Velocity * Timestep;
 
 	//Applying the Force
-	PRT2(Acc.x, Acc.y);
 	_Particle->AddForce(Acc * (1.0f / _Particle->getInverseMass()));
 }
