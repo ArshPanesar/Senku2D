@@ -10,5 +10,6 @@
     <ClInclude Include="Core\Precision.h" />
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="Core\Particle.h" />
+    <ClInclude Include="Core\Particle Force Generator.h" />
   </ItemGroup>
 </Project>

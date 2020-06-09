@@ -151,6 +151,7 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Particle Force Generator.h" />
     <ClInclude Include="Core\Particle.h" />
     <ClInclude Include="Core\Precision.h" />
     <ClInclude Include="Core\Vector2.h" />
