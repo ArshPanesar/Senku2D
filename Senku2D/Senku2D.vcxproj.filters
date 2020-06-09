@@ -9,6 +9,7 @@
     <ClCompile Include="Core\Particle Drag.cpp" />
     <ClCompile Include="Core\Springs\Particle Spring.cpp" />
     <ClCompile Include="Core\Springs\Particle Anchored Spring.cpp" />
+    <ClCompile Include="Core\Springs\Particle Bungee Spring.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -21,5 +22,6 @@
     <ClInclude Include="Core\Particle Drag.h" />
     <ClInclude Include="Core\Springs\Particle Spring.h" />
     <ClInclude Include="Core\Springs\Particle Anchored Spring.h" />
+    <ClInclude Include="Core\Springs\Particle Bungee Spring.h" />
   </ItemGroup>
 </Project>

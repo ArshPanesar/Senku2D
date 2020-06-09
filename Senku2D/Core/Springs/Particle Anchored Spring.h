@@ -8,7 +8,7 @@ namespace Senku2D
 	This Spring Force Generator will Generate a Spring Force for a Particle
 	with Respect to a Point in 2D Space - An Anchor
 	*/
-	class ParticleAnchoredSpring :public IParticleForceGenerator
+	class ParticleAnchoredSpring : public IParticleForceGenerator
 	{
 	private:
 		//An Anchor for the Spring
