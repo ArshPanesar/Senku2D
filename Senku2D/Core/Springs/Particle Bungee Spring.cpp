@@ -14,17 +14,20 @@ void Senku2D::ParticleBungeeSpring::UpdateForce(Particle* _Particle, const Real&
 
 	//Check if Bungee is Compressed
 	Real Mag = Force.Magnitude();
+	
 	if (Mag <= m_RestLength)
 	{
 		//Do Nothing
 		return;
 	}
+	else
+	{
+		//Get the Magnitude of the Spring Force
+		Mag = m_SpringConstant * (Mag - m_RestLength);
 
-	//Get the Magnitude of the Spring Force
-	Mag = m_SpringConstant * (m_RestLength - Mag);
-
-	//Add and Apply the Force
-	Force.Normalize();
-	Force *= -Mag;
-	_Particle->AddForce(Force);
+		//Add and Apply the Force
+		Force.Normalize();
+		Force *= -Mag;
+		_Particle->AddForce(Force);
+	}
 }

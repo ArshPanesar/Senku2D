@@ -7,6 +7,12 @@
 #define Real_Abs fabsf
 //Pow Operator
 #define Real_Pow powf
+//Sine Function
+#define Real_Sin sinf
+//Cosine Function
+#define Real_Cos cosf
+//Exponential Function
+#define Real_Exp expf
 
 namespace Senku2D
 {

@@ -36,7 +36,7 @@ void Senku2D::Vector2::Normalize()
 
 	if (Mag > 0)
 	{
-		(*this) *= ((Real)1/Mag);
+		(*this) *= ((Real)1 / Mag);
 	}
 }
 
