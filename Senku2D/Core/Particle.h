@@ -47,6 +47,9 @@ namespace Senku2D
 		//Basically Integrates Position and Velocity Using a Timestep
 		void Integrate(const Real& Timestep);
 
+		//Getters
+		const Real getInverseMass() const;
+
 		//Clear the Force Accumulator
 		void ClearAccumulator();
 	};

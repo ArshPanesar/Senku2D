@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Particle Force Registry.cpp" />
+    <ClCompile Include="Core\Particle Gravity.cpp" />
     <ClCompile Include="Core\Particle.cpp" />
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -154,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Core\Particle Force Generator.h" />
     <ClInclude Include="Core\Particle Force Registry.h" />
+    <ClInclude Include="Core\Particle Gravity.h" />
     <ClInclude Include="Core\Particle.h" />
     <ClInclude Include="Core\Precision.h" />
     <ClInclude Include="Core\Vector2.h" />

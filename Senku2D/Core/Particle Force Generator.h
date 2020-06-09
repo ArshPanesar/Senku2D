@@ -9,6 +9,6 @@ namespace Senku2D
 	public:
 		//Pure Virtual Function
 		//Updating Force Every Frame on a Particle
-		virtual void UpdateForce(Particle* _Particle, const Real& Timestep) = 0;;
+		virtual void UpdateForce(Particle* _Particle, const Real& Timestep) = 0;
 	};
 }

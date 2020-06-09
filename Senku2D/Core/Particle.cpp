@@ -37,6 +37,11 @@ void Senku2D::Particle::Integrate(const Real& Timestep)
 	ClearAccumulator();
 }
 
+const Senku2D::Real Senku2D::Particle::getInverseMass() const
+{
+	return m_InverseMass;
+}
+
 void Senku2D::Particle::ClearAccumulator()
 {
 	ForceAccum.Clear();

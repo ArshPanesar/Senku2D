@@ -5,6 +5,7 @@
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Core\Particle.cpp" />
     <ClCompile Include="Core\Particle Force Registry.cpp" />
+    <ClCompile Include="Core\Particle Gravity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -13,5 +14,6 @@
     <ClInclude Include="Core\Particle.h" />
     <ClInclude Include="Core\Particle Force Generator.h" />
     <ClInclude Include="Core\Particle Force Registry.h" />
+    <ClInclude Include="Core\Particle Gravity.h" />
   </ItemGroup>
 </Project>
