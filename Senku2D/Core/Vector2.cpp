@@ -42,8 +42,8 @@ void Senku2D::Vector2::Normalize()
 
 void Senku2D::Vector2::AddScaledVector(const Vector2& Vec, const Real& Scale)
 {
-	x = Vec.x * Scale;
-	y = Vec.y * Scale;
+	x += Vec.x * Scale;
+	y += Vec.y * Scale;
 }
 
 Senku2D::Vector2 Senku2D::Vector2::GetComponentProduct(const Vector2& Vec)
