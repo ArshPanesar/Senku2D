@@ -20,5 +20,6 @@ void Senku2D::ParticleAnchoredSpring::UpdateForce(Particle* _Particle, const Rea
 	//Calculating the Final Force and Applying it
 	Force.Normalize();
 	Force *= -Mag;
+
 	_Particle->AddForce(Force);
 }
