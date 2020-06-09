@@ -1,8 +1,8 @@
-#include <iostream>
+#include "pch.h"
 
 int main()
 {
-	std::cout << "Senku2D is a Physics Engine!" << std::endl;
+	PRT("Senku2D is a Physics Engine!");
 	
 	return EXIT_SUCCESS;
 }
