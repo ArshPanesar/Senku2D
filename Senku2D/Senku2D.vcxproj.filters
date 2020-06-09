@@ -3,10 +3,12 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\Vector2.cpp" />
+    <ClCompile Include="Core\Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Core\Precision.h" />
     <ClInclude Include="Core\Vector2.h" />
+    <ClInclude Include="Core\Particle.h" />
   </ItemGroup>
 </Project>
