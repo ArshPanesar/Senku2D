@@ -13,6 +13,11 @@ void Senku2D::Particle::SetMass(const Real& Mass)
 	}
 }
 
+void Senku2D::Particle::AddForce(const Vector2& Force)
+{
+	ForceAccum = Force;
+}
+
 void Senku2D::Particle::Integrate(const Real& Timestep)
 {
 	//Update the Linear Position of the Particle
@@ -27,4 +32,12 @@ void Senku2D::Particle::Integrate(const Real& Timestep)
 
 	//Impose Drag on Particle's Velocity
 	Velocity *= Real_Pow(Damping, Timestep);
+
+	//Clear the Accumulator
+	ClearAccumulator();
+}
+
+void Senku2D::Particle::ClearAccumulator()
+{
+	ForceAccum.Clear();
 }

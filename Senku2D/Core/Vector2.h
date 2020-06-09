@@ -64,5 +64,8 @@ namespace Senku2D
 
 		//- Operator
 		Vector2 operator-(const Vector2& Vec);
+
+		//Clearing the Vector
+		void Clear();
 	};
 }

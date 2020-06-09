@@ -104,3 +104,9 @@ Senku2D::Vector2 Senku2D::Vector2::operator-(const Vector2& Vec)
 {
 	return Vector2(x - Vec.x, y - Vec.y);
 }
+
+void Senku2D::Vector2::Clear()
+{
+	x = 0;
+	y = 0;
+}

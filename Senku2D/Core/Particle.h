@@ -40,9 +40,14 @@ namespace Senku2D
 		//Setting Mass
 		void SetMass(const Real& Mass);
 
+		//Adding a Force to the Accumulator
+		void AddForce(const Vector2& Force);
+
 		//Integrator
 		//Basically Integrates Position and Velocity Using a Timestep
 		void Integrate(const Real& Timestep);
 
+		//Clear the Force Accumulator
+		void ClearAccumulator();
 	};
 }
