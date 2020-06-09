@@ -7,6 +7,7 @@
     <ClCompile Include="Core\Particle Force Registry.cpp" />
     <ClCompile Include="Core\Particle Gravity.cpp" />
     <ClCompile Include="Core\Particle Drag.cpp" />
+    <ClCompile Include="Core\Springs\Particle Spring.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -17,5 +18,6 @@
     <ClInclude Include="Core\Particle Force Registry.h" />
     <ClInclude Include="Core\Particle Gravity.h" />
     <ClInclude Include="Core\Particle Drag.h" />
+    <ClInclude Include="Core\Springs\Particle Spring.h" />
   </ItemGroup>
 </Project>
