@@ -22,6 +22,47 @@ namespace Senku2D
 		void Invert();
 
 		//Magnitude of the Vector
-		//Real Magnitude() const;
+		Real Magnitude() const;
+
+		//Squared Magintude of the Vector
+		Real SquaredMagnitude() const;
+
+		//Normalizing a Vector
+		void Normalize();
+
+		//Adding a Scaled Vector
+		void AddScaledVector(const Vector2& Vec, const Real& Scale);
+
+		//Component Product
+		Vector2 GetComponentProduct(const Vector2& Vec);
+		void UpdateComponentProduct(const Vector2& Vec);
+
+		//Dot Product
+		Real DotProduct(const Vector2& Vec) const;
+
+		//Cross Product(Since You Cant Do a Cross Product in 2D Space, This Simply Returns the Would be Z Component)
+		Real CrossProduct(const Vector2& Vec) const;
+
+		//Operator Overloading
+		//*= Operator
+		void operator*=(const Real& Value);
+
+		//* Operator
+		//With Scalar Value
+		Vector2 operator*(const Real& Value);
+		//With Another Vector(Dot Product)
+		Real operator*(const Vector2& Vec);
+
+		//+= Operator
+		void operator+=(const Vector2& Vec);
+
+		//+ Operator
+		Vector2 operator+(const Vector2& Vec);
+
+		//-= Operator
+		void operator-=(const Vector2& Vec);
+
+		//- Operator
+		Vector2 operator-(const Vector2& Vec);
 	};
 }
