@@ -1,5 +1,5 @@
 #pragma once
-#include "Particle Force Generator.h"
+#include "../Particle Force Generator.h"
 
 namespace Senku2D
 {
