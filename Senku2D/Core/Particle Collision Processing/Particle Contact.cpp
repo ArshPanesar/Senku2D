@@ -29,7 +29,7 @@ void Senku2D::ParticleContact::ResolveVelocity(const Real& Timestep)
 		return;
 	}
 
-	//Calculating the new Separating Velocity with Respect to Restitution
+	//Calculating the New Separating Velocity with Respect to Restitution
 	Real NewSeparatingVelocity = SeparatingVelocity * m_Restitution;
 
 	//Checking the Velocity Build-Up Due to Acceleration that Happened in the Previous Frame
@@ -39,7 +39,7 @@ void Senku2D::ParticleContact::ResolveVelocity(const Real& Timestep)
 		AccInPrevFrame -= p_Particles[1]->Acceleration;
 	}
 	Real AccCausedSepVel = AccInPrevFrame * m_ContactNormal * Timestep;
-
+	
 	//If the Acceleration Caused a Velocity Build-Up,
 	//Remove it from the Separating Velocity
 	//This is to Ensure that Resting Collision Doesnt Cause Problems
@@ -53,6 +53,7 @@ void Senku2D::ParticleContact::ResolveVelocity(const Real& Timestep)
 			NewSeparatingVelocity = 0;
 		}
 	}
+	
 
 	//Getting the Delta Velocity
 	Real DeltaVelocity = NewSeparatingVelocity - SeparatingVelocity;
@@ -77,16 +78,16 @@ void Senku2D::ParticleContact::ResolveVelocity(const Real& Timestep)
 
 	//Calculating the Impulse to Apply
 	Real Impulse = DeltaVelocity / TotalInverseMass;
-
+	
 	//Getting the Amount of Impulse Per Inverse Mass
 	Vector2 ImpulsePerInvMass = m_ContactNormal * Impulse;
-
+	
 	//Applying the Impulses
-	p_Particles[0]->Velocity += ImpulsePerInvMass * p_Particles[0]->getInverseMass();
+	p_Particles[0]->Velocity += (ImpulsePerInvMass * p_Particles[0]->getInverseMass());
 	//Particle 1 Goes in the Opposite Direction
 	if (p_Particles[1] != nullptr)
 	{
-		p_Particles[1]->Velocity += ImpulsePerInvMass * -p_Particles[1]->getInverseMass();
+		p_Particles[1]->Velocity += (ImpulsePerInvMass * -p_Particles[1]->getInverseMass());
 	}
 }
 

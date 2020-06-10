@@ -21,7 +21,7 @@ void Senku2D::ParticleContactResolver::ResolveContacts(ParticleContact* ContactA
 	{
 		//Find the Contact with the Largest Closing Velocity
 		Real Max = 0;
-		unsigned int MaxIndex = NumOfContacts;
+		unsigned int MaxIndex = NumOfContacts - 1;
 		for (unsigned int i = 0; i < NumOfContacts; ++i)
 		{
 			Real SepVel = ContactArray[i].CalculateSeparatingVelocity();
