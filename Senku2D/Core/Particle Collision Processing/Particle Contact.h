@@ -19,7 +19,10 @@ namespace Senku2D
 
 		//The Contact Normal of the Particles
 		Vector2 m_ContactNormal;
-	protected:
+
+		//The Depth of Penetration of the Contact
+		Real m_Penetration;
+	public:
 		//Resolving the Contact
 		void Resolve(const Real& Timestep);
 
@@ -28,5 +31,8 @@ namespace Senku2D
 	private:
 		//Handling the Impulse Calculations for this Collision
 		void ResolveVelocity(const Real& Timestep);
+
+		//Resolving the Interpenetration of the Two Particles
+		void ResolveInterpenetration(const Real& Timestep);
 	};
 }

@@ -12,6 +12,7 @@
     <ClCompile Include="Core\Particle Springs\Particle Spring.cpp" />
     <ClCompile Include="Core\Particle Springs\Particle Stiff Spring.cpp" />
     <ClCompile Include="Core\Particle Collision Processing\Particle Contact.cpp" />
+    <ClCompile Include="Core\Particle Collision Processing\Particle Contact Resolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -27,5 +28,6 @@
     <ClInclude Include="Core\Particle Springs\Particle Spring.h" />
     <ClInclude Include="Core\Particle Springs\Particle Stiff Spring.h" />
     <ClInclude Include="Core\Particle Collision Processing\Particle Contact.h" />
+    <ClInclude Include="Core\Particle Collision Processing\Particle Contact Resolver.h" />
   </ItemGroup>
 </Project>
