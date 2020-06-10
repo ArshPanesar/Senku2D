@@ -13,6 +13,9 @@
     <ClCompile Include="Core\Particle Collision Processing\Particle Contact Resolver.cpp" />
     <ClCompile Include="Core\Force Generators\Particle Drag.cpp" />
     <ClCompile Include="Core\Force Generators\Particle Gravity.cpp" />
+    <ClCompile Include="Core\Particle Links\Particle Link.cpp" />
+    <ClCompile Include="Core\Particle Links\Particle Cable.cpp" />
+    <ClCompile Include="Core\Particle Links\Particle Rod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -29,5 +32,8 @@
     <ClInclude Include="Core\Particle Collision Processing\Particle Contact Resolver.h" />
     <ClInclude Include="Core\Force Generators\Particle Drag.h" />
     <ClInclude Include="Core\Force Generators\Particle Gravity.h" />
+    <ClInclude Include="Core\Particle Links\Particle Link.h" />
+    <ClInclude Include="Core\Particle Links\Particle Cable.h" />
+    <ClInclude Include="Core\Particle Links\Particle Rod.h" />
   </ItemGroup>
 </Project>

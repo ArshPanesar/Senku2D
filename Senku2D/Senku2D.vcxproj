@@ -151,6 +151,9 @@
     <ClCompile Include="Core\Force Generators\Particle Drag.cpp" />
     <ClCompile Include="Core\Particle Force Registry.cpp" />
     <ClCompile Include="Core\Force Generators\Particle Gravity.cpp" />
+    <ClCompile Include="Core\Particle Links\Particle Cable.cpp" />
+    <ClCompile Include="Core\Particle Links\Particle Link.cpp" />
+    <ClCompile Include="Core\Particle Links\Particle Rod.cpp" />
     <ClCompile Include="Core\Particle.cpp" />
     <ClCompile Include="Core\Particle Springs\Particle Anchored Spring.cpp" />
     <ClCompile Include="Core\Particle Springs\Particle Bungee Spring.cpp" />
@@ -166,6 +169,9 @@
     <ClInclude Include="Core\Particle Force Generator.h" />
     <ClInclude Include="Core\Particle Force Registry.h" />
     <ClInclude Include="Core\Force Generators\Particle Gravity.h" />
+    <ClInclude Include="Core\Particle Links\Particle Cable.h" />
+    <ClInclude Include="Core\Particle Links\Particle Link.h" />
+    <ClInclude Include="Core\Particle Links\Particle Rod.h" />
     <ClInclude Include="Core\Particle.h" />
     <ClInclude Include="Core\Precision.h" />
     <ClInclude Include="Core\Particle Springs\Particle Anchored Spring.h" />
