@@ -18,6 +18,7 @@
     <ClCompile Include="Core\Particle Links\Particle Rod.cpp" />
     <ClCompile Include="Core\Matrix2.cpp" />
     <ClCompile Include="Core\Matrix3.cpp" />
+    <ClCompile Include="Rigid Body\Rigid Body.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -39,5 +40,6 @@
     <ClInclude Include="Core\Particle Links\Particle Rod.h" />
     <ClInclude Include="Core\Matrix2.h" />
     <ClInclude Include="Core\Matrix3.h" />
+    <ClInclude Include="Rigid Body\Rigid Body.h" />
   </ItemGroup>
 </Project>
