@@ -23,8 +23,14 @@ namespace Senku2D
 		//Getting Inverse of a 2x2 Matrix
 		static Matrix2 GetInverse(const Matrix2& Mat2);
 
+		//Getting Transpose of a 2x2 Matrix
+		static Matrix2 GetTranspose(const Matrix2& Mat2);
+
 		//Set This Matrix to its Inverse
 		void Invert();
+
+		//Transpose This Matrix
+		void Transpose();
 
 		//Getting the Determinant of This Matrix
 		static Real GetDeterminant(const Matrix2& Mat2);

@@ -35,9 +35,26 @@ Senku2D::Matrix2 Senku2D::Matrix2::GetInverse(const Matrix2& Mat2)
 	return Mat;
 }
 
+Senku2D::Matrix2 Senku2D::Matrix2::GetTranspose(const Matrix2& Mat2)
+{
+	Matrix2 Mat;
+
+	Mat.Data[0] = Mat2.Data[0];
+	Mat.Data[1] = Mat2.Data[2];
+	Mat.Data[2] = Mat2.Data[1];
+	Mat.Data[3] = Mat2.Data[3];
+
+	return Mat;
+}
+
 void Senku2D::Matrix2::Invert()
 {
 	*this = GetInverse(*this);
+}
+
+void Senku2D::Matrix2::Transpose()
+{
+	*this = GetTranspose(*this);
 }
 
 Senku2D::Real Senku2D::Matrix2::GetDeterminant(const Matrix2& Mat2)
