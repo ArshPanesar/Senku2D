@@ -60,6 +60,20 @@ void Senku2D::RigidBody::ClearAccumulators()
 	TorqueAccum = 0;
 }
 
+void Senku2D::RigidBody::AddForce(const Vector2& Force)
+{
+	ForceAccum += Force;
+}
+
+void Senku2D::RigidBody::AddForceToPoint(const Vector2& Force, const Vector2& Point)
+{
+	//Accumulating Linear Force
+	AddForce(Force);
+	//Accumulating Torque
+	Vector2 Rotated_Point = RotationMat * Point;
+	TorqueAccum = Rotated_Point.CrossProduct(Force);
+}
+
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
 {
 	Coords = RotationMat * Vector2(Coords.x + Position.x, Coords.y + Position.y);

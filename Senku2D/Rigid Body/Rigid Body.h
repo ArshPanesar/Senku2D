@@ -55,6 +55,11 @@ namespace Senku2D
 		//Clear Accumulators
 		void ClearAccumulators();
 
+		//Adding Force to Center
+		void AddForce(const Vector2& Force);
+		//Adding Force to a Point(Supply Point in Local Space)
+		void AddForceToPoint(const Vector2& Force, const Vector2& Point);
+
 		//Transforming Coordinates
 		//Local to World Coordinates
 		void LocalToWorldCoords(Vector2& Coords);
