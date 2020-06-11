@@ -20,14 +20,14 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	//Update the Linear Position of the Particle
 	Position.AddScaledVector(LinearVelocity, Timestep);
 	Angle += AngularVelocity * Timestep;
-
+	
 	//Update the Acceleration from the Force
 	Vector2 ResultingAcc = LinearAcceleration;
 	ResultingAcc.AddScaledVector(ForceAccum, InverseMass);
 	//Update Angular Acceleration from Torque
 	Real ResultingAngularAcc = AngularAcceleration;
 	ResultingAngularAcc += TorqueAccum * ((Real)1 / MomentOfInertia);
-
+	
 	//Update Linear Velocity from the Resulting Acceleration
 	LinearVelocity.AddScaledVector(ResultingAcc, Timestep);
 	//Update the Angular Velocity
