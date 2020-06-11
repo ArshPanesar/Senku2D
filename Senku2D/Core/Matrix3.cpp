@@ -16,6 +16,18 @@ Senku2D::Matrix3::Matrix3(const Matrix3& Other)
 	}
 }
 
+Senku2D::Real Senku2D::Matrix3::GetDeterminant(const Matrix3& Mat3)
+{
+	return(Mat3.Data[0] * (Mat3.Data[4] * Mat3.Data[8] - Mat3.Data[5] * Mat3.Data[7])
+		- Mat3.Data[1] * (Mat3.Data[3] * Mat3.Data[8] - Mat3.Data[5] * Mat3.Data[6])
+		+ Mat3.Data[2] * (Mat3.Data[3] * Mat3.Data[7] - Mat3.Data[4] * Mat3.Data[6]));
+}
+
+Senku2D::Real Senku2D::Matrix3::Determinant() const
+{
+	return (GetDeterminant(*this));
+}
+
 Senku2D::Matrix3 Senku2D::Matrix3::operator*(const Matrix3& Mat3)
 {
 	Matrix3 Mat;
@@ -34,6 +46,25 @@ Senku2D::Matrix3 Senku2D::Matrix3::operator*(const Matrix3& Mat3)
 	Mat.Data[8] = Data[6] * Mat3.Data[2] + Data[7] * Mat3.Data[5] + Data[8] * Mat3.Data[8];
 
 	return Mat;
+}
+
+Senku2D::Matrix3 Senku2D::Matrix3::operator*(const Real& Num)
+{
+	Matrix3 Mat;
+
+	Mat = *this;
+
+	for (unsigned int i = 0; i < 9; ++i)
+	{
+		Mat.Data[i] *= Num;
+	}
+
+	return Mat;
+}
+
+void Senku2D::Matrix3::operator*=(const Real& Num)
+{
+	*this = *this * Num;
 }
 
 void Senku2D::Matrix3::operator=(const Matrix3& Mat3)

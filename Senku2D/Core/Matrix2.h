@@ -20,6 +20,18 @@ namespace Senku2D
 		//Copy Constructor
 		Matrix2(const Matrix2& Other);
 
+		//Getting Inverse of a 2x2 Matrix
+		static Matrix2 GetInverse(const Matrix2& Mat2);
+
+		//Set This Matrix to its Inverse
+		void Invert();
+
+		//Getting the Determinant of This Matrix
+		static Real GetDeterminant(const Matrix2& Mat2);
+
+		//Getting the Determinant of This Matrix
+		Real Determinant() const;
+
 		//Operator Overloads
 		//= For Assigning
 		void operator=(const Matrix2& Mat2);
@@ -29,6 +41,12 @@ namespace Senku2D
 
 		//* For Multiplying with another 2x2 Matrix
 		Matrix2 operator*(const Matrix2& Mat2) const;
+
+		//* For Multiplying By a Constant
+		Matrix2 operator*(const Real& Num);
+
+		//*= For Multiplying By a Constant
+		void operator*=(const Real& Num);
 	};
 
 }

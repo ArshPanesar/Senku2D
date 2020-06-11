@@ -16,6 +16,40 @@ Senku2D::Matrix2::Matrix2(const Matrix2& Other)
 	}
 }
 
+Senku2D::Matrix2 Senku2D::Matrix2::GetInverse(const Matrix2& Mat2)
+{
+	Matrix2 Mat;
+
+	Real Det = GetDeterminant(Mat2);
+
+	Mat.Data[0] = Mat2.Data[3];
+	Mat.Data[1] = -Mat2.Data[1];
+	Mat.Data[2] = -Mat2.Data[2];
+	Mat.Data[3] = Mat2.Data[0];
+
+	if (Det != 0)
+	{
+		Mat *= ((Real)1 / Det);
+	}
+
+	return Mat;
+}
+
+void Senku2D::Matrix2::Invert()
+{
+	*this = GetInverse(*this);
+}
+
+Senku2D::Real Senku2D::Matrix2::GetDeterminant(const Matrix2& Mat2)
+{
+	return(Mat2.Data[0] * Mat2.Data[3] - Mat2.Data[1] * Mat2.Data[2]);
+}
+
+Senku2D::Real Senku2D::Matrix2::Determinant() const
+{
+	return(GetDeterminant(*this));
+}
+
 void Senku2D::Matrix2::operator=(const Matrix2& Mat2)
 {
 	for (unsigned int i = 0; i < 4; ++i)
@@ -39,4 +73,23 @@ Senku2D::Matrix2 Senku2D::Matrix2::operator*(const Matrix2& Mat2) const
 	Mat.Data[3] = Data[2] * Mat2.Data[1] + Data[3] * Mat2.Data[3];
 
 	return Mat;
+}
+
+Senku2D::Matrix2 Senku2D::Matrix2::operator*(const Real& Num)
+{
+	Matrix2 Mat;
+
+	Mat = *this;
+
+	for (unsigned int i = 0; i < 4; ++i)
+	{
+		Mat.Data[i] *= Num;
+	}
+
+	return Mat;
+}
+
+void Senku2D::Matrix2::operator*=(const Real& Num)
+{
+	*this = *this * Num;
 }

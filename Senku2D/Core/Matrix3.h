@@ -6,7 +6,7 @@ namespace Senku2D
 	//A 3x3 Matrix
 	/*
 	This will be Useful for Displaying Rotations and Position
-	Aka A Transform Matrix!
+	Example: A Transform Matrix!
 	*/
 	class Matrix3
 	{
@@ -20,9 +20,21 @@ namespace Senku2D
 		//Copy Constructor
 		Matrix3(const Matrix3& Other);
 
+		//Getting Determinent of a 3x3 Matrix
+		static Real GetDeterminant(const Matrix3& Mat3);
+
+		//Determinant of This Matrix
+		Real Determinant() const;
+
 		//Operator Overloading
 		//* Multiplying with Another 3x3 Matrix
 		Matrix3 operator*(const Matrix3& Mat3);
+
+		//* Multiplying with a Real Number
+		Matrix3 operator*(const Real& Num);
+
+		//*= Multiplying This Matrix with a Real Number
+		void operator*=(const Real& Num);
 
 		//= Operator for Assigning To Another Matrix
 		void operator=(const Matrix3& Mat3);
