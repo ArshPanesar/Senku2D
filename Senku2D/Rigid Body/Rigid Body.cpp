@@ -18,17 +18,24 @@ void Senku2D::RigidBody::CalculateRotationMatrix()
 void Senku2D::RigidBody::Integrate(const Real& Timestep)
 {
 	//Update the Linear Position of the Particle
-	Position.AddScaledVector(Velocity, Timestep);
+	Position.AddScaledVector(LinearVelocity, Timestep);
+	Angle += AngularVelocity * Timestep;
 
 	//Update the Acceleration from the Force
-	Vector2 ResultingAcc = Acceleration;
+	Vector2 ResultingAcc = LinearAcceleration;
 	ResultingAcc.AddScaledVector(ForceAccum, InverseMass);
+	//Update Angular Acceleration from Torque
+	Real ResultingAngularAcc = AngularAcceleration;
+	ResultingAngularAcc += TorqueAccum * ((Real)1 / MomentOfInertia);
 
 	//Update Linear Velocity from the Resulting Acceleration
-	Velocity.AddScaledVector(ResultingAcc, Timestep);
+	LinearVelocity.AddScaledVector(ResultingAcc, Timestep);
+	//Update the Angular Velocity
+	AngularVelocity += ResultingAngularAcc * Timestep;
 
 	//Impose Drag on Particle's Velocity
-	Velocity *= Real_Pow(LinearDamping, Timestep);
+	LinearVelocity *= Real_Pow(LinearDamping, Timestep);
+	AngularVelocity *= Real_Pow(AngularDamping, Timestep);
 
 	//Clear the Accumulator
 	ClearAccumulators();
@@ -50,5 +57,16 @@ void Senku2D::RigidBody::SetMass(const Real& Mass)
 void Senku2D::RigidBody::ClearAccumulators()
 {
 	ForceAccum.Clear();
-	TorqueAccum.Clear();
+	TorqueAccum = 0;
+}
+
+void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
+{
+	Coords = RotationMat * Vector2(Coords.x + Position.x, Coords.y + Position.y);
+}
+
+void Senku2D::RigidBody::WorldToLocalCoords(Vector2& Coords)
+{
+	Matrix2 InverseRotationMatrix = Matrix2::GetInverse(RotationMat);
+	Coords = InverseRotationMatrix * Vector2(Position.x - Coords.x, Position.y - Coords.y);
 }

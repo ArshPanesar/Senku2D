@@ -13,11 +13,13 @@ namespace Senku2D
 		//Position(In World Coordinates)
 		Vector2 Position;
 
-		//Velocity of the Body
-		Vector2 Velocity;
+		//Linear Velocity of the Body
+		Vector2 LinearVelocity;
+		Real AngularVelocity;
 
 		//Acceleration
-		Vector2 Acceleration;
+		Vector2 LinearAcceleration;
+		Real AngularAcceleration;
 
 		//Angle of Rotation(Or Orientation) in Radians
 		Real Angle;
@@ -30,9 +32,12 @@ namespace Senku2D
 		//Angular Damping
 		Real AngularDamping;
 
+		//Inertia of the Rigid Body
+		Real MomentOfInertia;
+
 		//Accumulators
 		Vector2 ForceAccum;
-		Vector2 TorqueAccum;
+		Real TorqueAccum;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -49,5 +54,11 @@ namespace Senku2D
 
 		//Clear Accumulators
 		void ClearAccumulators();
+
+		//Transforming Coordinates
+		//Local to World Coordinates
+		void LocalToWorldCoords(Vector2& Coords);
+		//World to Local Coords
+		void WorldToLocalCoords(Vector2& Coords);
 	};
 }
