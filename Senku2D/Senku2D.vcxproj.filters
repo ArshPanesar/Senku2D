@@ -16,6 +16,8 @@
     <ClCompile Include="Core\Particle Links\Particle Link.cpp" />
     <ClCompile Include="Core\Particle Links\Particle Cable.cpp" />
     <ClCompile Include="Core\Particle Links\Particle Rod.cpp" />
+    <ClCompile Include="Core\Matrix2.cpp" />
+    <ClCompile Include="Core\Matrix3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -35,5 +37,7 @@
     <ClInclude Include="Core\Particle Links\Particle Link.h" />
     <ClInclude Include="Core\Particle Links\Particle Cable.h" />
     <ClInclude Include="Core\Particle Links\Particle Rod.h" />
+    <ClInclude Include="Core\Matrix2.h" />
+    <ClInclude Include="Core\Matrix3.h" />
   </ItemGroup>
 </Project>

@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Matrix2.cpp" />
+    <ClCompile Include="Core\Matrix3.cpp" />
     <ClCompile Include="Core\Particle Collision Processing\Particle Contact Resolver.cpp" />
     <ClCompile Include="Core\Particle Collision Processing\Particle Contact.cpp" />
     <ClCompile Include="Core\Force Generators\Particle Drag.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Matrix2.h" />
+    <ClInclude Include="Core\Matrix3.h" />
     <ClInclude Include="Core\Particle Collision Processing\Particle Contact Resolver.h" />
     <ClInclude Include="Core\Particle Collision Processing\Particle Contact.h" />
     <ClInclude Include="Core\Force Generators\Particle Drag.h" />
