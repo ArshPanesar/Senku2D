@@ -14,29 +14,39 @@ namespace Senku2D
 		//Thus Setters Have been Provided
 		Real m_InverseMass;
 
-	public:
 		//A Position for the Particle
-		Vector2 Position;
+		Vector2 m_Position;
 
 		//A Velocity for the Particle
-		Vector2 Velocity;
+		Vector2 m_Velocity;
 
 		//An Accelaration for the Particle
 		//(Primarily Used for Accelaration Due to Gravity)
-		Vector2 Acceleration;
+		Vector2 m_Acceleration;
 
 		//Damping(Drag Force: Trying to Stop the Particle from Moving)
 		//Damping is Required to Remove the Instability Caused by the Force Integrator
 		//Values Will Range from 0-1, 0 Meaning Velocity Will be 0, 1 Meaning Velocity Will Remain the Same
-		Real Damping;
+		Real m_Damping;
 
 		//Force Accumulated to be Applied in the Next Iteration Simulation
-		Vector2 ForceAccum;
+		Vector2 m_ForceAccum;
+	public:
+		//Default Constructor
+		Particle();
 
 		//Setting Inverse Mass
 		void SetInverseMass(const Real& InvMass);
 		//Setting Mass
 		void SetMass(const Real& Mass);
+		//Setting Position
+		void SetPosition(const Vector2& Position);
+		//Setting Velocity
+		void SetVelocity(const Vector2& Velocity);
+		//Setting Acceleration
+		void SetAcceleration(const Vector2& Acc);
+		//Setting Damping
+		void SetDamping(const Real& Damping);
 
 		//Adding a Force to the Accumulator
 		void AddForce(const Vector2& Force);
@@ -46,7 +56,11 @@ namespace Senku2D
 		void Integrate(const Real& Timestep);
 
 		//Getters
-		const Real getInverseMass() const;
+		const Real GetInverseMass() const;
+		const Vector2 GetPosition() const;
+		const Vector2 GetVelocity() const;
+		const Vector2 GetAcceleration() const;
+		const Real GetDamping() const;
 
 		//Clear the Force Accumulator
 		void ClearAccumulator();

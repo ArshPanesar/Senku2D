@@ -1,21 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Core\Particle.cpp" />
-    <ClCompile Include="Core\Particle Force Registry.cpp" />
-    <ClCompile Include="Core\Particle Springs\Particle Anchored Spring.cpp" />
-    <ClCompile Include="Core\Particle Springs\Particle Bungee Spring.cpp" />
-    <ClCompile Include="Core\Particle Springs\Particle Spring.cpp" />
-    <ClCompile Include="Core\Particle Springs\Particle Stiff Spring.cpp" />
-    <ClCompile Include="Core\Particle Collision Processing\Particle Contact.cpp" />
-    <ClCompile Include="Core\Particle Collision Processing\Particle Contact Resolver.cpp" />
-    <ClCompile Include="Core\Force Generators\Particle Drag.cpp" />
-    <ClCompile Include="Core\Force Generators\Particle Gravity.cpp" />
-    <ClCompile Include="Core\Particle Links\Particle Link.cpp" />
-    <ClCompile Include="Core\Particle Links\Particle Cable.cpp" />
-    <ClCompile Include="Core\Particle Links\Particle Rod.cpp" />
     <ClCompile Include="Core\Matrix2.cpp" />
     <ClCompile Include="Core\Matrix3.cpp" />
     <ClCompile Include="Rigid Body\Rigid Body.cpp" />
@@ -27,19 +14,6 @@
     <ClInclude Include="Core\Precision.h" />
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="Core\Particle.h" />
-    <ClInclude Include="Core\Particle Force Generator.h" />
-    <ClInclude Include="Core\Particle Force Registry.h" />
-    <ClInclude Include="Core\Particle Springs\Particle Anchored Spring.h" />
-    <ClInclude Include="Core\Particle Springs\Particle Bungee Spring.h" />
-    <ClInclude Include="Core\Particle Springs\Particle Spring.h" />
-    <ClInclude Include="Core\Particle Springs\Particle Stiff Spring.h" />
-    <ClInclude Include="Core\Particle Collision Processing\Particle Contact.h" />
-    <ClInclude Include="Core\Particle Collision Processing\Particle Contact Resolver.h" />
-    <ClInclude Include="Core\Force Generators\Particle Drag.h" />
-    <ClInclude Include="Core\Force Generators\Particle Gravity.h" />
-    <ClInclude Include="Core\Particle Links\Particle Link.h" />
-    <ClInclude Include="Core\Particle Links\Particle Cable.h" />
-    <ClInclude Include="Core\Particle Links\Particle Rod.h" />
     <ClInclude Include="Core\Matrix2.h" />
     <ClInclude Include="Core\Matrix3.h" />
     <ClInclude Include="Rigid Body\Rigid Body.h" />
