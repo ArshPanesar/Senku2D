@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core/Matrix2.h"
+#include "AABB.h"
 
 namespace Senku2D
 {
@@ -38,6 +39,9 @@ namespace Senku2D
 		//Accumulators
 		Vector2 ForceAccum;
 		Real TorqueAccum;
+
+		//Bounding Box
+		AABB BoundingBox;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -59,6 +63,9 @@ namespace Senku2D
 		void AddForce(const Vector2& Force);
 		//Adding Force to a Point(Supply Point in Local Space)
 		void AddForceToPoint(const Vector2& Force, const Vector2& Point);
+
+		//Set AABB Around the Rigid Body
+		void CalculateAABB();
 
 		//Transforming Coordinates
 		//Local to World Coordinates

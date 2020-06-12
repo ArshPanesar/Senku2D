@@ -1,7 +1,8 @@
 #include "Rigid Body.h"
 
 Senku2D::RigidBody::RigidBody()	:
-	Angle(0)
+	Angle(0),
+	BoundingBox()
 {
 	//Calculate the Rotation Matrix
 	CalculateRotationMatrix();
@@ -40,6 +41,9 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	//Calculate Rotation Matrix
 	CalculateRotationMatrix();
 
+	//Calculate AABB
+	CalculateAABB();
+
 	//Clear the Accumulator
 	ClearAccumulators();
 }
@@ -75,6 +79,11 @@ void Senku2D::RigidBody::AddForceToPoint(const Vector2& Force, const Vector2& Po
 	//Accumulating Torque
 	Vector2 Rotated_Point = RotationMat * Point;
 	TorqueAccum = Rotated_Point.CrossProduct(Force);
+}
+
+void Senku2D::RigidBody::CalculateAABB()
+{
+	BoundingBox.Position = Position - (BoundingBox.Size / (Real)2);
 }
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)

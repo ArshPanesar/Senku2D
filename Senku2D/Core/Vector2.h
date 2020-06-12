@@ -53,6 +53,10 @@ namespace Senku2D
 		//With Another Vector(Dot Product)
 		Real operator*(const Vector2& Vec);
 
+		//Dividing By a Scalar
+		Vector2 operator/(const Real& Value);
+		void operator/=(const Real& Value);
+
 		//+= Operator
 		void operator+=(const Vector2& Vec);
 

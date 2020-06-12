@@ -83,6 +83,23 @@ Senku2D::Real Senku2D::Vector2::operator*(const Vector2& Vec)
 	return(x * Vec.x + y * Vec.y);
 }
 
+Senku2D::Vector2 Senku2D::Vector2::operator/(const Real& Value)
+{
+	Vector2 Vec;
+	if (Value != 0)
+	{
+		Vec.x /= Value;
+		Vec.y /= Value;
+	}
+
+	return Vec;
+}
+
+void Senku2D::Vector2::operator/=(const Real& Value)
+{
+	*this = *this / Value;
+}
+
 void Senku2D::Vector2::operator+=(const Vector2& Vec)
 {
 	x += Vec.x;
