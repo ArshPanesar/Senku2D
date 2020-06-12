@@ -7,44 +7,49 @@ namespace Senku2D
 	//A Rigid Body
 	class RigidBody
 	{
-	public:
+	private:
 		//Inverse Mass of the Rigid Body
-		Real InverseMass;
+		Real m_InverseMass;
 
 		//Position(In World Coordinates)
-		Vector2 Position;
+		Vector2 m_Position;
 
 		//Linear Velocity of the Body
-		Vector2 LinearVelocity;
-		Real AngularVelocity;
+		Vector2 m_LinearVelocity;
+		//Angular Velocity of the Body
+		Real m_AngularVelocity;
 
-		//Acceleration
-		Vector2 LinearAcceleration;
-		Real AngularAcceleration;
+		//Linear Acceleration
+		Vector2 m_LinearAcceleration;
+		//Angular Acceleration
+		Real m_AngularAcceleration;
 
 		//Angle of Rotation(Or Orientation) in Radians
-		Real Angle;
+		Real m_Angle;
 
 		//A 2x2 Rotation Matrix
-		Matrix2 RotationMat;
+		Matrix2 m_RotationMat;
 
 		//Linear Damping
-		Real LinearDamping;
+		Real m_LinearDamping;
 		//Angular Damping
-		Real AngularDamping;
+		Real m_AngularDamping;
 
 		//Inertia of the Rigid Body
-		Real MomentOfInertia;
+		Real m_MomentOfInertia;
 
 		//Accumulators
-		Vector2 ForceAccum;
-		Real TorqueAccum;
+		Vector2 m_ForceAccum;
+		Real m_TorqueAccum;
 
 		//Bounding Box
-		AABB BoundingBox;
+		AABB m_BoundingBox;
 	public:
 		//Default Constructor
 		RigidBody();
+		
+		//Destructor
+		~RigidBody();
 
 		//Calculate Rotation Matrix
 		void CalculateRotationMatrix();
@@ -52,9 +57,28 @@ namespace Senku2D
 		//Integrating
 		void Integrate(const Real& Timestep);
 
+		//Setters
 		//Setting Mass
 		void SetInverseMass(const Real& InvMass);
 		void SetMass(const Real& Mass);
+		//Setting Position
+		void SetPosition(const Vector2& Position);
+		//Setting Linear Velocity
+		void SetLinearVelocity(const Vector2& Velocity);
+		//Setting Angular Velocity
+		void SetAngularVelocity(const Real& Velocity);
+		//Setting Linear Acceleration
+		void SetLinearAcceleration(const Vector2& Acc);
+		//Setting Angular Acceleration
+		void SetAngularAcceleration(const Real& Acc);
+		//Setting Angle
+		void SetAngle(const Real& Angle);
+		//Setting Linear Damping
+		void SetLinearDamping(const Real& LD);
+		//Setting Angular Damping
+		void SetAngularDamping(const Real& AD);
+		//Setting Moment of Inertia
+		void SetMomentOfInertia(const Real& MOI);
 
 		//Clear Accumulators
 		void ClearAccumulators();
@@ -67,6 +91,18 @@ namespace Senku2D
 		//Set AABB Around the Rigid Body
 		void CalculateAABB();
 
+		//Getters
+		const Real GetInverseMass() const;
+		const Vector2 GetPosition() const;
+		const Vector2 GetLinearVelocity() const;
+		const Real GetAngularVelocity() const;
+		const Vector2 GetLinearAcceleration() const;
+		const Real GetAngularAcceleration () const;
+		const Real GetAngle() const;
+		const Real GetLinearDamping() const;
+		const Real GetAngularDamping() const;
+		const Real GetMomentOfInertia() const;
+		
 		//Transforming Coordinates
 		//Local to World Coordinates
 		void LocalToWorldCoords(Vector2& Coords);
