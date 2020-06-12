@@ -151,7 +151,6 @@
     <ClCompile Include="Core\Particle.cpp" />
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Rigid Body\AABB.cpp" />
-    <ClCompile Include="Rigid Body\Collision Processing\Quadtree.cpp" />
     <ClCompile Include="Rigid Body\Rigid Body.cpp" />
   </ItemGroup>
   <ItemGroup>

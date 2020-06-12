@@ -7,7 +7,6 @@
     <ClCompile Include="Core\Matrix3.cpp" />
     <ClCompile Include="Rigid Body\Rigid Body.cpp" />
     <ClCompile Include="Rigid Body\AABB.cpp" />
-    <ClCompile Include="Rigid Body\Collision Processing\Quadtree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
