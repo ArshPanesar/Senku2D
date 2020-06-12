@@ -105,6 +105,25 @@ Senku2D::Vector2 Senku2D::Vector2::operator-(const Vector2& Vec)
 	return Vector2(x - Vec.x, y - Vec.y);
 }
 
+bool Senku2D::Vector2::operator==(const Vector2& Vec) const
+{
+	if (x == Vec.x && y == Vec.y)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Senku2D::Vector2::operator!=(const Vector2& Vec) const
+{
+	if (!(*this == Vec))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void Senku2D::Vector2::Clear()
 {
 	x = 0;

@@ -19,6 +19,7 @@
     <ClCompile Include="Core\Matrix2.cpp" />
     <ClCompile Include="Core\Matrix3.cpp" />
     <ClCompile Include="Rigid Body\Rigid Body.cpp" />
+    <ClCompile Include="Rigid Body\AABB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -41,5 +42,6 @@
     <ClInclude Include="Core\Matrix2.h" />
     <ClInclude Include="Core\Matrix3.h" />
     <ClInclude Include="Rigid Body\Rigid Body.h" />
+    <ClInclude Include="Rigid Body\AABB.h" />
   </ItemGroup>
 </Project>

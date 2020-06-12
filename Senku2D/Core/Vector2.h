@@ -65,6 +65,12 @@ namespace Senku2D
 		//- Operator
 		Vector2 operator-(const Vector2& Vec);
 
+		//== Operator
+		bool operator==(const Vector2& Vec) const;
+
+		//!= Operator
+		bool operator!=(const Vector2& Vec) const;
+
 		//Clearing the Vector
 		void Clear();
 	};
