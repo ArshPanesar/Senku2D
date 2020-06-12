@@ -37,6 +37,9 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	LinearVelocity *= Real_Pow(LinearDamping, Timestep);
 	AngularVelocity *= Real_Pow(AngularDamping, Timestep);
 
+	//Calculate Rotation Matrix
+	CalculateRotationMatrix();
+
 	//Clear the Accumulator
 	ClearAccumulators();
 }
@@ -76,11 +79,10 @@ void Senku2D::RigidBody::AddForceToPoint(const Vector2& Force, const Vector2& Po
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
 {
-	Coords = RotationMat * Vector2(Coords.x + Position.x, Coords.y + Position.y);
+	Coords = Vector2(Coords.x + Position.x, Coords.y + Position.y);
 }
 
 void Senku2D::RigidBody::WorldToLocalCoords(Vector2& Coords)
 {
-	Matrix2 InverseRotationMatrix = Matrix2::GetInverse(RotationMat);
-	Coords = InverseRotationMatrix * Vector2(Position.x - Coords.x, Position.y - Coords.y);
+	Coords = Vector2(Position.x - Coords.x, Position.y - Coords.y);
 }
