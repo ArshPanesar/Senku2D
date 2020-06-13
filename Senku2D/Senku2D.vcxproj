@@ -151,6 +151,7 @@
     <ClCompile Include="Core\Particle.cpp" />
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Rigid Body\AABB.cpp" />
+    <ClCompile Include="Rigid Body\Collision Processing\Quadtree.cpp" />
     <ClCompile Include="Rigid Body\Rigid Body.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rigid Body\AABB.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Potential Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Quadtree.h" />
     <ClInclude Include="Rigid Body\Rigid Body.h" />
   </ItemGroup>
