@@ -200,6 +200,11 @@ const Real Senku2D::RigidBody::GetMomentOfInertia() const
 	return m_MomentOfInertia;
 }
 
+const AABB Senku2D::RigidBody::GetAABB() const
+{
+	return m_BoundingBox;
+}
+
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
 {
 	Coords = Vector2(Coords.x + m_Position.x, Coords.y + m_Position.y);

@@ -20,24 +20,33 @@ namespace Senku2D
 		Vector2 m_Size;
 
 		//Maximum Amount of Rigid Bodies Allowed
-		const int m_MaxBodiesAllowed = 4;
+		static const int m_MaxBodiesAllowed = 4;
+		//Maximum Amount of Levels Allowed
+		static const int m_MaxLevels = 4;
+
 		//Current Amount of Bodies Placed
 		int m_CurrentAmountOfBodies;
+		//Current Level of Node
+		int m_CurrentLevel;
 
 		//Array of Pointers to the Rigid Bodies Stored in this Quad
-		RigidBody* m_RigidBodyList[4];
+		std::vector<RigidBody*> m_RigidBodyList;
 		
 		//Child Quads
 		Quadtree* m_ChildQuads[4];
 	public:
 		//Constructor
-		Quadtree(const Vector2& Position, const Vector2& Size);
+		Quadtree(const Vector2& Position, const Vector2& Size, const int& Level);
 
 		//Subdividing the Quadtree
 		void Subdivide();
 
 		//Insert a Rigid Body in the Quadtree
 		void Insert(RigidBody* _RigidBody);
+
+		//Query the Quadtree and Find the Neighbours of the Passed Down Rigid Body
+		//Additionaly Pass Down a Contact List that Can be Filled Upto the Provided Limit
+		void Query(RigidBody* _RigidBody, PotentialRigidBodyContact* Contacts, const unsigned int& Limit);
 
 		//Clearing the Quadtree
 		void Clear();

@@ -2,7 +2,7 @@
 
 //Includes
 #include <iostream>
-
+#include <vector>
 
 //Logging To Console
 template<typename T>
