@@ -28,7 +28,7 @@ namespace Senku2D
 		RigidBody* m_RigidBodyList[4];
 		
 		//Child Quads
-		std::unique_ptr<Quadtree> m_ChildQuads[4];
+		Quadtree* m_ChildQuads[4];
 	public:
 		//Constructor
 		Quadtree(const Vector2& Position, const Vector2& Size);
