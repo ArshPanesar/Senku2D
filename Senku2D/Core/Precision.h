@@ -13,6 +13,10 @@
 #define Real_Cos cosf
 //Exponential Function
 #define Real_Exp expf
+//Minimum Function
+#define Real_Min fminf
+//Maximum Function
+#define Real_Max fmaxf
 
 namespace Senku2D
 {
