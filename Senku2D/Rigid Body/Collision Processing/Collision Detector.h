@@ -11,6 +11,9 @@ namespace Senku2D
 	This Collision Detector Class Provides Services to Figure Out Collisions
 	Between Rigid Bodies. All Functions Are Static So There is No Need to Instantiate
 	This Class.
+
+	WARNING: The Collision Detector Class Assumes that The Shape Tests Called are
+	For the Correct Shapes! This Class Will NOT Check the Rigid Bodys Shape.
 	*/
 	class CollisionDetector
 	{
@@ -23,6 +26,8 @@ namespace Senku2D
 		//Box and Circle
 		static bool BoxAndCircle(CollisionData* CollData);
 	};
+
+
 
 	//SAT Collision Test Helpers
 	struct SAT
