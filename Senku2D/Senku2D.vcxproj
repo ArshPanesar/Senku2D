@@ -165,6 +165,8 @@
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rigid Body\AABB.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Collision Data.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Potential Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Quadtree.h" />
     <ClInclude Include="Rigid Body\Rigid Body.h" />
