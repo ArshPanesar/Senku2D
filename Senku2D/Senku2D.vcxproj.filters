@@ -11,6 +11,7 @@
     <ClCompile Include="Rigid Body\Shapes\Shape.cpp" />
     <ClCompile Include="Rigid Body\Shapes\Circle Shape.cpp" />
     <ClCompile Include="Rigid Body\Shapes\Box Shape.cpp" />
+    <ClCompile Include="Rigid Body\Collision Processing\Collision Detector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -28,5 +29,6 @@
     <ClInclude Include="Rigid Body\Shapes\Box Shape.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Data.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Collision Detector.h" />
   </ItemGroup>
 </Project>
