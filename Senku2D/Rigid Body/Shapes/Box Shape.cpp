@@ -6,6 +6,9 @@ Senku2D::BoxShape::BoxShape()	:
 	m_HalfHeight(0),
 	m_HalfWidth(0)
 {
+	//Setting Shape
+	m_ShapeType = ShapeType::BOX;
+
 	//Setting the Vertices to Default
 	for (unsigned int i = 0; i < 4; ++i)
 	{

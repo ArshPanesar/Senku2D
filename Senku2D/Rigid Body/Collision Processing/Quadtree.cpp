@@ -3,7 +3,6 @@
 Senku2D::Quadtree::Quadtree(const Vector2& Position, const Vector2& Size, const int& Level)	:
 	m_CurrentAmountOfBodies(0),
 	m_RigidBodyList(),
-	m_ChildQuads(),
 	m_CurrentLevel(Level)
 {
 	//Getting the Position and Size
@@ -28,6 +27,12 @@ Senku2D::Quadtree::Quadtree(const Vector2& Position, const Vector2& Size, const 
 	for (unsigned int i = 0; i < 4; ++i)
 	{
 		m_ChildQuads[i] = nullptr;
+	}
+
+	//If 0th Level, Then Subdivide
+	if (Level == 0)
+	{
+		Subdivide();
 	}
 }
 
@@ -55,7 +60,7 @@ void Senku2D::Quadtree::Insert(RigidBody* _RigidBody)
 		//Then Add All Remaining Bodies Here
 		//Regardless of the Max Bodies Allowed
 		m_RigidBodyList.push_back(_RigidBody);
-
+		
 		//Still Increase the Counter of How Many Rigid Bodies are There
 		++m_CurrentAmountOfBodies;
 
@@ -68,7 +73,7 @@ void Senku2D::Quadtree::Insert(RigidBody* _RigidBody)
 	{
 		//Add the Bodies to the List
 		m_RigidBodyList.push_back(_RigidBody);
-
+		
 		//Increase the Counter of How Many Rigid Bodies are There
 		++m_CurrentAmountOfBodies;
 
@@ -90,7 +95,7 @@ void Senku2D::Quadtree::Insert(RigidBody* _RigidBody)
 	}
 }
 
-void Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyContact* Contacts, const unsigned int& Limit)
+unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyContact* Contacts, const unsigned int& Limit)
 {
 	//Check if This Quad Intersects the Given Rigid Body
 	if (m_Rect.Overlaps(_RigidBody->GetAABB()))
@@ -98,14 +103,28 @@ void Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyContact* 
 		//Check if This Quad Has Children
 		if (m_ChildQuads[0] == nullptr)
 		{
+			//Number of Contacts Generated
+			int NumOfContacts = 0;
+
 			//Fill the Contact List
-			for (unsigned int i = 0; i < Limit; ++i)
+			for (unsigned int i = 0; i < m_RigidBodyList.size(); ++i)
 			{
-				Contacts[i].RigidBodies[0] = _RigidBody;
-				Contacts[i].RigidBodies[1] = m_RigidBodyList[i];
+				if (i < Limit)
+				{
+					if (m_RigidBodyList[i] != _RigidBody)// && _RigidBody->Overlaps(m_RigidBodyList[i]->GetAABB()))
+					{
+						Contacts[i].RigidBodies[0] = _RigidBody;
+						Contacts[i].RigidBodies[1] = m_RigidBodyList[i];
+						++NumOfContacts;
+					}
+				}
+				else
+				{
+					break;
+				}
 			}
 			//Break Out
-			return;
+			return NumOfContacts;
 		}
 
 		//Get the Child Quad Which Contains This Rigid Body
@@ -114,15 +133,17 @@ void Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyContact* 
 			m_ChildQuads[i]->Query(_RigidBody, Contacts, Limit);
 		}
 	}
+
+	return 0;
 }
 
 void Senku2D::Quadtree::Clear()
 {
 	//Clearing the Rigid Body List
-	for (unsigned int i = 0; i < 4; ++i)
-	{
-		m_RigidBodyList[i] = nullptr;
-	}
+	m_RigidBodyList.clear();
+	//Reset the Quad
+	m_CurrentAmountOfBodies = 0;
+	m_CurrentLevel = 0;
 
 	//Clearing the Children
 	for (unsigned int i = 0; i < 4; ++i)
@@ -133,12 +154,8 @@ void Senku2D::Quadtree::Clear()
 			m_ChildQuads[i]->Clear();
 			//Deleting Memory(See I took care of it, NO REASON TO WORRY)
 			delete m_ChildQuads[i];
+			//Reseting the ChildQuads
+			m_ChildQuads[i] = nullptr;
 		}
-	}
-
-	//Reseting the ChildQuads
-	for (unsigned int i = 0; i < 4; ++i)
-	{
-		m_ChildQuads[i] = nullptr;
 	}
 }

@@ -58,8 +58,10 @@ bool Senku2D::CollisionDetector::CircleAndCircle(CollisionData* CollData)
 bool Senku2D::CollisionDetector::BoxAndBox(CollisionData* CollData)
 {
 	//Getting the Box Shapes
-	BoxShape* pBox1 = (BoxShape*)CollData->_Bodies.RigidBodies[0]->GetShape();
-	BoxShape* pBox2 = (BoxShape*)CollData->_Bodies.RigidBodies[1]->GetShape();
+	Shape* sBox1 = CollData->_Bodies.RigidBodies[0]->GetShape();
+	Shape* sBox2 = CollData->_Bodies.RigidBodies[1]->GetShape();
+	BoxShape pBox1 = *(BoxShape*)(sBox1);
+	BoxShape pBox2 = *(BoxShape*)(sBox2);
 
 	//Getting Positions and Rotation Matrices
 	Vector2 Position1 = CollData->_Bodies.RigidBodies[0]->GetPosition();
@@ -68,16 +70,16 @@ bool Senku2D::CollisionDetector::BoxAndBox(CollisionData* CollData)
 	Matrix2 RotMat2 = CollData->_Bodies.RigidBodies[1]->GetRotationMatrix();
 
 	//Transforming the Shapes
-	pBox1->Transform(Position1, RotMat1);
-	pBox2->Transform(Position2, RotMat2);
+	pBox1.Transform(Position1, RotMat1);
+	pBox2.Transform(Position2, RotMat2);
 
 	//Getting the Vertices
-	const Vector2* pVertices1 = pBox1->GetVertices();
-	const Vector2* pVertices2 = pBox2->GetVertices();
+	const Vector2* pVertices1 = pBox1.GetVertices();
+	const Vector2* pVertices2 = pBox2.GetVertices();
 
 	//Getting Centers
-	const Vector2 Center1 = pBox1->GetCenterPosition();
-	const Vector2 Center2 = pBox2->GetCenterPosition();
+	const Vector2 Center1 = pBox1.GetCenterPosition();
+	const Vector2 Center2 = pBox2.GetCenterPosition();
 
 	//SAT Collision Detection
 	//Axis for Both Boxes

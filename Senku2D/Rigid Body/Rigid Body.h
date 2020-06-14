@@ -2,6 +2,9 @@
 #include "../Core/Matrix2.h"
 #include "AABB.h"
 #include "Shapes/Shape.h"
+//Temporary Shapes
+#include "Shapes/Box Shape.h"
+#include "Shapes/Circle Shape.h"
 
 namespace Senku2D
 {
@@ -48,6 +51,9 @@ namespace Senku2D
 
 		//Shape
 		Shape* m_Shape;
+
+		//Temp
+		int i = 0;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -94,6 +100,9 @@ namespace Senku2D
 		//Adding Force to a Point(Supply Point in Local Space)
 		void AddForceToPoint(const Vector2& Force, const Vector2& Point);
 
+		//Overlaps Some AABB
+		bool Overlaps(const AABB& _Rect);
+
 		//Set AABB Around the Rigid Body
 		void CalculateAABB();
 
@@ -110,7 +119,7 @@ namespace Senku2D
 		const Real GetMomentOfInertia() const;
 		const AABB GetAABB() const;
 		const Matrix2 GetRotationMatrix() const;
-		const Shape* GetShape() const;
+		Shape* GetShape();
 
 		//Transforming Coordinates
 		//Local to World Coordinates

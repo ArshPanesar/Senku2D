@@ -1,7 +1,7 @@
 #include "Shape.h"
 
 Senku2D::Shape::Shape()	:
-	m_CenterPosition(),
+	m_CenterPosition((Real)0, (Real)0),
 	m_ShapeType(ShapeType::BOX)
 {
 

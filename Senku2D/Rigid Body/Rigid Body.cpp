@@ -13,10 +13,11 @@ Senku2D::RigidBody::RigidBody()	:
 	m_RotationMat(),
 	m_LinearDamping(0),
 	m_AngularDamping(0),
-	m_MomentOfInertia(0),
+	m_MomentOfInertia((Real)1),
 	m_ForceAccum(),
 	m_TorqueAccum(0),
-	m_BoundingBox()
+	m_BoundingBox(),
+	m_Shape(nullptr)
 {
 	//Calculate the Rotation Matrix
 	CalculateRotationMatrix();
@@ -150,8 +151,36 @@ void Senku2D::RigidBody::AddForceToPoint(const Vector2& Force, const Vector2& Po
 	m_TorqueAccum = Rotated_Point.CrossProduct(Force);
 }
 
+bool Senku2D::RigidBody::Overlaps(const AABB& _Rect)
+{
+	if (m_BoundingBox.Overlaps(_Rect))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void Senku2D::RigidBody::CalculateAABB()
 {
+	if (i == 0)
+	{
+		if (m_Shape->GetShapeType() == ShapeType::BOX)
+		{
+			BoxShape* BS = (BoxShape*)(m_Shape);
+			m_BoundingBox.Size = Vector2(BS->GetHalfWidth() * 2, BS->GetHalfHeight() * 2);
+		}
+		else
+		{
+			CircleShape* BS = (CircleShape*)(m_Shape);
+			m_BoundingBox.Size = Vector2(BS->GetRadius() * 2, BS->GetRadius() * 2);
+		}
+	}
+	else
+	{
+		i = 1;
+	}
+
 	m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
 }
 
@@ -215,7 +244,7 @@ const Matrix2 Senku2D::RigidBody::GetRotationMatrix() const
 	return m_RotationMat;
 }
 
-const Shape* Senku2D::RigidBody::GetShape() const
+Shape* Senku2D::RigidBody::GetShape()
 {
 	return m_Shape;
 }

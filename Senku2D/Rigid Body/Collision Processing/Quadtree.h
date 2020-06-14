@@ -46,7 +46,7 @@ namespace Senku2D
 
 		//Query the Quadtree and Find the Neighbours of the Passed Down Rigid Body
 		//Additionaly Pass Down a Contact List that Can be Filled Upto the Provided Limit
-		void Query(RigidBody* _RigidBody, PotentialRigidBodyContact* Contacts, const unsigned int& Limit);
+		unsigned int Query(RigidBody* _RigidBody, PotentialRigidBodyContact* Contacts, const unsigned int& Limit);
 
 		//Clearing the Quadtree
 		void Clear();
