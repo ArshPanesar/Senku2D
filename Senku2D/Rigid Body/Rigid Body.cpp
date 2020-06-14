@@ -125,6 +125,11 @@ void Senku2D::RigidBody::SetMomentOfInertia(const Real& MOI)
 	m_MomentOfInertia = MOI;
 }
 
+void Senku2D::RigidBody::SetShape(Shape* _Shape)
+{
+	m_Shape = _Shape;
+}
+
 void Senku2D::RigidBody::ClearAccumulators()
 {
 	m_ForceAccum.Clear();
@@ -208,6 +213,11 @@ const AABB Senku2D::RigidBody::GetAABB() const
 const Matrix2 Senku2D::RigidBody::GetRotationMatrix() const
 {
 	return m_RotationMat;
+}
+
+const Shape* Senku2D::RigidBody::GetShape() const
+{
+	return m_Shape;
 }
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)

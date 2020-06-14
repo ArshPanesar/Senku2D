@@ -1,6 +1,7 @@
 #pragma once
 #include "../Core/Matrix2.h"
 #include "AABB.h"
+#include "Shapes/Shape.h"
 
 namespace Senku2D
 {
@@ -44,6 +45,9 @@ namespace Senku2D
 
 		//Bounding Box
 		AABB m_BoundingBox;
+
+		//Shape
+		Shape* m_Shape;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -79,6 +83,8 @@ namespace Senku2D
 		void SetAngularDamping(const Real& AD);
 		//Setting Moment of Inertia
 		void SetMomentOfInertia(const Real& MOI);
+		//Setting the Shape
+		void SetShape(Shape* _Shape);
 
 		//Clear Accumulators
 		void ClearAccumulators();
@@ -104,6 +110,7 @@ namespace Senku2D
 		const Real GetMomentOfInertia() const;
 		const AABB GetAABB() const;
 		const Matrix2 GetRotationMatrix() const;
+		const Shape* GetShape() const;
 
 		//Transforming Coordinates
 		//Local to World Coordinates
