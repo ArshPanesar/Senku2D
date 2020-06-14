@@ -205,6 +205,11 @@ const AABB Senku2D::RigidBody::GetAABB() const
 	return m_BoundingBox;
 }
 
+const Matrix2 Senku2D::RigidBody::GetRotationMatrix() const
+{
+	return m_RotationMat;
+}
+
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
 {
 	Coords = Vector2(Coords.x + m_Position.x, Coords.y + m_Position.y);

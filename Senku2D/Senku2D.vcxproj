@@ -153,6 +153,9 @@
     <ClCompile Include="Rigid Body\AABB.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Quadtree.cpp" />
     <ClCompile Include="Rigid Body\Rigid Body.cpp" />
+    <ClCompile Include="Rigid Body\Shapes\Box Shape.cpp" />
+    <ClCompile Include="Rigid Body\Shapes\Circle Shape.cpp" />
+    <ClCompile Include="Rigid Body\Shapes\Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Matrix2.h" />
@@ -165,6 +168,9 @@
     <ClInclude Include="Rigid Body\Collision Processing\Potential Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Quadtree.h" />
     <ClInclude Include="Rigid Body\Rigid Body.h" />
+    <ClInclude Include="Rigid Body\Shapes\Box Shape.h" />
+    <ClInclude Include="Rigid Body\Shapes\Circle Shape.h" />
+    <ClInclude Include="Rigid Body\Shapes\Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

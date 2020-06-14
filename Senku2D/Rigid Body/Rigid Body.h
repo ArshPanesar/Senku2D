@@ -103,6 +103,7 @@ namespace Senku2D
 		const Real GetAngularDamping() const;
 		const Real GetMomentOfInertia() const;
 		const AABB GetAABB() const;
+		const Matrix2 GetRotationMatrix() const;
 
 		//Transforming Coordinates
 		//Local to World Coordinates
