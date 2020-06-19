@@ -72,7 +72,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(CollisionData* CollData)
 	//Transforming the Shapes
 	pBox1.Transform(Position1, RotMat1);
 	pBox2.Transform(Position2, RotMat2);
-
+	
 	//Getting the Vertices
 	const Vector2* pVertices1 = pBox1.GetVertices();
 	const Vector2* pVertices2 = pBox2.GetVertices();

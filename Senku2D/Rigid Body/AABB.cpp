@@ -59,8 +59,13 @@ bool Senku2D::AABB::operator!=(const AABB& Other) const
 	return false;
 }
 
-Senku2D::AABB::~AABB()
+void Senku2D::AABB::Clear()
 {
 	Position.Clear();
 	Size.Clear();
+}
+
+Senku2D::AABB::~AABB()
+{
+	Clear();
 }

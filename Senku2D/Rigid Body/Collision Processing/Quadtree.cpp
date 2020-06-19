@@ -3,7 +3,8 @@
 Senku2D::Quadtree::Quadtree(const Vector2& Position, const Vector2& Size, const int& Level)	:
 	m_CurrentAmountOfBodies(0),
 	m_RigidBodyList(),
-	m_CurrentLevel(Level)
+	m_CurrentLevel(Level),
+	m_ChildQuads()
 {
 	//Getting the Position and Size
 	m_Position = Position;
@@ -28,18 +29,12 @@ Senku2D::Quadtree::Quadtree(const Vector2& Position, const Vector2& Size, const 
 	{
 		m_ChildQuads[i] = nullptr;
 	}
-
-	//If 0th Level, Then Subdivide
-	if (Level == 0)
-	{
-		Subdivide();
-	}
 }
 
 void Senku2D::Quadtree::Subdivide()
 {
 	//Dividing the Quadtree
-	//Allocating Memory on the Heap(Sorry C++ Gods)
+	//Allocating Memory on the Heap  By Calling "new" Keyword(Sorry C++ Gods)
 	m_ChildQuads[0] = new Quadtree(Vector2(m_Position.x, m_Position.y), Vector2(m_Size.x / 2.0f, m_Size.y / 2.0f), m_CurrentLevel + 1);
 	m_ChildQuads[1] = new Quadtree(Vector2(m_Position.x + m_Size.x / 2.0f, m_Position.y), Vector2(m_Size.x / 2.0f, m_Size.y / 2.0f), m_CurrentLevel + 1);
 	m_ChildQuads[2] = new Quadtree(Vector2(m_Position.x + m_Size.x / 2.0f, m_Position.y + m_Size.y / 2.0f), Vector2(m_Size.x / 2.0f, m_Size.y / 2.0f), m_CurrentLevel + 1);
@@ -67,7 +62,12 @@ void Senku2D::Quadtree::Insert(RigidBody* _RigidBody)
 		//Break Out
 		return;
 	}
-	
+	//If 0th Level, Then Subdivide
+	else if (m_CurrentLevel == 0 && m_ChildQuads[0] == nullptr)
+	{
+		Subdivide();
+	}
+
 	//Add the Rigid Body to the List for this Sub-Node
 	if (m_CurrentAmountOfBodies < m_MaxBodiesAllowed && m_ChildQuads[0] == nullptr)
 	{
@@ -79,13 +79,6 @@ void Senku2D::Quadtree::Insert(RigidBody* _RigidBody)
 
 		//Break Out
 		return;
-	}
-
-	//If Child Quads Dont Exist
-	if (m_ChildQuads[0] == nullptr)
-	{
-		//Then Subdivide
-		Subdivide();
 	}
 
 	//Add the Rigid Body Pointer to the Quad that Fits
@@ -109,12 +102,12 @@ unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyC
 			//Fill the Contact List
 			for (unsigned int i = 0; i < m_RigidBodyList.size(); ++i)
 			{
-				if (i < Limit)
+				if (NumOfContacts < Limit)
 				{
 					if (m_RigidBodyList[i] != _RigidBody)// && _RigidBody->Overlaps(m_RigidBodyList[i]->GetAABB()))
 					{
-						Contacts[i].RigidBodies[0] = _RigidBody;
-						Contacts[i].RigidBodies[1] = m_RigidBodyList[i];
+						Contacts[NumOfContacts].RigidBodies[0] = _RigidBody;
+						Contacts[NumOfContacts].RigidBodies[1] = m_RigidBodyList[i];
 						++NumOfContacts;
 					}
 				}
@@ -128,13 +121,19 @@ unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyC
 		}
 
 		//Get the Child Quad Which Contains This Rigid Body
+		unsigned int TotalNumOfContacts = 0;
 		for (unsigned int i = 0; i < 4; ++i)
 		{
-			m_ChildQuads[i]->Query(_RigidBody, Contacts, Limit);
+			TotalNumOfContacts += m_ChildQuads[i]->Query(_RigidBody, Contacts, Limit);
 		}
-	}
 
-	return 0;
+		//Return Total Number of Possible Contacts
+		return TotalNumOfContacts;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 void Senku2D::Quadtree::Clear()
@@ -144,7 +143,7 @@ void Senku2D::Quadtree::Clear()
 	//Reset the Quad
 	m_CurrentAmountOfBodies = 0;
 	m_CurrentLevel = 0;
-
+	
 	//Clearing the Children
 	for (unsigned int i = 0; i < 4; ++i)
 	{
@@ -152,6 +151,8 @@ void Senku2D::Quadtree::Clear()
 		{
 			//Clearing the Children
 			m_ChildQuads[i]->Clear();
+			//Reset the Bounds(Rect)
+			m_ChildQuads[i]->m_Rect.Clear();
 			//Deleting Memory(See I took care of it, NO REASON TO WORRY)
 			delete m_ChildQuads[i];
 			//Reseting the ChildQuads

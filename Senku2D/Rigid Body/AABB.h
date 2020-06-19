@@ -33,6 +33,9 @@ namespace Senku2D
 		//Checking != Operator
 		bool operator!=(const AABB& Other) const;
 
+		//Clearing the AABB
+		void Clear();
+
 		//Destructor
 		~AABB();
 	};
