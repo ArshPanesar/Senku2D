@@ -38,6 +38,10 @@ namespace Senku2D
 		//Constructor
 		Quadtree(const Vector2& Position, const Vector2& Size, const int& Level);
 
+		//Resetting the Quadtree With a New Position and Size
+		//Must Only Be Called After Clearing The Entire Quadtree First!
+		void Reset(const Vector2& Position, const Vector2& Size);
+
 		//Subdividing the Quadtree
 		void Subdivide();
 

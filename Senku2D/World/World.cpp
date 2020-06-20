@@ -29,8 +29,11 @@ void Senku2D::World::AddBody(RigidBody* rRB)
 
 void Senku2D::World::DestroyBody(RigidBody* rRB)
 {
-	rRB->Destroy();
-	m_RigidBodyList.Remove(rRB);
+	if (!rRB->IsDestroyed())
+	{
+		rRB->Destroy();
+		m_RigidBodyList.Remove(rRB);
+	}
 }
 
 void Senku2D::World::Update(const Real& Timestep)

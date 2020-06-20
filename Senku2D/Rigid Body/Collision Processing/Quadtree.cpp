@@ -6,13 +6,8 @@ Senku2D::Quadtree::Quadtree(const Vector2& Position, const Vector2& Size, const 
 	m_CurrentLevel(Level),
 	m_ChildQuads()
 {
-	//Getting the Position and Size
-	m_Position = Position;
-	m_Size = Size;
-
-	//Building the AABB for This Quad
-	m_Rect.Position = Position;
-	m_Rect.Size = Size;
+	//Setting the Position and Size of the Quad
+	Reset(Position, Size);
 
 	//Reserving Size for Rigid Body Pointer Container
 	if (Level == m_MaxLevels)
@@ -29,6 +24,17 @@ Senku2D::Quadtree::Quadtree(const Vector2& Position, const Vector2& Size, const 
 	{
 		m_ChildQuads[i] = nullptr;
 	}
+}
+
+void Senku2D::Quadtree::Reset(const Vector2& Position, const Vector2& Size)
+{
+	//Getting the Position and Size
+	m_Position = Position;
+	m_Size = Size;
+
+	//Building the AABB for This Quad
+	m_Rect.Position = Position;
+	m_Rect.Size = Size;
 }
 
 void Senku2D::Quadtree::Subdivide()
