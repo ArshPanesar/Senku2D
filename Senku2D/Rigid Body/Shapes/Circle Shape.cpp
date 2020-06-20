@@ -22,7 +22,10 @@ void Senku2D::CircleShape::Transform(const Vector2& Position, const Matrix2& Rot
 
 void Senku2D::CircleShape::SetRadius(const Real& Radius)
 {
+	//Setting the Radius
 	m_Radius = Radius;
+	//Setting the Bound Size
+	SetBoundSize(Vector2((Real)2 * m_Radius, (Real)2 * m_Radius));
 }
 
 const Senku2D::Real& Senku2D::CircleShape::GetRadius() const

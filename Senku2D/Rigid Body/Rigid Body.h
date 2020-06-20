@@ -2,9 +2,6 @@
 #include "../Core/Matrix2.h"
 #include "AABB.h"
 #include "Shapes/Shape.h"
-//Temporary Shapes
-#include "Shapes/Box Shape.h"
-#include "Shapes/Circle Shape.h"
 
 namespace Senku2D
 {
@@ -52,8 +49,8 @@ namespace Senku2D
 		//Shape
 		Shape* m_Shape;
 
-		//Temp
-		int i = 0;
+		//Is this Body Destroyed?
+		bool m_IsDestroyed;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -92,6 +89,9 @@ namespace Senku2D
 		//Setting the Shape
 		void SetShape(Shape* _Shape);
 
+		//Destroy this Body Forever
+		void Destroy();
+
 		//Clear Accumulators
 		void ClearAccumulators();
 
@@ -120,6 +120,7 @@ namespace Senku2D
 		const AABB GetAABB() const;
 		const Matrix2 GetRotationMatrix() const;
 		Shape* GetShape();
+		const bool IsDestroyed() const;
 
 		//Transforming Coordinates
 		//Local to World Coordinates

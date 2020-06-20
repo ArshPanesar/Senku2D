@@ -17,15 +17,23 @@ Senku2D::RigidBody::RigidBody()	:
 	m_ForceAccum(),
 	m_TorqueAccum(0),
 	m_BoundingBox(),
-	m_Shape(nullptr)
+	m_Shape(nullptr),
+	m_IsDestroyed(false)
 {
 	//Calculate the Rotation Matrix
 	CalculateRotationMatrix();
+	//Set AABB Position and Size
+	m_BoundingBox.Position = m_Position;
+	m_BoundingBox.Size = Vector2(1.0f, 1.0f);
 }
 
 Senku2D::RigidBody::~RigidBody()
 {
-
+	//Removing from the List if Not Already Destroyed
+	if (!m_IsDestroyed)
+	{
+		Destroy();
+	}
 }
 
 void Senku2D::RigidBody::CalculateRotationMatrix()
@@ -128,7 +136,16 @@ void Senku2D::RigidBody::SetMomentOfInertia(const Real& MOI)
 
 void Senku2D::RigidBody::SetShape(Shape* _Shape)
 {
+	//Setting the Shape
 	m_Shape = _Shape;
+	//Setting the Bounds Size
+	m_BoundingBox.Size = _Shape->GetBoundSize();
+}
+
+void Senku2D::RigidBody::Destroy()
+{
+	//Body Will Not be Updated Anymore
+	m_IsDestroyed = true;
 }
 
 void Senku2D::RigidBody::ClearAccumulators()
@@ -163,24 +180,7 @@ bool Senku2D::RigidBody::Overlaps(const AABB& _Rect)
 
 void Senku2D::RigidBody::CalculateAABB()
 {
-	if (i == 0)
-	{
-		if (m_Shape->GetShapeType() == ShapeType::BOX)
-		{
-			BoxShape* BS = (BoxShape*)(m_Shape);
-			m_BoundingBox.Size = Vector2(BS->GetHalfWidth() * 2, BS->GetHalfHeight() * 2);
-		}
-		else
-		{
-			CircleShape* BS = (CircleShape*)(m_Shape);
-			m_BoundingBox.Size = Vector2(BS->GetRadius() * 2, BS->GetRadius() * 2);
-		}
-	}
-	else
-	{
-		i = 1;
-	}
-
+	//Setting AABB Position
 	m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
 }
 
@@ -247,6 +247,11 @@ const Matrix2 Senku2D::RigidBody::GetRotationMatrix() const
 Shape* Senku2D::RigidBody::GetShape()
 {
 	return m_Shape;
+}
+
+const bool Senku2D::RigidBody::IsDestroyed() const
+{
+	return m_IsDestroyed;
 }
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)

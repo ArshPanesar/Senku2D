@@ -51,6 +51,9 @@ void Senku2D::BoxShape::SetBox(const Real& Width, const Real& Height)
 	m_HalfWidth = Width / (Real)2;
 	m_HalfHeight = Height / (Real)2;
 
+	//Setting Bound Size
+	SetBoundSize(Vector2(m_HalfWidth * (Real)2, m_HalfHeight * (Real)2));
+
 	//Setting the Vertices
 	SetVertices();
 }

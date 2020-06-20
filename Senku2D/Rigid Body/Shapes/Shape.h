@@ -19,6 +19,9 @@ namespace Senku2D
 
 		//Center Position of This Shape in World Coordinates
 		Vector2 m_CenterPosition;
+		
+		//Bounds Size of the Shape
+		Vector2 m_BoundSize;
 	public:
 		//Constructor
 		Shape();
@@ -33,11 +36,15 @@ namespace Senku2D
 		void SetCenterPosition(const Vector2& Position);
 		//Setting the Shape Type
 		void SetShapeType(const ShapeType& ST);
+		//Setting the Bound Size
+		void SetBoundSize(const Vector2& Size);
 
 		//Getting Center Position(In World Coordinates)
 		const Vector2 GetCenterPosition() const;
 		//Getting the Shape Type
 		const ShapeType GetShapeType() const;
+		//Getting Bound Size
+		const Vector2 GetBoundSize() const;
 	};
 }
 
