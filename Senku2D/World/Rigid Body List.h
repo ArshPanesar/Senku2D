@@ -32,6 +32,8 @@ namespace Senku2D
 		void Add(RigidBody* pRB);
 		//Removing a Body from the List
 		void Remove(RigidBody* pRB);
+		//Clearing the List
+		void Clear();
 
 		//Getting the Current Size of the List
 		const size_t GetSize() const;

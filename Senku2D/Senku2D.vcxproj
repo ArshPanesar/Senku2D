@@ -158,6 +158,7 @@
     <ClCompile Include="Rigid Body\Shapes\Circle Shape.cpp" />
     <ClCompile Include="Rigid Body\Shapes\Shape.cpp" />
     <ClCompile Include="World\Rigid Body List.cpp" />
+    <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Matrix2.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Rigid Body\Shapes\Circle Shape.h" />
     <ClInclude Include="Rigid Body\Shapes\Shape.h" />
     <ClInclude Include="World\Rigid Body List.h" />
+    <ClInclude Include="World\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

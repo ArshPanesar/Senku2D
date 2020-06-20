@@ -11,7 +11,7 @@ Senku2D::RigidBodyList::RigidBodyList()	:
 Senku2D::RigidBodyList::~RigidBodyList()
 {
 	//Clearing the List
-	m_InternalList.clear();
+	Clear();
 }
 
 Senku2D::RigidBodyList& Senku2D::RigidBodyList::Get()
@@ -41,6 +41,11 @@ void Senku2D::RigidBodyList::Remove(RigidBody* pRB)
 		//Incrementing Iterator Position
 		++itr;
 	}
+}
+
+void Senku2D::RigidBodyList::Clear()
+{
+	m_InternalList.clear();
 }
 
 const size_t Senku2D::RigidBodyList::GetSize() const
