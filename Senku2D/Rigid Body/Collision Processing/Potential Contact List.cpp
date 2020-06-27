@@ -25,6 +25,12 @@ Senku2D::PotentialRigidBodyContact* Senku2D::PotentialContactList::GetContact(co
 	return nullptr;
 }
 
+void Senku2D::PotentialContactList::Clear()
+{
+	m_InternalList.clear();
+	m_InternalList.resize(m_Limit);
+}
+
 const uint8_t Senku2D::PotentialContactList::GetLimit() const
 {
 	return m_Limit;

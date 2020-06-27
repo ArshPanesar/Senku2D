@@ -140,6 +140,8 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 	m_Shape = _Shape;
 	//Setting the Bounds Size
 	m_BoundingBox.Size = _Shape->GetBoundSize();
+	//Multiplying with the Scale Factor
+	m_BoundingBox.Size *= AABB_SCALE_FACTOR;
 }
 
 void Senku2D::RigidBody::Destroy()

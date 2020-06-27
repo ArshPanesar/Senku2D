@@ -152,6 +152,7 @@
     <ClCompile Include="Core\Vector2.cpp" />
     <ClCompile Include="Rigid Body\AABB.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detection\Broad Phase.cpp" />
+    <ClCompile Include="Rigid Body\Collision Processing\Collision Detection\Shape Solver.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detector.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Potential Contact List.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Quadtree.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Rigid Body\AABB.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Data.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detection\Broad Phase.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Collision Detection\Shape Solver.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detector.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Potential Contact List.h" />

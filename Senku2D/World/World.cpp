@@ -43,12 +43,35 @@ void Senku2D::World::Update(const Real& Timestep)
 	IntegrateAllBodies(Timestep);
 
 	//Collision Detection
+	//
 	//Potential Contact List
 	PotentialContactList PCList;
-	//Broad Phase
 	//
+	//Broad Phase
 	//Inserting All Bodies Into the Quadtree
 	BroadPhase::InsertBodiesToQuadtree(&m_Quadtree, m_RigidBodyList);
 	//
+	//Traversing the Body List
+	for (unsigned int i = 0; i < m_RigidBodyList.GetSize(); ++i)
+	{
+		//Querying a Rigid Body from the QuadTree
+		unsigned int NumOfPotentialContacts = BroadPhase::QueryNeighboursFromQuadtree(&m_Quadtree, m_RigidBodyList.GetRigidBody(i), &PCList);
+		//
+		//Potential Contacts Generated!
 
+		//Continue if No Contacts Were Found
+		if (NumOfPotentialContacts == 0)
+		{
+			continue;
+		}
+
+		//Narrow Phase Collision Detection
+
+
+		//Clearing the List
+		PCList.Clear();
+	}
+
+	//Clearing the Quadtree
+	m_Quadtree.Clear();
 }
