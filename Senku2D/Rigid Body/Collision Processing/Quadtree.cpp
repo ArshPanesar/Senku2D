@@ -94,7 +94,7 @@ void Senku2D::Quadtree::Insert(RigidBody* _RigidBody)
 	}
 }
 
-unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyContact* Contacts, const unsigned int& Limit)
+unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialContactList* Contacts)
 {
 	//Check if This Quad Intersects the Given Rigid Body
 	if (m_Rect.Overlaps(_RigidBody->GetAABB()))
@@ -108,12 +108,13 @@ unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyC
 			//Fill the Contact List
 			for (unsigned int i = 0; i < m_RigidBodyList.size(); ++i)
 			{
-				if (NumOfContacts < Limit)
+				if (NumOfContacts < Contacts->GetLimit())
 				{
-					if (m_RigidBodyList[i] != _RigidBody)// && _RigidBody->Overlaps(m_RigidBodyList[i]->GetAABB()))
+					if (m_RigidBodyList[i] != _RigidBody)
 					{
-						Contacts[NumOfContacts].RigidBodies[0] = _RigidBody;
-						Contacts[NumOfContacts].RigidBodies[1] = m_RigidBodyList[i];
+						//Filling the Contact at the Given Index
+						Contacts->GetContact(NumOfContacts)->RigidBodies[0] = _RigidBody;
+						Contacts->GetContact(NumOfContacts)->RigidBodies[1] = m_RigidBodyList[i];
 						++NumOfContacts;
 					}
 				}
@@ -130,7 +131,7 @@ unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialRigidBodyC
 		unsigned int TotalNumOfContacts = 0;
 		for (unsigned int i = 0; i < 4; ++i)
 		{
-			TotalNumOfContacts += m_ChildQuads[i]->Query(_RigidBody, Contacts, Limit);
+			TotalNumOfContacts += m_ChildQuads[i]->Query(_RigidBody, Contacts);
 		}
 
 		//Return Total Number of Possible Contacts

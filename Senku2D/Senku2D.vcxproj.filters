@@ -14,6 +14,7 @@
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detector.cpp" />
     <ClCompile Include="World\Rigid Body List.cpp" />
     <ClCompile Include="World\World.cpp" />
+    <ClCompile Include="Rigid Body\Collision Processing\Potential Contact List.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -34,5 +35,6 @@
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detector.h" />
     <ClInclude Include="World\Rigid Body List.h" />
     <ClInclude Include="World\World.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Potential Contact List.h" />
   </ItemGroup>
 </Project>

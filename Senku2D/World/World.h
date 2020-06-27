@@ -7,7 +7,7 @@ namespace Senku2D
 	/*
 	This Class is the Coordinator of Everything in the Physics World.
 	This is Currently NOT a Singleton Class But Should Only have One Instance of It
-	Since You Only Need One Coordinator for Everything!
+	Since You Only Need One Physics World for Everything!
 	*/
 	class World
 	{
