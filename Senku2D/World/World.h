@@ -1,8 +1,13 @@
 #pragma once
 #include "Rigid Body List.h"
+#include "../Rigid Body/Collision Processing/Collision Detection/Broad Phase.h"
 
 namespace Senku2D
 {
+	//Default World Screen Position and Size
+	const Vector2 SCREEN_POSITION = Vector2(0, 0);
+	const Vector2 SCREEN_SIZE = Vector2(800, 600);
+
 	//A Physics World Class
 	/*
 	This Class is the Coordinator of Everything in the Physics World.
@@ -14,6 +19,9 @@ namespace Senku2D
 	private:
 		//Reference to the Rigid Body List
 		RigidBodyList& m_RigidBodyList;
+
+		//Quadtree
+		Quadtree m_Quadtree;
 
 		//Update All Bodies
 		void IntegrateAllBodies(const Real& Timestep);
