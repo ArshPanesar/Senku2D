@@ -28,7 +28,6 @@ namespace Senku2D
 		//Internal Shape Pair Map
 		std::map<ShapeTypePair, ShapePairs> m_InternalMap;
 
-
 		//Constructor
 		ShapeSolver();
 	public:
