@@ -1,18 +1,18 @@
 #include "Collision Detector.h"
 
-bool Senku2D::CollisionDetector::CircleAndCircle(CollisionData* CollData)
+bool Senku2D::CollisionDetector::CircleAndCircle(PotentialRigidBodyContact* _Contact, CollisionData* CollData)
 {
 	//Getting the Shapes
-	CircleShape* pCircle1 = (CircleShape*)CollData->_Bodies.RigidBodies[0]->GetShape();
-	CircleShape* pCircle2 = (CircleShape*)CollData->_Bodies.RigidBodies[1]->GetShape();
+	CircleShape* pCircle1 = (CircleShape*)_Contact->RigidBodies[0]->GetShape();
+	CircleShape* pCircle2 = (CircleShape*)_Contact->RigidBodies[1]->GetShape();
 
 	//Getting Positions
-	Vector2 Position1 = CollData->_Bodies.RigidBodies[0]->GetPosition();
-	Vector2 Position2 = CollData->_Bodies.RigidBodies[1]->GetPosition();
+	Vector2 Position1 = _Contact->RigidBodies[0]->GetPosition();
+	Vector2 Position2 = _Contact->RigidBodies[1]->GetPosition();
 
 	//Getting Rotation Matrices
-	Matrix2 RotMat1 = CollData->_Bodies.RigidBodies[0]->GetRotationMatrix();
-	Matrix2 RotMat2 = CollData->_Bodies.RigidBodies[1]->GetRotationMatrix();
+	Matrix2 RotMat1 = _Contact->RigidBodies[0]->GetRotationMatrix();
+	Matrix2 RotMat2 = _Contact->RigidBodies[1]->GetRotationMatrix();
 
 	//Transforming the Circles
 	pCircle1->Transform(Position1, RotMat1);
@@ -49,25 +49,28 @@ bool Senku2D::CollisionDetector::CircleAndCircle(CollisionData* CollData)
 		Real Penetration = Real_Sqrt((RadiusSq1 + RadiusSq2) - Dist_Sq);
 		pContact->Penetration = Penetration;
 
+		//Fill Contact
+		CollData->_Bodies = *_Contact;
+
 		return true;
 	}
 
 	return false;
 }
 
-bool Senku2D::CollisionDetector::BoxAndBox(CollisionData* CollData)
+bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, CollisionData* CollData)
 {
 	//Getting the Box Shapes
-	Shape* sBox1 = CollData->_Bodies.RigidBodies[0]->GetShape();
-	Shape* sBox2 = CollData->_Bodies.RigidBodies[1]->GetShape();
+	Shape* sBox1 = _Contact->RigidBodies[0]->GetShape();
+	Shape* sBox2 = _Contact->RigidBodies[1]->GetShape();
 	BoxShape pBox1 = *(BoxShape*)(sBox1);
 	BoxShape pBox2 = *(BoxShape*)(sBox2);
 
 	//Getting Positions and Rotation Matrices
-	Vector2 Position1 = CollData->_Bodies.RigidBodies[0]->GetPosition();
-	Vector2 Position2 = CollData->_Bodies.RigidBodies[1]->GetPosition();
-	Matrix2 RotMat1 = CollData->_Bodies.RigidBodies[0]->GetRotationMatrix();
-	Matrix2 RotMat2 = CollData->_Bodies.RigidBodies[1]->GetRotationMatrix();
+	Vector2 Position1 = _Contact->RigidBodies[0]->GetPosition();
+	Vector2 Position2 = _Contact->RigidBodies[1]->GetPosition();
+	Matrix2 RotMat1 = _Contact->RigidBodies[0]->GetRotationMatrix();
+	Matrix2 RotMat2 = _Contact->RigidBodies[1]->GetRotationMatrix();
 
 	//Transforming the Shapes
 	pBox1.Transform(Position1, RotMat1);
@@ -176,6 +179,9 @@ bool Senku2D::CollisionDetector::BoxAndBox(CollisionData* CollData)
 	}
 
 	//Collision Happened!
+	//Fill Contact
+	CollData->_Bodies = *_Contact;
+
 	//Fill the Contact Info
 	Contact* pContact = &CollData->_Contact;
 
@@ -191,7 +197,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(CollisionData* CollData)
 	return true;
 }
 
-bool Senku2D::CollisionDetector::BoxAndCircle(CollisionData* CollData)
+bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contact, CollisionData* CollData)
 {
 	return false;
 }

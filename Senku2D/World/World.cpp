@@ -44,20 +44,24 @@ void Senku2D::World::Update(const Real& Timestep)
 
 	//Collision Detection
 	//
-	//Potential Contact List
-	PotentialContactList PCList;
+	//Final Potential Contact List
+	PotentialContactList FinalPCList(POTENTIAL_CONTACT_LIST_LIMIT);
 	//
 	//Broad Phase
 	//Inserting All Bodies Into the Quadtree
 	BroadPhase::InsertBodiesToQuadtree(&m_Quadtree, m_RigidBodyList);
 	//
 	//Traversing the Body List
+	uint8_t FinalPCListIndex = 0;
 	for (unsigned int i = 0; i < m_RigidBodyList.GetSize(); ++i)
 	{
+		//Local Potential Contact List For This Rigid Body
+		PotentialContactList PCList(LOCAL_POTENTIAL_CONTACT_LIMIT);
+
 		//Querying a Rigid Body from the QuadTree
 		unsigned int NumOfPotentialContacts = BroadPhase::QueryNeighboursFromQuadtree(&m_Quadtree, m_RigidBodyList.GetRigidBody(i), &PCList);
 		//
-		//Potential Contacts Generated!
+		//Local Potential Contacts Generated!
 
 		//Continue if No Contacts Were Found
 		if (NumOfPotentialContacts == 0)
@@ -65,12 +69,36 @@ void Senku2D::World::Update(const Real& Timestep)
 			continue;
 		}
 
-		//Narrow Phase Collision Detection
+		//Adding the Potential Contacts to the Final List
+		for (unsigned int LocalPCListIndex = 0; LocalPCListIndex < PCList.GetLimit(); ++LocalPCListIndex)
+		{
+			if (FinalPCListIndex >= POTENTIAL_CONTACT_LIST_LIMIT)
+			{
+				break;
+			}
 
+			FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] = PCList.GetContact(LocalPCListIndex).RigidBodies[0];
+			FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] = PCList.GetContact(LocalPCListIndex).RigidBodies[1];
 
-		//Clearing the List
-		PCList.Clear();
+			++FinalPCListIndex;
+		}
 	}
+	//
+	//Final Potential Contacts Generated!
+	//
+	//Narrow Phase Collision Detection
+	//Primitive List Contact List
+	PotentialContactList PrimitiveTestResultList(POTENTIAL_CONTACT_LIST_LIMIT);
+	//Generating Resultant List From Final List
+	unsigned int PrimitiveTestResult = NarrowPhase::GeneratePrimitiveTestResultsList(&FinalPCList, &PrimitiveTestResultList);
+	//Collision Detected List: Shape Test List
+	ContactList ContactPairList(MAX_CONTACTS);
+	//Generating Shape Result List
+	unsigned int NumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&PrimitiveTestResultList, &ContactPairList);
+	//
+	//Collision Detection Completed!
+	//Now We Have A List of Actual Colliding Pair of Rigid Bodies
+
 
 	//Clearing the Quadtree
 	m_Quadtree.Clear();

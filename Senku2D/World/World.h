@@ -1,12 +1,21 @@
 #pragma once
 #include "Rigid Body List.h"
 #include "../Rigid Body/Collision Processing/Collision Detection/Broad Phase.h"
+#include "../Rigid Body/Collision Processing/Collision Detection/Narrow Phase.h"
 
 namespace Senku2D
 {
 	//Default World Screen Position and Size
 	const Vector2 SCREEN_POSITION = Vector2(0, 0);
 	const Vector2 SCREEN_SIZE = Vector2(800, 600);
+
+	//Fixed Limit of Potential Contacts That Can be Generated
+	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 24;
+	//Local Potential Contact Limit
+	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 2;
+
+	//Maximum Amount of Contacts Generated
+	const unsigned int MAX_CONTACTS = 24;
 
 	//A Physics World Class
 	/*

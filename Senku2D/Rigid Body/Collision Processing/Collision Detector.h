@@ -13,18 +13,18 @@ namespace Senku2D
 	This Class.
 
 	WARNING: The Collision Detector Class Assumes that The Shape Tests Called are
-	For the Correct Shapes! This Class Will NOT Check the Rigid Bodys Shape.
+	For the Correct Shapes! This Class Will NOT Check the Rigid Bodies' Shape.
 	*/
 	class CollisionDetector
 	{
 	public:
 		//Collision Detection Algorithms
 		//Circle and Circle
-		static bool CircleAndCircle(CollisionData* CollData);
+		static bool CircleAndCircle(PotentialRigidBodyContact* Contact, CollisionData* CollData);
 		//Box and Box
-		static bool BoxAndBox(CollisionData* CollData);
+		static bool BoxAndBox(PotentialRigidBodyContact* Contact, CollisionData* CollData);
 		//Box and Circle
-		static bool BoxAndCircle(CollisionData* CollData);
+		static bool BoxAndCircle(PotentialRigidBodyContact* Contact, CollisionData* CollData);
 	};
 
 

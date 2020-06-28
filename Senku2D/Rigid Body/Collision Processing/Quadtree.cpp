@@ -113,8 +113,8 @@ unsigned int Senku2D::Quadtree::Query(RigidBody* _RigidBody, PotentialContactLis
 					if (m_RigidBodyList[i] != _RigidBody)
 					{
 						//Filling the Contact at the Given Index
-						Contacts->GetContact(NumOfContacts)->RigidBodies[0] = _RigidBody;
-						Contacts->GetContact(NumOfContacts)->RigidBodies[1] = m_RigidBodyList[i];
+						Contacts->GetContact(NumOfContacts).RigidBodies[0] = _RigidBody;
+						Contacts->GetContact(NumOfContacts).RigidBodies[1] = m_RigidBodyList[i];
 						++NumOfContacts;
 					}
 				}
