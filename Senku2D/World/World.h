@@ -2,6 +2,7 @@
 #include "Rigid Body List.h"
 #include "../Rigid Body/Collision Processing/Collision Detection/Broad Phase.h"
 #include "../Rigid Body/Collision Processing/Collision Detection/Narrow Phase.h"
+#include "../Rigid Body/Collision Processing/Collision Resolution/Collision Resolver.h"
 
 namespace Senku2D
 {
@@ -12,7 +13,7 @@ namespace Senku2D
 	//Fixed Limit of Potential Contacts That Can be Generated
 	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 24;
 	//Local Potential Contact Limit
-	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 2;
+	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 3;
 
 	//Maximum Amount of Contacts Generated
 	const unsigned int MAX_CONTACTS = 24;

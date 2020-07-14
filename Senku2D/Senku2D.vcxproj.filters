@@ -19,6 +19,7 @@
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detection\Shape Solver.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detection\Narrow Phase.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Contact List.cpp" />
+    <ClCompile Include="Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -44,5 +45,6 @@
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detection\Shape Solver.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detection\Narrow Phase.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Contact List.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.h" />
   </ItemGroup>
 </Project>

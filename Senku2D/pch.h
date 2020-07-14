@@ -30,7 +30,7 @@ inline void PRTERR2(const T& x, const T& y)
 }
 
 template<typename T>
-inline void PRTARR(T& arr, int size)
+inline void PRTARR(T& arr, const int& size)
 {
 	for (unsigned int i = 0; i < size; ++i)
 	{

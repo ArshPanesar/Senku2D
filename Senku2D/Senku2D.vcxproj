@@ -155,6 +155,7 @@
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detection\Narrow Phase.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detection\Shape Solver.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Collision Detector.cpp" />
+    <ClCompile Include="Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Contact List.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Potential Contact List.cpp" />
     <ClCompile Include="Rigid Body\Collision Processing\Quadtree.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detection\Narrow Phase.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detection\Shape Solver.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Collision Detector.h" />
+    <ClInclude Include="Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Contact List.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Contact.h" />
     <ClInclude Include="Rigid Body\Collision Processing\Potential Contact List.h" />

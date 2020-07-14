@@ -13,7 +13,7 @@ Senku2D::ContactList::~ContactList()
 	m_InternalList.clear();
 }
 
-Senku2D::CollisionData& Senku2D::ContactList::GetContactData(const size_t& Index)
+Senku2D::CollisionData Senku2D::ContactList::GetContactData(const size_t& Index)
 {
 	//Asserting that the Index Be Less than the Limit
 	assert(Index < m_Limit);

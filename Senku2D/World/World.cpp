@@ -98,8 +98,13 @@ void Senku2D::World::Update(const Real& Timestep)
 	//
 	//Collision Detection Completed!
 	//Now We Have A List of Actual Colliding Pair of Rigid Bodies
-
-
+	//
 	//Clearing the Quadtree
 	m_Quadtree.Clear();
+	//
+	//Resolving the Collision Pairs
+	CollisionResolver _CollisionResolver;
+	_CollisionResolver.Resolve(&ContactPairList);
+	//
+	//End Of Physics Update
 }
