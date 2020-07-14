@@ -27,7 +27,7 @@ namespace Senku2D
 		//Clearing the List
 		void Clear();
 
-		//Getting Size
+		//Getting Limit
 		const uint8_t GetLimit() const;
 	};
 }

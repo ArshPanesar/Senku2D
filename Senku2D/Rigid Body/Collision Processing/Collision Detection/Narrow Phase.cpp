@@ -10,6 +10,11 @@ unsigned int Senku2D::NarrowPhase::GeneratePrimitiveTestResultsList(PotentialCon
 		//Getting the Rigid Bodies
 		RigidBody* pRB1 = OldContacts->GetContact(i).RigidBodies[0];
 		RigidBody* pRB2 = OldContacts->GetContact(i).RigidBodies[1];
+		
+		if (pRB1 == nullptr && pRB2 == nullptr)
+		{
+			continue;
+		}
 
 		//Checking if their AABBs Overlap
 		if (pRB1->Overlaps(pRB2->GetAABB()))

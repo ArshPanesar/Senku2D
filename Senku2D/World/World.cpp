@@ -53,6 +53,8 @@ void Senku2D::World::Update(const Real& Timestep)
 	//
 	//Traversing the Body List
 	uint8_t FinalPCListIndex = 0;
+	//Total Number of Contacts Found
+	unsigned int TotalNumOfPotentialContactsFound = 0;
 	for (unsigned int i = 0; i < m_RigidBodyList.GetSize(); ++i)
 	{
 		//Local Potential Contact List For This Rigid Body
@@ -62,12 +64,14 @@ void Senku2D::World::Update(const Real& Timestep)
 		unsigned int NumOfPotentialContacts = BroadPhase::QueryNeighboursFromQuadtree(&m_Quadtree, m_RigidBodyList.GetRigidBody(i), &PCList);
 		//
 		//Local Potential Contacts Generated!
-
+		
 		//Continue if No Contacts Were Found
 		if (NumOfPotentialContacts == 0)
 		{
 			continue;
 		}
+		//Potential Contacts Were Found
+		TotalNumOfPotentialContactsFound += NumOfPotentialContacts;
 
 		//Adding the Potential Contacts to the Final List
 		for (unsigned int LocalPCListIndex = 0; LocalPCListIndex < PCList.GetLimit(); ++LocalPCListIndex)
@@ -77,11 +81,20 @@ void Senku2D::World::Update(const Real& Timestep)
 				break;
 			}
 
-			FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] = PCList.GetContact(LocalPCListIndex).RigidBodies[0];
-			FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] = PCList.GetContact(LocalPCListIndex).RigidBodies[1];
+			if (FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] != nullptr && FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] != nullptr)
+			{
+				FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] = PCList.GetContact(LocalPCListIndex).RigidBodies[0];
+				FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] = PCList.GetContact(LocalPCListIndex).RigidBodies[1];
 
-			++FinalPCListIndex;
+				++FinalPCListIndex;
+			}
 		}
+	}
+
+	//If There are No Potential Contacts Then Dont Do Anything
+	if (TotalNumOfPotentialContactsFound == 0)
+	{
+		return;
 	}
 	//
 	//Final Potential Contacts Generated!
