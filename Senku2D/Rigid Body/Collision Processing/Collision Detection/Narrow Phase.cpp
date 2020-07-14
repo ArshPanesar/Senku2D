@@ -45,6 +45,12 @@ unsigned int Senku2D::NarrowPhase::GenerateShapeTestResultsList(PotentialContact
 
 		//Getting the Potential Contact
 		PotentialRigidBodyContact& rPRBC = PotentialContacts->GetContact(i);
+		
+		//Check if Rigid Bodies are Valid
+		if (rPRBC.RigidBodies[0] == nullptr && rPRBC.RigidBodies[1] == nullptr)
+		{
+			continue;
+		}
 
 		//Getting the Shape Pair
 		ShapePairs CurrentShapePair = ShapeSolver::Get().GetShapePair(rPRBC.RigidBodies[0]->GetShape()->GetShapeType(), rPRBC.RigidBodies[1]->GetShape()->GetShapeType());

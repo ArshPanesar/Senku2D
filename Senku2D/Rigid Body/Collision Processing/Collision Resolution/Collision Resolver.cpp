@@ -1,7 +1,7 @@
 #include "Collision Resolver.h"
 
 void Senku2D::CollisionResolver::ResolvePenetration(ContactList* pContactList)
-{
+ {
 	//Resolving Penetration According to Inverse Mass of the Bodies
 	//
 	//Iterating through the List
@@ -28,9 +28,9 @@ void Senku2D::CollisionResolver::ResolvePenetration(ContactList* pContactList)
 		//Amount of Movement Required To Move Each Body Appart
 		Vector2 MovePerInvMass = pContactData->_Contact.ContactNormal * (-pContactData->_Contact.Penetration / TotalInvMass);
 
-		//Settng Positions of Rigid Bodies
+		//Setting Positions of Rigid Bodies
 		pContactData->_Bodies.RigidBodies[0]->SetPosition((MovePerInvMass * pContactData->_Bodies.RigidBodies[0]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[0]->GetPosition());
-		pContactData->_Bodies.RigidBodies[1]->SetPosition((MovePerInvMass * -pContactData->_Bodies.RigidBodies[1]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[1]->GetPosition());
+		pContactData->_Bodies.RigidBodies[1]->SetPosition((MovePerInvMass * pContactData->_Bodies.RigidBodies[1]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[1]->GetPosition());
 	}
 }
 

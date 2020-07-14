@@ -81,7 +81,7 @@ void Senku2D::World::Update(const Real& Timestep)
 				break;
 			}
 
-			if (FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] != nullptr && FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] != nullptr)
+			if (PCList.GetContact(FinalPCListIndex).RigidBodies[0] != nullptr && PCList.GetContact(FinalPCListIndex).RigidBodies[1] != nullptr)
 			{
 				FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] = PCList.GetContact(LocalPCListIndex).RigidBodies[0];
 				FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] = PCList.GetContact(LocalPCListIndex).RigidBodies[1];
@@ -90,6 +90,9 @@ void Senku2D::World::Update(const Real& Timestep)
 			}
 		}
 	}
+
+	//Clearing the Quadtree
+	m_Quadtree.Clear();
 
 	//If There are No Potential Contacts Then Dont Do Anything
 	if (TotalNumOfPotentialContactsFound == 0)
@@ -112,8 +115,6 @@ void Senku2D::World::Update(const Real& Timestep)
 	//Collision Detection Completed!
 	//Now We Have A List of Actual Colliding Pair of Rigid Bodies
 	//
-	//Clearing the Quadtree
-	m_Quadtree.Clear();
 	//
 	//Resolving the Collision Pairs
 	CollisionResolver _CollisionResolver;
