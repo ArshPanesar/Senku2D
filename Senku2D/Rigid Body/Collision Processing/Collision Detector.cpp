@@ -193,7 +193,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 
 	//Penetration
 	pContact->Penetration = Overlap;
-
+	
 	return true;
 }
 
