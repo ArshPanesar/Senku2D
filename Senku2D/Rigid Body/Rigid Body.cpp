@@ -11,8 +11,8 @@ Senku2D::RigidBody::RigidBody()	:
 	m_AngularAcceleration(0),
 	m_Angle(0),
 	m_RotationMat(),
-	m_LinearDamping(0),
-	m_AngularDamping(0),
+	m_LinearDamping(0.5f),
+	m_AngularDamping(0.5f),
 	m_MomentOfInertia((Real)1),
 	m_ForceAccum(),
 	m_TorqueAccum(0),
@@ -142,6 +142,8 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 	m_BoundingBox.Size = _Shape->GetBoundSize();
 	//Multiplying with the Scale Factor
 	m_BoundingBox.Size *= AABB_SCALE_FACTOR;
+	//Setting Center Position
+	m_Shape->SetCenterPosition(m_Position);
 }
 
 void Senku2D::RigidBody::Destroy()

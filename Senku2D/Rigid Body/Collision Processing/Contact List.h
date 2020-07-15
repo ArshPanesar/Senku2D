@@ -21,7 +21,7 @@ namespace Senku2D
 		~ContactList();
 
 		//Accessing a Contact
-		CollisionData GetContactData(const size_t& Index);
+		CollisionData* GetContactData(const size_t& Index);
 
 		//Clearing the List
 		void Clear();

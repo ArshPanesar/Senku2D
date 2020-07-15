@@ -122,7 +122,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 	}
 
 	//Starting Overlap
-	Real Overlap = (Real)10;
+	Real Overlap = (Real)15;
 	//Main Axis of Collision
 	Vector2 MainAxis;
 	//Contact Point

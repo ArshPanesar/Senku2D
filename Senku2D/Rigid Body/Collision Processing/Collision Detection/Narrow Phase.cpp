@@ -57,16 +57,17 @@ unsigned int Senku2D::NarrowPhase::GenerateShapeTestResultsList(PotentialContact
 
 		//Doing the Correct Shape Test Based on the Current Shape Pair
 		bool CollisionTestResult = false;
+		CollisionData* pCollData = CList->GetContactData(NumOfContacts);
 		switch (CurrentShapePair)
 		{
 		case ShapePairs::BOX_AND_BOX:
-			CollisionTestResult = CollisionDetector::BoxAndBox(&rPRBC, &CList->GetContactData(NumOfContacts));
+			CollisionTestResult = CollisionDetector::BoxAndBox(&rPRBC, pCollData);
 			break;
 		case ShapePairs::BOX_AND_CIRCLE:
-			CollisionTestResult = CollisionDetector::BoxAndCircle(&rPRBC, &CList->GetContactData(NumOfContacts));
+			CollisionTestResult = CollisionDetector::BoxAndCircle(&rPRBC, pCollData);
 			break; 
 		case ShapePairs::CIRCLE_AND_CIRCLE:
-			CollisionTestResult = CollisionDetector::CircleAndCircle(&rPRBC, &CList->GetContactData(NumOfContacts));
+			CollisionTestResult = CollisionDetector::CircleAndCircle(&rPRBC, pCollData);
 			break;
 		}
 

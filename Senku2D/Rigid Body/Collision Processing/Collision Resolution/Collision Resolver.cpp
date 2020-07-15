@@ -8,7 +8,7 @@ void Senku2D::CollisionResolver::ResolvePenetration(ContactList* pContactList)
 	for (unsigned int i = 0; i < pContactList->GetLimit(); ++i)
 	{
 		//Getting the Contact Data For Each Pair of Rigid Bodies
-		CollisionData* pContactData = &pContactList->GetContactData(i);
+		CollisionData* pContactData = pContactList->GetContactData(i);
 
 		//If Penetration is Negative or Zero then Continue
 		if (pContactData->_Contact.Penetration <= 0)
@@ -30,7 +30,7 @@ void Senku2D::CollisionResolver::ResolvePenetration(ContactList* pContactList)
 
 		//Setting Positions of Rigid Bodies
 		pContactData->_Bodies.RigidBodies[0]->SetPosition((MovePerInvMass * pContactData->_Bodies.RigidBodies[0]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[0]->GetPosition());
-		pContactData->_Bodies.RigidBodies[1]->SetPosition((MovePerInvMass * pContactData->_Bodies.RigidBodies[1]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[1]->GetPosition());
+		pContactData->_Bodies.RigidBodies[1]->SetPosition((MovePerInvMass * -pContactData->_Bodies.RigidBodies[1]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[1]->GetPosition());
 	}
 }
 

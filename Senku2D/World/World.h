@@ -8,7 +8,7 @@ namespace Senku2D
 {
 	//Default World Screen Position and Size
 	const Vector2 SCREEN_POSITION = Vector2(0, 0);
-	const Vector2 SCREEN_SIZE = Vector2(1200, 700);
+	const Vector2 SCREEN_SIZE = Vector2(800, 600);
 
 	//Fixed Limit of Potential Contacts That Can be Generated
 	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 4;
@@ -16,7 +16,7 @@ namespace Senku2D
 	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 3;
 
 	//Maximum Amount of Contacts Generated
-	const unsigned int MAX_CONTACTS = 24;
+	const unsigned int MAX_CONTACTS = 4;
 
 	//A Physics World Class
 	/*
