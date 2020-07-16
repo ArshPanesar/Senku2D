@@ -86,15 +86,15 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 
 	//SAT Collision Detection
 	//Axis for Both Boxes
-	Vector2 Axis1[2];
-	Vector2 Axis2[2];
+	Vector2 Axis1[4];
+	Vector2 Axis2[4];
 
 	//Filling Axis For the First Box
-	for (unsigned int i = 0; i < 2; ++i)
+	for (unsigned int i = 0; i < 4; ++i)
 	{
 		//Getting the Vertices
 		Vector2 CurrentVertex = pVertices1[i];
-		Vector2 NextVertex = pVertices1[i + 1];
+		Vector2 NextVertex = pVertices1[i == 3 ? 0 : i + 1];
 
 		//Getting the Edge
 		Vector2 Edge = NextVertex - CurrentVertex;
@@ -106,23 +106,23 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 	}
 
 	//Filling Axis For the Second Box
-	for (unsigned int i = 0; i < 2; ++i)
+	for (unsigned int i = 0; i < 4; ++i)
 	{
 		//Getting the Vertices
 		Vector2 CurrentVertex = pVertices2[i];
-		Vector2 NextVertex = pVertices2[i + 1];
+		Vector2 NextVertex = pVertices2[i == 3 ? 0 : i + 1];
 
 		//Getting the Edge
 		Vector2 Edge = NextVertex - CurrentVertex;
 		Vector2 Normal = Vector2(-Edge.y, Edge.x);
 		Normal.Normalize();
-
+		
 		//Adding it to the Axis
 		Axis2[i] = Normal;
 	}
 
 	//Starting Overlap
-	Real Overlap = (Real)15;
+	Real Overlap = (Real)10;
 	//Main Axis of Collision
 	Vector2 MainAxis;
 	//Contact Point
@@ -130,7 +130,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 
 	//Checking for Collision
 	//First Box
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		Vector2 Axis = Axis1[i];
 		// project both shapes onto the axis
@@ -145,7 +145,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 		}
 		else
 		{
-			float o = p1.getOverlap(p2);
+			Real o = p1.getOverlap(p2);
 			if (o < Overlap)
 			{
 				Overlap = o;
@@ -154,7 +154,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 		}
 	}
 	//Second Box
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		Vector2 Axis = Axis2[i];
 		// project both shapes onto the axis
@@ -169,7 +169,7 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 		}
 		else
 		{
-			float o = p1.getOverlap(p2);
+			Real o = p1.getOverlap(p2);
 			if (o < Overlap)
 			{
 				Overlap = o;
@@ -187,6 +187,13 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 
 	//Contact Point
 	pContact->ContactPoint = ContactPoint;
+
+	//Correcting the Main Axis
+	Vector2 VectorBetweenCenters = Position1 - Position2;
+	if (VectorBetweenCenters.DotProduct(MainAxis) < (Real)0)
+	{
+		MainAxis = MainAxis * -1;
+	}
 
 	//Contact Normal
 	pContact->ContactNormal = MainAxis;
