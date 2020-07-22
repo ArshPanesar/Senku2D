@@ -87,6 +87,10 @@ void Senku2D::RigidBody::SetMass(const Real& Mass)
 	{
 		m_InverseMass = ((Real)1 / Mass);
 	}
+	else
+	{
+		m_InverseMass = 0;
+	}
 }
 
 void Senku2D::RigidBody::SetPosition(const Vector2& Position)
