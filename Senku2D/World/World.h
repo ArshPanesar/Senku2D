@@ -6,10 +6,6 @@
 
 namespace Senku2D
 {
-	//Default World Screen Position and Size
-	const Vector2 SCREEN_POSITION = Vector2(0, 0);
-	const Vector2 SCREEN_SIZE = Vector2(800, 600);
-
 	//Fixed Limit of Potential Contacts That Can be Generated
 	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 4;
 	//Local Potential Contact Limit
@@ -17,6 +13,13 @@ namespace Senku2D
 
 	//Maximum Amount of Contacts Generated
 	const unsigned int MAX_CONTACTS = 4;
+
+	//World Arena Scale Factor
+	const Real WORLD_ARENA_SCALE_FACTOR = 2.0f;
+
+	//Default World Arena Position and Size
+	const Vector2 DEFAULT_WORLD_ARENA_POSITION = Vector2(-1600.0f, -1200.0f);
+	const Vector2 DEFAULT_WORLD_ARENA_SIZE = Vector2(1600.0f, 1200.0f);
 
 	//A Physics World Class
 	/*
@@ -30,13 +33,13 @@ namespace Senku2D
 		//Reference to the Rigid Body List
 		RigidBodyList& m_RigidBodyList;
 
-		//Quadtree
-		Quadtree m_Quadtree;
+		//World Arena
+		AABB WorldArena;
 
 		//Update All Bodies
 		void IntegrateAllBodies(const Real& Timestep);
 	public:
-		//Constructor
+		//Default Constructor
 		World();
 		//Destructor
 		~World();
@@ -45,6 +48,9 @@ namespace Senku2D
 		void AddBody(RigidBody* rRB);
 		//Removing a Rigid Body to the Global List
 		void DestroyBody(RigidBody* rRB);
+
+		//Setting World Position and Size
+		void SetWorldArena(const Vector2& Position, const Vector2& Size);
 
 		//Update the World
 		void Update(const Real& Timestep);

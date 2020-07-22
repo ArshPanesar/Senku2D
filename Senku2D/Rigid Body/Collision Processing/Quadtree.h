@@ -22,7 +22,7 @@ namespace Senku2D
 		//Maximum Amount of Rigid Bodies Allowed
 		static const int m_MaxBodiesAllowed = 4;
 		//Maximum Amount of Levels Allowed
-		static const int m_MaxLevels = 4;
+		static const int m_MaxLevels = 8;
 
 		//Current Amount of Bodies Placed
 		int m_CurrentAmountOfBodies;

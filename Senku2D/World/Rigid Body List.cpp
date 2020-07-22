@@ -1,7 +1,7 @@
 #include "Rigid Body List.h"
 
 Senku2D::RigidBodyList::RigidBodyList()	:
-	m_MaxBodiesAllowed(100),
+	m_MaxBodiesAllowed(96),
 	m_InternalList()
 {
 	//Reserving Memory for the List

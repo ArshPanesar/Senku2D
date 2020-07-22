@@ -12,7 +12,7 @@ void Senku2D::World::IntegrateAllBodies(const Real& Timestep)
 
 Senku2D::World::World()	:
 	m_RigidBodyList(RigidBodyList::Get()),
-	m_Quadtree(SCREEN_POSITION, SCREEN_SIZE, 0)
+	WorldArena(DEFAULT_WORLD_ARENA_POSITION, DEFAULT_WORLD_ARENA_SIZE)
 {
 
 }
@@ -37,6 +37,15 @@ void Senku2D::World::DestroyBody(RigidBody* rRB)
 	}
 }
 
+void Senku2D::World::SetWorldArena(const Vector2 & Position, const Vector2 & Size)
+{
+	//Setting Scaled Position and Size for the World
+	WorldArena.Position = Position;
+	WorldArena.Size = Size;
+	WorldArena.Position -= Vector2(WorldArena.Size * WORLD_ARENA_SCALE_FACTOR);
+	WorldArena.Size *= WORLD_ARENA_SCALE_FACTOR;
+}
+
 void Senku2D::World::Update(const Real& Timestep)
 {
 	//Update All Bodies
@@ -48,6 +57,8 @@ void Senku2D::World::Update(const Real& Timestep)
 	PotentialContactList FinalPCList(POTENTIAL_CONTACT_LIST_LIMIT);
 	//
 	//Broad Phase
+	//Initializing a Quadtree
+	Quadtree m_Quadtree(WorldArena.Position, WorldArena.Size, 0);
 	//Inserting All Bodies Into the Quadtree
 	BroadPhase::InsertBodiesToQuadtree(&m_Quadtree, m_RigidBodyList);
 	//
