@@ -18,7 +18,8 @@ Senku2D::RigidBody::RigidBody()	:
 	m_TorqueAccum(0),
 	m_BoundingBox(),
 	m_Shape(nullptr),
-	m_IsDestroyed(false)
+	m_IsDestroyed(false),
+	m_VoidPointerUserData(nullptr)
 {
 	//Calculate the Rotation Matrix
 	CalculateRotationMatrix();
@@ -270,4 +271,9 @@ void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
 void Senku2D::RigidBody::WorldToLocalCoords(Vector2& Coords)
 {
 	Coords = Vector2(m_Position.x - Coords.x, m_Position.y - Coords.y);
+}
+
+void Senku2D::RigidBody::SetUserData(void* Data)
+{
+	m_VoidPointerUserData = Data;
 }

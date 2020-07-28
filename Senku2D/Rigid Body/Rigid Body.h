@@ -54,6 +54,9 @@ namespace Senku2D
 
 		//Is this Body Destroyed?
 		bool m_IsDestroyed;
+
+		//Void Pointer to Hold the User Data
+		void* m_VoidPointerUserData;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -130,5 +133,19 @@ namespace Senku2D
 		void LocalToWorldCoords(Vector2& Coords);
 		//World to Local Coords
 		void WorldToLocalCoords(Vector2& Coords);
+
+		//Setting User Data
+		void SetUserData(void* Data);
+
+		//Getting User Data
+		template<typename T>
+		T* GetUserData();
 	};
+	
+	template<typename T>
+	inline T* RigidBody::GetUserData()
+	{
+		return (T*)(m_VoidPointerUserData);
+	}
+
 }
