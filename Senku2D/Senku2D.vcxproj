@@ -163,6 +163,7 @@
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Box Shape.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Circle Shape.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Shape.cpp" />
+    <ClCompile Include="Senku2D\World\Rigid Body Contact Pair List.cpp" />
     <ClCompile Include="Senku2D\World\Rigid Body List.cpp" />
     <ClCompile Include="Senku2D\World\World.cpp" />
   </ItemGroup>
@@ -189,6 +190,7 @@
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Box Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Circle Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Shape.h" />
+    <ClInclude Include="Senku2D\World\Rigid Body Contact Pair List.h" />
     <ClInclude Include="Senku2D\World\Rigid Body List.h" />
     <ClInclude Include="Senku2D\World\World.h" />
   </ItemGroup>

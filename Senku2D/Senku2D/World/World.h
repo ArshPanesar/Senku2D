@@ -3,6 +3,7 @@
 #include "../Rigid Body/Collision Processing/Collision Detection/Broad Phase.h"
 #include "../Rigid Body/Collision Processing/Collision Detection/Narrow Phase.h"
 #include "../Rigid Body/Collision Processing/Collision Resolution/Collision Resolver.h"
+#include "Rigid Body Contact Pair List.h"
 
 namespace Senku2D
 {
@@ -10,9 +11,6 @@ namespace Senku2D
 	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 4;
 	//Local Potential Contact Limit
 	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 3;
-
-	//Maximum Amount of Contacts Generated
-	const unsigned int MAX_CONTACTS = 4;
 
 	//World Arena Scale Factor
 	const Real WORLD_ARENA_SCALE_FACTOR = 2.0f;
@@ -53,6 +51,6 @@ namespace Senku2D
 		void SetWorldArena(const Vector2& Position, const Vector2& Size);
 
 		//Update the World
-		void Update(const Real& Timestep);
+		void Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList);
 	};
 }

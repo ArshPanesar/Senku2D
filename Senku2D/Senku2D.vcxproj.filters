@@ -20,6 +20,7 @@
     <ClCompile Include="Senku2D\Core\Vector2.cpp" />
     <ClCompile Include="Senku2D\World\Rigid Body List.cpp" />
     <ClCompile Include="Senku2D\World\World.cpp" />
+    <ClCompile Include="Senku2D\World\Rigid Body Contact Pair List.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Detection\Broad Phase.h" />
@@ -46,5 +47,6 @@
     <ClInclude Include="Senku2D\World\Rigid Body List.h" />
     <ClInclude Include="Senku2D\World\World.h" />
     <ClInclude Include="Senku2D\pch.h" />
+    <ClInclude Include="Senku2D\World\Rigid Body Contact Pair List.h" />
   </ItemGroup>
 </Project>

@@ -46,7 +46,7 @@ void Senku2D::World::SetWorldArena(const Vector2 & Position, const Vector2 & Siz
 	WorldArena.Size *= WORLD_ARENA_SCALE_FACTOR;
 }
 
-void Senku2D::World::Update(const Real& Timestep)
+void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList)
 {
 	//Update All Bodies
 	IntegrateAllBodies(Timestep);
@@ -124,12 +124,18 @@ void Senku2D::World::Update(const Real& Timestep)
 	unsigned int NumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&PrimitiveTestResultList, &ContactPairList);
 	//
 	//Collision Detection Completed!
-	//Now We Have A List of Actual Colliding Pair of Rigid Bodies
 	//
-	//
-	//Resolving the Collision Pairs
-	CollisionResolver _CollisionResolver;
-	_CollisionResolver.Resolve(&ContactPairList);
-	//
+	if (NumOfContactsFound > 0)
+	{
+		//Now We Have A List of Actual Colliding Pair of Rigid Bodies
+		//
+		//
+		//Resolving the Collision Pairs
+		CollisionResolver _CollisionResolver;
+		_CollisionResolver.Resolve(&ContactPairList);
+		//
+		//Copying the Collision Pair List
+		CollidingPairsList.CopyFromContactList(ContactPairList);
+	}
 	//End Of Physics Update
 }
