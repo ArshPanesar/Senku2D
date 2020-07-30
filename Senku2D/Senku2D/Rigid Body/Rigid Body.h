@@ -2,11 +2,12 @@
 #include "../Core/Matrix2.h"
 #include "AABB.h"
 #include "Shapes/Shape.h"
+#include "MOI Calculation.h"
 
 namespace Senku2D
 {
 	//AABB Scale Factor For Rigid Bodies For Any Shape
-	const Real AABB_SCALE_FACTOR = (Real)2.0;
+	const Real AABB_SCALE_FACTOR = (Real)2;
 
 	//A Rigid Body
 	class RigidBody

@@ -159,6 +159,7 @@
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Contact List.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Potential Contact List.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Quadtree.cpp" />
+    <ClCompile Include="Senku2D\Rigid Body\MOI Calculation.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Rigid Body.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Box Shape.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Circle Shape.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Potential Contact List.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Potential Contact.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Quadtree.h" />
+    <ClInclude Include="Senku2D\Rigid Body\MOI Calculation.h" />
     <ClInclude Include="Senku2D\Rigid Body\Rigid Body.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Box Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Circle Shape.h" />

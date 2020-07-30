@@ -3,7 +3,7 @@
 using namespace Senku2D;
 
 Senku2D::RigidBody::RigidBody()	:
-	m_InverseMass(0),
+	m_InverseMass(1),
 	m_Position(),
 	m_LinearVelocity(),
 	m_AngularVelocity(0),
@@ -149,6 +149,9 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 	m_BoundingBox.Size *= AABB_SCALE_FACTOR;
 	//Setting Center Position
 	m_Shape->SetCenterPosition(m_Position);
+
+	//Calculating Moment of Inertia
+	m_MomentOfInertia = MOICalculation::Calculate(m_Shape);
 }
 
 void Senku2D::RigidBody::Destroy()
@@ -173,8 +176,7 @@ void Senku2D::RigidBody::AddForceToPoint(const Vector2& Force, const Vector2& Po
 	//Accumulating Linear Force
 	AddForce(Force);
 	//Accumulating Torque
-	Vector2 Rotated_Point = m_RotationMat * Point;
-	m_TorqueAccum = Rotated_Point.CrossProduct(Force);
+	m_TorqueAccum = Point.CrossProduct(Force);
 }
 
 bool Senku2D::RigidBody::Overlaps(const AABB& _Rect)
