@@ -8,9 +8,9 @@
 namespace Senku2D
 {
 	//Fixed Limit of Potential Contacts That Can be Generated
-	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 4;
+	const uint8_t POTENTIAL_CONTACT_LIST_LIMIT = 10;
 	//Local Potential Contact Limit
-	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 3;
+	const uint8_t LOCAL_POTENTIAL_CONTACT_LIMIT = 8;
 
 	//World Arena Scale Factor
 	const Real WORLD_ARENA_SCALE_FACTOR = 2.0f;
@@ -28,8 +28,8 @@ namespace Senku2D
 	class World
 	{
 	private:
-		//Reference to the Rigid Body List
-		RigidBodyList& m_RigidBodyList;
+		//The Rigid Body List
+		RigidBodyList m_RigidBodyList;
 
 		//World Arena
 		AABB WorldArena;

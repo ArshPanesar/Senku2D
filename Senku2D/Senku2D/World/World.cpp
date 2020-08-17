@@ -3,15 +3,15 @@
 void Senku2D::World::IntegrateAllBodies(const Real& Timestep)
 {
 	//Go Through the List
-	for (size_t i = 0; i < m_RigidBodyList.GetSize(); ++i)
+	for (size_t i = 0; i < m_RigidBodyList.GetDynamicBodyListSize(); ++i)
 	{
 		//Integrate Body
-		m_RigidBodyList.GetRigidBody(i)->Integrate(Timestep);
+		m_RigidBodyList.GetRigidBodyFromDynamicList(i)->Integrate(Timestep);
 	}
 }
 
 Senku2D::World::World()	:
-	m_RigidBodyList(RigidBodyList::Get()),
+	m_RigidBodyList(),
 	WorldArena(DEFAULT_WORLD_ARENA_POSITION, DEFAULT_WORLD_ARENA_SIZE)
 {
 
@@ -66,13 +66,14 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	uint8_t FinalPCListIndex = 0;
 	//Total Number of Contacts Found
 	unsigned int TotalNumOfPotentialContactsFound = 0;
-	for (unsigned int i = 0; i < m_RigidBodyList.GetSize(); ++i)
+	//Dynamic Bodies Against Dynamic Bodies
+	for (unsigned int i = 0; i < m_RigidBodyList.GetDynamicBodyListSize(); ++i)
 	{
 		//Local Potential Contact List For This Rigid Body
 		PotentialContactList PCList(LOCAL_POTENTIAL_CONTACT_LIMIT);
 
 		//Querying a Rigid Body from the QuadTree
-		unsigned int NumOfPotentialContacts = BroadPhase::QueryNeighboursFromQuadtree(&m_Quadtree, m_RigidBodyList.GetRigidBody(i), &PCList);
+		unsigned int NumOfPotentialContacts = BroadPhase::QueryNeighboursFromQuadtree(&m_Quadtree, m_RigidBodyList.GetRigidBodyFromDynamicList(i), &PCList);
 		//
 		//Local Potential Contacts Generated!
 		
@@ -111,6 +112,8 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 		return;
 	}
 	//
+
+
 	//Final Potential Contacts Generated!
 	//
 	//Narrow Phase Collision Detection
@@ -123,6 +126,8 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Generating Shape Result List
 	unsigned int NumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&PrimitiveTestResultList, &ContactPairList);
 	//
+	
+	
 	//Collision Detection Completed!
 	//
 	if (NumOfContactsFound > 0)

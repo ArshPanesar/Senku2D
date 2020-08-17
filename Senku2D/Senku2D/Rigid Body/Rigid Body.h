@@ -12,6 +12,13 @@ namespace Senku2D
 	//MOI Scale Factor
 	const Real MOI_SCALE_FACTOR = (Real)3;
 
+	//Body Type(Dynamic By Default)
+	enum class BodyType
+	{
+		STATIC,
+		DYNAMIC
+	};
+
 	//A Rigid Body
 	class RigidBody
 	{
@@ -61,6 +68,9 @@ namespace Senku2D
 
 		//Void Pointer to Hold the User Data
 		void* m_VoidPointerUserData;
+
+		//Body Type
+		BodyType m_BodyType;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -98,6 +108,8 @@ namespace Senku2D
 		void SetMomentOfInertia(const Real& MOI);
 		//Setting the Shape
 		void SetShape(Shape* _Shape);
+		//Setting BodyType
+		void SetBodyType(const BodyType& BT);
 
 		//Destroy this Body Forever
 		void Destroy();
@@ -131,6 +143,7 @@ namespace Senku2D
 		const Matrix2 GetRotationMatrix() const;
 		Shape* GetShape();
 		const bool IsDestroyed() const;
+		const BodyType GetBodyType() const;
 
 		//Transforming Coordinates
 		//Local to World Coordinates

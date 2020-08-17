@@ -2,9 +2,9 @@
 
 void Senku2D::BroadPhase::InsertBodiesToQuadtree(Quadtree* pQuadtree, RigidBodyList& List)
 {
-	for (unsigned int i = 0; i < List.GetSize(); ++i)
+	for (unsigned int i = 0; i < List.GetDynamicBodyListSize(); ++i)
 	{
-		pQuadtree->Insert(List.GetRigidBody(i));
+		pQuadtree->Insert(List.GetRigidBodyFromDynamicList(i));
 	}
 }
 

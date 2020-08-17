@@ -3,6 +3,7 @@
 //Includes
 #include <iostream>
 #include <vector>
+#include <assert.h>
 
 namespace Senku2D
 {

@@ -1,11 +1,15 @@
 #include "Rigid Body List.h"
 
-Senku2D::RigidBodyList::RigidBodyList()	:
+using namespace Senku2D;
+
+Senku2D::RigidBodyList::RigidBodyList() :
 	m_MaxBodiesAllowed(96),
-	m_InternalList()
+	m_StaticBodyList(),
+	m_DynamicBodyList()
 {
 	//Reserving Memory for the List
-	m_InternalList.reserve(m_MaxBodiesAllowed);
+	m_StaticBodyList.reserve(m_MaxBodiesAllowed);
+	m_DynamicBodyList.reserve(m_MaxBodiesAllowed);
 }
 
 Senku2D::RigidBodyList::~RigidBodyList()
@@ -14,51 +18,62 @@ Senku2D::RigidBodyList::~RigidBodyList()
 	Clear();
 }
 
-Senku2D::RigidBodyList& Senku2D::RigidBodyList::Get()
-{
-	static RigidBodyList s_Instance;
-	return s_Instance;
-}
 
 void Senku2D::RigidBodyList::Add(RigidBody* pRB)
 {
-	m_InternalList.push_back(pRB);
+	switch (pRB->GetBodyType())
+	{
+	case BodyType::STATIC:
+
+		m_StaticBodyList.push_back(pRB);
+		break;
+	case BodyType::DYNAMIC:
+
+		m_DynamicBodyList.push_back(pRB);
+		break;
+	}
 }
 
 void Senku2D::RigidBodyList::Remove(RigidBody* pRB)
 {
-	auto itr = m_InternalList.begin();
-	for (size_t i = 0; i < m_InternalList.size(); ++i)
+	if (pRB->GetBodyType() == BodyType::STATIC)
 	{
-		//Comparing Addresses
-		if (pRB == m_InternalList[i])
-		{
-			//Erasing from the Vector
-			m_InternalList.erase(itr);
-			break;
-		}
-
-		//Incrementing Iterator Position
-		++itr;
+		auto itr = std::find(m_StaticBodyList.begin(), m_StaticBodyList.end(), pRB);
+		m_StaticBodyList.erase(itr);
+	}
+	else if(pRB->GetBodyType() ==  BodyType::DYNAMIC)
+	{
+		auto itr = std::find(m_DynamicBodyList.begin(), m_DynamicBodyList.end(), pRB);
+		m_DynamicBodyList.erase(itr);
 	}
 }
 
 void Senku2D::RigidBodyList::Clear()
 {
-	m_InternalList.clear();
+	m_StaticBodyList.clear();
+	m_DynamicBodyList.clear();
 }
 
-const size_t Senku2D::RigidBodyList::GetSize() const
+const size_t Senku2D::RigidBodyList::GetStaticBodyListSize() const
 {
-	return m_InternalList.size();
+	return m_StaticBodyList.size();
 }
 
-Senku2D::RigidBody* Senku2D::RigidBodyList::GetRigidBody(const size_t& Index)
+const size_t Senku2D::RigidBodyList::GetDynamicBodyListSize() const
 {
-	if (Index >= GetSize())
-	{
-		return nullptr;
-	}
+	return m_DynamicBodyList.size();
+}
 
-	return m_InternalList[Index];
+RigidBody* Senku2D::RigidBodyList::GetRigidBodyFromStaticList(const size_t& Index)
+{
+	assert(Index >= GetStaticBodyListSize());
+
+	return m_StaticBodyList[Index];
+}
+
+RigidBody* Senku2D::RigidBodyList::GetRigidBodyFromDynamicList(const size_t& Index)
+{
+	assert(Index >= GetDynamicBodyListSize());
+
+	return m_DynamicBodyList[Index];
 }

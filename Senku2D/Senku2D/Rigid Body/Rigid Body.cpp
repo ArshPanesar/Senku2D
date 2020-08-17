@@ -19,7 +19,8 @@ Senku2D::RigidBody::RigidBody()	:
 	m_BoundingBox(),
 	m_Shape(nullptr),
 	m_IsDestroyed(false),
-	m_VoidPointerUserData(nullptr)
+	m_VoidPointerUserData(nullptr),
+	m_BodyType(BodyType::DYNAMIC)
 {
 	//Calculate the Rotation Matrix
 	CalculateRotationMatrix();
@@ -154,6 +155,11 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 	m_MomentOfInertia = MOI_SCALE_FACTOR * MOICalculation::Calculate(m_Shape);
 }
 
+void Senku2D::RigidBody::SetBodyType(const BodyType& BT)
+{
+	m_BodyType = BT;
+}
+
 void Senku2D::RigidBody::Destroy()
 {
 	//Body Will Not be Updated Anymore
@@ -263,6 +269,11 @@ Shape* Senku2D::RigidBody::GetShape()
 const bool Senku2D::RigidBody::IsDestroyed() const
 {
 	return m_IsDestroyed;
+}
+
+const BodyType Senku2D::RigidBody::GetBodyType() const
+{
+	return m_BodyType;
 }
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)
