@@ -23,12 +23,12 @@ Senku2D::GridBodyList::~GridBodyList()
 
 void Senku2D::GridBodyList::AddAtIndex(const U32& Index, RigidBody* pRB)
 {
-	assert(Index >= m_MaxNumberOfBodies);
+	assert(Index < m_MaxNumberOfBodies);
 	m_List[Index] = pRB;
 }
 
 RigidBody* Senku2D::GridBodyList::GetFromIndex(const U32& Index)
 {
-	assert(Index >= m_MaxNumberOfBodies);
+	assert(Index < m_MaxNumberOfBodies);
 	return m_List[Index];
 }

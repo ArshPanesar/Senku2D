@@ -102,21 +102,21 @@ Senku2D::U32 Senku2D::Grid::Query(RigidBody* pRB, PotentialContactList* pList)
 		U32 EndingRow = (U32)Real_Floor(RB_RelativeSize.y / m_TileSize.y);
 
 		//Asserting that Ending Colmmn and Row Don't Exceed the Max Limit
-		assert((EndingCol < m_NumOfCols) && (EndingRow < m_NumOfRows)
-			&& "Querying Error: Ending Column and/or Ending Row Exceed the Maximum Limit!");
-
-		//Queying the Matrix
-		for (U32 CurrentRow = StartingRow; CurrentRow <= EndingRow; ++CurrentRow)
+		if ((EndingCol < m_NumOfCols) && (EndingRow < m_NumOfRows))
 		{
-			for (U32 CurrentCol = StartingCol; CurrentCol <= EndingCol; ++CurrentCol)
+			//Queying the Matrix
+			for (U32 CurrentRow = StartingRow; CurrentRow <= EndingRow; ++CurrentRow)
 			{
-				U32 RBIndex = m_Matrix[CurrentRow][CurrentCol];
-				if (RBIndex != m_DefaultNoBodyValue)
+				for (U32 CurrentCol = StartingCol; CurrentCol <= EndingCol; ++CurrentCol)
 				{
-					//A Static Body Might Be Colliding with the Given Rigid Body!
-					pList->GetContact(NumOfPotentialContactsFound).RigidBodies[0] = pRB;
-					pList->GetContact(NumOfPotentialContactsFound).RigidBodies[1] = p_GridBodyList->GetFromIndex(RBIndex);
-					++NumOfPotentialContactsFound;
+					U32 RBIndex = m_Matrix[CurrentRow][CurrentCol];
+					if (RBIndex != m_DefaultNoBodyValue)
+					{
+						//A Static Body Might Be Colliding with the Given Rigid Body!
+						pList->GetContact(NumOfPotentialContactsFound).RigidBodies[0] = pRB;
+						pList->GetContact(NumOfPotentialContactsFound).RigidBodies[1] = p_GridBodyList->GetFromIndex(RBIndex);
+						++NumOfPotentialContactsFound;
+					}
 				}
 			}
 		}

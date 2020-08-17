@@ -66,14 +66,14 @@ const size_t Senku2D::RigidBodyList::GetDynamicBodyListSize() const
 
 RigidBody* Senku2D::RigidBodyList::GetRigidBodyFromStaticList(const size_t& Index)
 {
-	assert(Index >= GetStaticBodyListSize());
+	assert(Index < GetStaticBodyListSize());
 
 	return m_StaticBodyList[Index];
 }
 
 RigidBody* Senku2D::RigidBodyList::GetRigidBodyFromDynamicList(const size_t& Index)
 {
-	assert(Index >= GetDynamicBodyListSize());
+	assert(Index < GetDynamicBodyListSize());
 
 	return m_DynamicBodyList[Index];
 }

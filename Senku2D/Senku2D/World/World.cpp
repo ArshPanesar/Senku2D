@@ -169,9 +169,8 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Generating Shape Result List
 	unsigned int GridNumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&GridPrimitiveTestResultList, &GridContactPairList);
 	//
-
 	NumOfContactsFound += GridNumOfContactsFound;
-	
+
 	//Collision Detection Completed!
 	//
 	if (NumOfContactsFound > 0)
