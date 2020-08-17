@@ -17,9 +17,17 @@
 #define Real_Min fminf
 //Maximum Function
 #define Real_Max fmaxf
+//Floor and Ceil FUnctions
+#define Real_Floor floorf
+#define Real_Ceil ceilf
 
 namespace Senku2D
 {
 	//Floating Point Precision
 	typedef float Real;
+
+	//Unsigned Integer
+	typedef uint32_t U32;
+	typedef uint16_t U16;
+	typedef uint8_t U8;
 }

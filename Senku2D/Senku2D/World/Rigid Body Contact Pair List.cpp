@@ -1,6 +1,7 @@
 #include "Rigid Body Contact Pair List.h"
 
-Senku2D::RigidBodyPairList::RigidBodyPairList()
+Senku2D::RigidBodyPairList::RigidBodyPairList()	:
+	m_CurrentAvailableIndex(0)
 {
 	//Reserving Memory
 	m_List.reserve(MAX_CONTACTS);
@@ -14,7 +15,7 @@ Senku2D::RigidBodyPairList::~RigidBodyPairList()
 
 void Senku2D::RigidBodyPairList::CopyFromContactList(ContactList& List)
 {
-	for (size_t i = 0; i < List.GetLimit(); ++i)
+	for (size_t i = m_CurrentAvailableIndex; i < List.GetLimit(); ++i)
 	{
 		CollisionData* CollData = List.GetContactData(i);
 		RigidBody* Bodies[2] = {

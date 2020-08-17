@@ -7,7 +7,7 @@ namespace Senku2D
 	typedef std::pair<RigidBody*, RigidBody*> RigidBodyPair;
 
 	//Maximum Amount of Contacts Generated
-	const unsigned int MAX_CONTACTS = 6;
+	const unsigned int MAX_CONTACTS = 12;
 
 	//A Rigid Body List That Are in Contact
 	/*
@@ -18,6 +18,9 @@ namespace Senku2D
 	private:
 		//List of Rigid Body Pairs
 		std::vector<RigidBodyPair> m_List;
+
+		//Current Available Index
+		U32 m_CurrentAvailableIndex;
 	public:
 		//Constructor
 		RigidBodyPairList();

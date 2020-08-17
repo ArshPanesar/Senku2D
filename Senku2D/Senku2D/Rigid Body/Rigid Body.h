@@ -7,7 +7,7 @@
 namespace Senku2D
 {
 	//AABB Scale Factor For Rigid Bodies For Any Shape
-	const Real AABB_SCALE_FACTOR = (Real)2;
+	const Real AABB_SCALE_FACTOR = (Real)1;
 
 	//MOI Scale Factor
 	const Real MOI_SCALE_FACTOR = (Real)3;
