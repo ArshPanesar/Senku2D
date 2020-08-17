@@ -151,7 +151,7 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 	m_Shape->SetCenterPosition(m_Position);
 
 	//Calculating Moment of Inertia
-	m_MomentOfInertia = MOICalculation::Calculate(m_Shape);
+	m_MomentOfInertia = MOI_SCALE_FACTOR * MOICalculation::Calculate(m_Shape);
 }
 
 void Senku2D::RigidBody::Destroy()

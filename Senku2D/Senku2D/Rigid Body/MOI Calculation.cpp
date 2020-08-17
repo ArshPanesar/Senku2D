@@ -6,13 +6,15 @@ Real Senku2D::MOICalculation::CalculateBox(BoxShape* Box)
 {
 	Real MOI = (Real)0;
 
-	//Using Formula ((Length^3) * Breadth) / 12
+	//Using Formula ((Length^2) + (Breadth^2)) / 12
 	//Getting Variables
 	Real Length = Box->GetHalfWidth() * (Real)2;
 	Real Breadth = Box->GetHalfHeight() * (Real)2;
-	Real LengthCubed = Real_Pow(Length, 3);
+	Real LengthSquared = Real_Pow(Length, 2);
+	Real BreadthSquared = Real_Pow(Breadth, 2);
+	//
 	//Calculating
-	MOI = (LengthCubed * Breadth) / ((Real)12);
+	MOI = (LengthSquared + BreadthSquared) / ((Real)12);
 
 	return MOI;
 }
