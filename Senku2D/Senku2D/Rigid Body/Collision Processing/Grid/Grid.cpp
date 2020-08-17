@@ -121,6 +121,5 @@ Senku2D::U32 Senku2D::Grid::Query(RigidBody* pRB, PotentialContactList* pList)
 			}
 		}
 	}
-
 	return NumOfPotentialContactsFound;
 }

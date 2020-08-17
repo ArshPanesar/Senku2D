@@ -98,6 +98,11 @@ void Senku2D::RigidBody::SetMass(const Real& Mass)
 void Senku2D::RigidBody::SetPosition(const Vector2& Position)
 {
 	m_Position = Position;
+	
+	if (m_BodyType == BodyType::STATIC)
+	{
+		CalculateAABB();
+	}
 }
 
 void Senku2D::RigidBody::SetLinearVelocity(const Vector2& Velocity)
