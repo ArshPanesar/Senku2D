@@ -64,6 +64,9 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Update All Bodies
 	IntegrateAllBodies(Timestep);
 
+	//Clearing the List
+	CollidingPairsList.Clear();
+
 	//Collision Detection
 	//
 	//Final Potential Contact List
@@ -180,8 +183,8 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 		//
 		//Resolving the Collision Pairs
 		CollisionResolver _CollisionResolver;
-		_CollisionResolver.Resolve(&ContactPairList);
-		_CollisionResolver.Resolve(&GridContactPairList);
+		_CollisionResolver.Resolve(&ContactPairList, Timestep);
+		_CollisionResolver.Resolve(&GridContactPairList, Timestep);
 		//
 		//Copying the Collision Pair List
 		CollidingPairsList.CopyFromContactList(ContactPairList);

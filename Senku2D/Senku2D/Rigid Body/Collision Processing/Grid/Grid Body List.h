@@ -18,9 +18,17 @@ namespace Senku2D
 		const U32 m_MaxNumberOfBodies;
 	public:
 		//Constructor
+		GridBodyList();
+		//Parameterized Constructor
 		GridBodyList(const U32& NumOfBodies);
 		//Destructor
 		~GridBodyList();
+
+		//Resetting the List
+		void Reset(const U32& NumOfBodies);
+
+		//Clearing the List
+		void Clear();
 
 		//Adding a Rigid Body Pointer At an Index
 		void AddAtIndex(const U32& Index, RigidBody* pRB);

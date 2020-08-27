@@ -30,6 +30,9 @@ namespace Senku2D
 		//Copying Data From a Contact List
 		void CopyFromContactList(ContactList& List);
 
+		//Clearing the List
+		void Clear();
+
 		//Getting Size
 		const size_t GetSize() const;
 		//Getting A Rigid Body Pair At Some Index

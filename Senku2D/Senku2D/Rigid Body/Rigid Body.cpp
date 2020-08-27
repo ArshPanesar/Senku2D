@@ -74,6 +74,9 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	//Calculate AABB
 	CalculateAABB();
 
+	//Transform Shape
+	m_Shape->Transform(m_Position, m_RotationMat);
+
 	//Clear the Accumulator
 	ClearAccumulators();
 }

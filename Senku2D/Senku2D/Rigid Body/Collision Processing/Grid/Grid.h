@@ -26,17 +26,25 @@ namespace Senku2D
 		const U32 m_DefaultNoBodyValue;
 
 		//Body List for this Grid
-		std::unique_ptr<GridBodyList> p_GridBodyList;
+		GridBodyList m_GridBodyList;
 
 		//Current Index of Rigid Body
 		U32 m_RBCurrentIndex;
 
+		//Is the Grid Ready to be Used?
+		bool m_IsReady;
+
 	public:
 		//Constructor
+		Grid();
+		//Parameterized Constructor
 		Grid(const AABB& Bounds, const Vector2& TileSize);
 		//Destructor
 		~Grid();
 
+		//Setting Up the Grid
+		void Reset(const AABB& Bounds, const Vector2& TileSize);
+		
 		//Adding a Static Body to the Grid
 		void AddBody(RigidBody* pRB);
 

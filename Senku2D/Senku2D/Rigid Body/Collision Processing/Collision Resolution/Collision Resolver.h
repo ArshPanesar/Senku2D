@@ -9,6 +9,14 @@ namespace Senku2D
 	private:
 		//Resolve Penetration
 		void ResolvePenetration(ContactList* pContactList);
+		
+		//Resolve Velocity
+		void ResolveVelocity(ContactList* pContactList, const Real& Timestep);
+		//Calculating Separating Velocity
+		Real CalculateSeparatingVelocity(CollisionData* CD);
+
+		//Coefficient of Restitution
+		Real Restitution;
 
 	public:
 		//Constructor
@@ -17,6 +25,6 @@ namespace Senku2D
 		~CollisionResolver();
 		
 		//Resolve Collisions
-		void Resolve(ContactList* pContactList);
+		void Resolve(ContactList* pContactList, const Real& Timestep);
 	};
 }

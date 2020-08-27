@@ -30,6 +30,11 @@ void Senku2D::RigidBodyPairList::CopyFromContactList(ContactList& List)
 	}
 }
 
+void Senku2D::RigidBodyPairList::Clear()
+{
+	m_List.clear();
+}
+
 const size_t Senku2D::RigidBodyPairList::GetSize() const
 {
 	return m_List.size();

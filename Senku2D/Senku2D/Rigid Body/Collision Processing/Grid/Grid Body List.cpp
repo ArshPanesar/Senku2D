@@ -2,11 +2,18 @@
 
 using namespace Senku2D;
 
+Senku2D::GridBodyList::GridBodyList()	:
+	m_List(),
+	m_MaxNumberOfBodies(0)
+{
+
+}
+
 Senku2D::GridBodyList::GridBodyList(const U32& NumOfBodies) :
 	m_MaxNumberOfBodies(NumOfBodies)
 {
 	//Resizing the List
-	m_List.resize(m_MaxNumberOfBodies);
+	Reset(NumOfBodies);
 
 	//Filling the List with Null Values
 	for (auto& itr : m_List)
@@ -18,6 +25,17 @@ Senku2D::GridBodyList::GridBodyList(const U32& NumOfBodies) :
 Senku2D::GridBodyList::~GridBodyList()
 {
 	//Clearing the List
+	Clear();
+}
+
+void Senku2D::GridBodyList::Reset(const U32& NumOfBodies)
+{
+	Clear();
+	m_List.resize(NumOfBodies);
+}
+
+void Senku2D::GridBodyList::Clear()
+{
 	m_List.clear();
 }
 
