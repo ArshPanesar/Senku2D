@@ -4,13 +4,13 @@ using namespace Senku2D;
 
 Senku2D::GridBodyList::GridBodyList()	:
 	m_List(),
-	m_MaxNumberOfBodies(0)
+	m_NumOfBodies(0)
 {
 
 }
 
 Senku2D::GridBodyList::GridBodyList(const U32& NumOfBodies) :
-	m_MaxNumberOfBodies(NumOfBodies)
+	m_NumOfBodies(NumOfBodies)
 {
 	//Resizing the List
 	Reset(NumOfBodies);
@@ -31,6 +31,7 @@ Senku2D::GridBodyList::~GridBodyList()
 void Senku2D::GridBodyList::Reset(const U32& NumOfBodies)
 {
 	Clear();
+	m_NumOfBodies = NumOfBodies;
 	m_List.resize(NumOfBodies);
 }
 
@@ -41,12 +42,12 @@ void Senku2D::GridBodyList::Clear()
 
 void Senku2D::GridBodyList::AddAtIndex(const U32& Index, RigidBody* pRB)
 {
-	assert(Index < m_MaxNumberOfBodies);
+	assert(Index < m_NumOfBodies);
 	m_List[Index] = pRB;
 }
 
 RigidBody* Senku2D::GridBodyList::GetFromIndex(const U32& Index)
 {
-	assert(Index < m_MaxNumberOfBodies);
+	assert(Index < m_NumOfBodies);
 	return m_List[Index];
 }

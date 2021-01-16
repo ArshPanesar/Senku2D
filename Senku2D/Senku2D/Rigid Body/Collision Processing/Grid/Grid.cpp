@@ -34,6 +34,9 @@ Senku2D::Grid::~Grid()
 
 void Senku2D::Grid::Reset(const AABB& Bounds, const Vector2& TileSize)
 {
+	m_Bounds = Bounds;
+	m_TileSize = TileSize;
+
 	//Number of Rows and Columns
 	m_NumOfCols = (U32)Real_Ceil(Bounds.Size.x / TileSize.x);
 	m_NumOfRows = (U32)Real_Ceil(Bounds.Size.y / TileSize.y);
@@ -60,13 +63,12 @@ void Senku2D::Grid::Reset(const AABB& Bounds, const Vector2& TileSize)
 			Col = 0;
 		}
 	}
+	
+	m_IsReady = true;
 }
 
 void Senku2D::Grid::AddBody(RigidBody* pRB)
 {
-	//Asserting that the Grid is Ready
-	assert(m_IsReady && "Grid is Not Ready!");
-
 	//Checking if Rigid Body Overlaps the Bounds of this Grid
 	if (m_Bounds.Overlaps(pRB->GetAABB()))
 	{
@@ -81,8 +83,8 @@ void Senku2D::Grid::AddBody(RigidBody* pRB)
 		U32 StartingRow = (U32)Real_Floor(RB_RelativePosition.y / m_TileSize.y);
 
 		//Ending Column and Ending Row(Might Be the Same as Starting Row and Column)
-		U32 EndingCol = (U32)Real_Floor(RB_RelativeSize.x / m_TileSize.x);
-		U32 EndingRow = (U32)Real_Floor(RB_RelativeSize.y / m_TileSize.y);
+		U32 EndingCol = (U32)Real_Ceil(RB_RelativeSize.x / m_TileSize.x);
+		U32 EndingRow = (U32)Real_Ceil(RB_RelativeSize.y / m_TileSize.y);
 
 		//Asserting that Ending Colmmn and Row Don't Exceed the Max Limit
 		assert((EndingCol < m_NumOfCols) && (EndingRow < m_NumOfRows)
@@ -107,9 +109,6 @@ void Senku2D::Grid::AddBody(RigidBody* pRB)
 
 Senku2D::U32 Senku2D::Grid::Query(RigidBody* pRB, PotentialContactList* pList)
 {
-	//Asserting that the Grid is Ready
-	assert(m_IsReady && "Grid is Not Ready!");
-
 	U32 NumOfPotentialContactsFound = 0;
 
 	if (m_Bounds.Overlaps(pRB->GetAABB()))

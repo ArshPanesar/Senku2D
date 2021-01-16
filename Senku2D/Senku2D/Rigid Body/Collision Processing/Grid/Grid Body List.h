@@ -15,7 +15,7 @@ namespace Senku2D
 		std::vector<RigidBody*> m_List;
 
 		//Number of Bodies
-		const U32 m_MaxNumberOfBodies;
+		U32 m_NumOfBodies;
 	public:
 		//Constructor
 		GridBodyList();
