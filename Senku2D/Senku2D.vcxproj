@@ -147,7 +147,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Senku2D\Core\Matrix2.cpp" />
-    <ClCompile Include="Senku2D\Core\Matrix3.cpp" />
     <ClCompile Include="Senku2D\Core\Particle.cpp" />
     <ClCompile Include="Senku2D\Core\Vector2.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\AABB.cpp" />
@@ -172,7 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Senku2D\Core\Matrix2.h" />
-    <ClInclude Include="Senku2D\Core\Matrix3.h" />
     <ClInclude Include="Senku2D\Core\Particle.h" />
     <ClInclude Include="Senku2D\Core\Precision.h" />
     <ClInclude Include="Senku2D\Core\Vector2.h" />

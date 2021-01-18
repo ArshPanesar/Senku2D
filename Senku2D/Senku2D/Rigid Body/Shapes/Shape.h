@@ -33,7 +33,11 @@ namespace Senku2D
 		virtual void Transform(const Vector2& Position, const Matrix2& Rotation_Matrix) = 0;
 
 		//Setting Center Position(In World Coordinates)
-		void SetCenterPosition(const Vector2& Position);
+		inline void SetCenterPosition(const Vector2& Position) 
+		{ 
+			m_CenterPosition = Position; 
+		}
+		
 		//Setting the Shape Type
 		void SetShapeType(const ShapeType& ST);
 		//Setting the Bound Size

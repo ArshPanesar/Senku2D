@@ -9,9 +9,6 @@ namespace Senku2D
 	//AABB Scale Factor For Rigid Bodies For Any Shape
 	const Real AABB_SCALE_FACTOR = (Real)1;
 
-	//MOI Scale Factor
-	const Real MOI_SCALE_FACTOR = (Real)3;
-
 	//Body Type(Dynamic By Default)
 	enum class BodyType
 	{
@@ -78,9 +75,6 @@ namespace Senku2D
 		//Destructor
 		~RigidBody();
 
-		//Calculate Rotation Matrix
-		void CalculateRotationMatrix();
-
 		//Integrating
 		void Integrate(const Real& Timestep);
 
@@ -98,7 +92,7 @@ namespace Senku2D
 		void SetLinearAcceleration(const Vector2& Acc);
 		//Setting Angular Acceleration
 		void SetAngularAcceleration(const Real& Acc);
-		//Setting Angle
+		//Setting Angle In Radians
 		void SetAngle(const Real& Angle);
 		//Setting Linear Damping
 		void SetLinearDamping(const Real& LD);
@@ -119,14 +113,11 @@ namespace Senku2D
 
 		//Adding Force to Center
 		void AddForce(const Vector2& Force);
-		//Adding Force to a Point(Supply Point in Local Space)
+		//Adding Force to a Point in Local Space (Where Origin is Center of Body)
 		void AddForceToPoint(const Vector2& Force, const Vector2& Point);
 
 		//Overlaps Some AABB
 		bool Overlaps(const AABB& _Rect);
-
-		//Set AABB Around the Rigid Body
-		void CalculateAABB();
 
 		//Getters
 		const Real GetInverseMass() const;

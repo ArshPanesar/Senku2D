@@ -29,6 +29,9 @@ namespace Senku2D
 		//Setters
 		void SetBox(const Real& Width, const Real& Height);
 		
+		//Operator=
+
+
 		//Getters
 		const Real GetHalfWidth() const;
 		const Real GetHalfHeight() const;

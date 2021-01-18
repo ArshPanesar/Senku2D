@@ -40,12 +40,6 @@ void Senku2D::Vector2::Normalize()
 	}
 }
 
-void Senku2D::Vector2::AddScaledVector(const Vector2& Vec, const Real& Scale)
-{
-	x += Vec.x * Scale;
-	y += Vec.y * Scale;
-}
-
 Senku2D::Vector2 Senku2D::Vector2::GetComponentProduct(const Vector2& Vec)
 {
 	return Vector2(x * Vec.x, y * Vec.y);
@@ -59,12 +53,12 @@ void Senku2D::Vector2::UpdateComponentProduct(const Vector2& Vec)
 
 Senku2D::Real Senku2D::Vector2::DotProduct(const Vector2& Vec) const
 {
-	return(x * Vec.x + y * Vec.y);
+	return (x * Vec.x + y * Vec.y);
 }
 
 Senku2D::Real Senku2D::Vector2::CrossProduct(const Vector2& Vec) const
 {
-	return(x * Vec.y - y * Vec.x);
+	return (x * Vec.y - y * Vec.x);
 }
 
 void Senku2D::Vector2::operator*=(const Real& Value)
@@ -80,12 +74,12 @@ Senku2D::Vector2 Senku2D::Vector2::operator*(const Real& Value)
 
 Senku2D::Real Senku2D::Vector2::operator*(const Vector2& Vec)
 {
-	return(x * Vec.x + y * Vec.y);
+	return (x * Vec.x + y * Vec.y);
 }
 
 Senku2D::Vector2 Senku2D::Vector2::operator/(const Real& Value)
 {
-	Vector2 Vec;
+	Vector2 Vec(*this);
 	if (Value != 0)
 	{
 		Vec.x /= Value;

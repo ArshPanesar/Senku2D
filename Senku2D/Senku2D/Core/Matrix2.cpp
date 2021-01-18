@@ -22,10 +22,11 @@ Senku2D::Matrix2 Senku2D::Matrix2::GetInverse(const Matrix2& Mat2)
 
 	Real Det = GetDeterminant(Mat2);
 
+	Real Temp0 = Mat.Data[0];
 	Mat.Data[0] = Mat2.Data[3];
 	Mat.Data[1] = -Mat2.Data[1];
 	Mat.Data[2] = -Mat2.Data[2];
-	Mat.Data[3] = Mat2.Data[0];
+	Mat.Data[3] = Temp0;
 
 	if (Det != 0)
 	{
@@ -40,8 +41,9 @@ Senku2D::Matrix2 Senku2D::Matrix2::GetTranspose(const Matrix2& Mat2)
 	Matrix2 Mat;
 
 	Mat.Data[0] = Mat2.Data[0];
+	Real Temp1 = Mat.Data[1];
 	Mat.Data[1] = Mat2.Data[2];
-	Mat.Data[2] = Mat2.Data[1];
+	Mat.Data[2] = Temp1;
 	Mat.Data[3] = Mat2.Data[3];
 
 	return Mat;

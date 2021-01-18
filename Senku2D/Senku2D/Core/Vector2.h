@@ -31,7 +31,11 @@ namespace Senku2D
 		void Normalize();
 
 		//Adding a Scaled Vector
-		void AddScaledVector(const Vector2& Vec, const Real& Scale);
+		inline void AddScaledVector(const Vector2& Vec, const Real& Scale)
+		{
+			x += Vec.x * Scale;
+			y += Vec.y * Scale;
+		}
 
 		//Component Product
 		Vector2 GetComponentProduct(const Vector2& Vec);
@@ -62,7 +66,7 @@ namespace Senku2D
 
 		//+ Operator
 		Vector2 operator+(const Vector2& Vec);
-
+		
 		//-= Operator
 		void operator-=(const Vector2& Vec);
 

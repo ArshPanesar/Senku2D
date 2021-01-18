@@ -13,7 +13,7 @@ Senku2D::RigidBody::RigidBody()	:
 	m_RotationMat(),
 	m_LinearDamping(0.99f),
 	m_AngularDamping(0.75f),
-	m_MomentOfInertia((Real)1),
+	m_MomentOfInertia((Real)100),
 	m_ForceAccum(),
 	m_TorqueAccum(0),
 	m_BoundingBox(),
@@ -23,7 +23,11 @@ Senku2D::RigidBody::RigidBody()	:
 	m_BodyType(BodyType::DYNAMIC)
 {
 	//Calculate the Rotation Matrix
-	CalculateRotationMatrix();
+	m_RotationMat.Data[0] = Real_Cos(m_Angle);
+	m_RotationMat.Data[1] = -Real_Sin(m_Angle);
+	m_RotationMat.Data[2] = Real_Sin(m_Angle);
+	m_RotationMat.Data[3] = Real_Cos(m_Angle);
+
 	//Set AABB Position and Size
 	m_BoundingBox.Position = m_Position;
 	m_BoundingBox.Size = Vector2(1.0f, 1.0f);
@@ -38,14 +42,6 @@ Senku2D::RigidBody::~RigidBody()
 	}
 }
 
-void Senku2D::RigidBody::CalculateRotationMatrix()
-{
-	m_RotationMat.Data[0] = Real_Cos(m_Angle);
-	m_RotationMat.Data[1] = -Real_Sin(m_Angle);
-	m_RotationMat.Data[2] = Real_Sin(m_Angle);
-	m_RotationMat.Data[3] = Real_Cos(m_Angle);
-}
-
 void Senku2D::RigidBody::Integrate(const Real& Timestep)
 {
 	//Update the Linear Position of the Particle
@@ -57,7 +53,7 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	ResultingAcc.AddScaledVector(m_ForceAccum, m_InverseMass);
 	//Update Angular Acceleration from Torque
 	Real ResultingAngularAcc = m_AngularAcceleration;
-	ResultingAngularAcc += m_TorqueAccum * ((Real)1 / m_MomentOfInertia);
+	ResultingAngularAcc += m_TorqueAccum / m_MomentOfInertia;
 	
 	//Update Linear Velocity from the Resulting Acceleration
 	m_LinearVelocity.AddScaledVector(ResultingAcc, Timestep);
@@ -69,13 +65,17 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	m_AngularVelocity *= Real_Pow(m_AngularDamping, Timestep);
 
 	//Calculate Rotation Matrix
-	CalculateRotationMatrix();
-
-	//Calculate AABB
-	CalculateAABB();
-
+	m_RotationMat.Data[0] = Real_Cos(m_Angle);
+	m_RotationMat.Data[1] = -Real_Sin(m_Angle);
+	m_RotationMat.Data[2] = Real_Sin(m_Angle);
+	m_RotationMat.Data[3] = Real_Cos(m_Angle);
+	
 	//Transform Shape
 	m_Shape->Transform(m_Position, m_RotationMat);
+
+	//Setting AABB Position
+	//m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
+	m_BoundingBox = AABB::CalculateForShape(m_Shape);
 
 	//Clear the Accumulator
 	ClearAccumulators();
@@ -102,10 +102,8 @@ void Senku2D::RigidBody::SetPosition(const Vector2& Position)
 {
 	m_Position = Position;
 	
-	if (m_BodyType == BodyType::STATIC)
-	{
-		CalculateAABB();
-	}
+	//Setting AABB Position
+	m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
 }
 
 void Senku2D::RigidBody::SetLinearVelocity(const Vector2& Velocity)
@@ -160,7 +158,7 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 	m_Shape->SetCenterPosition(m_Position);
 
 	//Calculating Moment of Inertia
-	m_MomentOfInertia = MOI_SCALE_FACTOR * MOICalculation::Calculate(m_Shape);
+	m_MomentOfInertia = MOICalculation::Calculate(m_Shape);
 }
 
 void Senku2D::RigidBody::SetBodyType(const BodyType& BT)
@@ -201,12 +199,6 @@ bool Senku2D::RigidBody::Overlaps(const AABB& _Rect)
 	}
 
 	return false;
-}
-
-void Senku2D::RigidBody::CalculateAABB()
-{
-	//Setting AABB Position
-	m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
 }
 
 const Real Senku2D::RigidBody::GetInverseMass() const

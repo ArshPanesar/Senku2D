@@ -21,7 +21,7 @@ namespace Senku2D
 
 	//Default World Arena Position and Size
 	const Vector2 DEFAULT_WORLD_ARENA_POSITION = Vector2(-1600.0f, -1200.0f);
-	const Vector2 DEFAULT_WORLD_ARENA_SIZE = Vector2(1600.0f, 1200.0f);
+	const Vector2 DEFAULT_WORLD_ARENA_SIZE = Vector2(1600.0f, 1200.0f) * 2.0f;
 
 	//A Physics World Class
 	/*

@@ -10,14 +10,6 @@ bool Senku2D::CollisionDetector::CircleAndCircle(PotentialRigidBodyContact* _Con
 	Vector2 Position1 = _Contact->RigidBodies[0]->GetPosition();
 	Vector2 Position2 = _Contact->RigidBodies[1]->GetPosition();
 
-	//Getting Rotation Matrices
-	Matrix2 RotMat1 = _Contact->RigidBodies[0]->GetRotationMatrix();
-	Matrix2 RotMat2 = _Contact->RigidBodies[1]->GetRotationMatrix();
-
-	//Transforming the Circles
-	pCircle1->Transform(Position1, RotMat1);
-	pCircle2->Transform(Position2, RotMat2);
-
 	//Checking Collision Between the Circles
 	//Getting Their Centers
 	Vector2 Center1 = pCircle1->GetCenterPosition();
@@ -63,18 +55,12 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 	//Getting the Box Shapes
 	Shape* sBox1 = _Contact->RigidBodies[0]->GetShape();
 	Shape* sBox2 = _Contact->RigidBodies[1]->GetShape();
-	BoxShape pBox1 = *(BoxShape*)(sBox1);
-	BoxShape pBox2 = *(BoxShape*)(sBox2);
+	BoxShape& pBox1 = *(BoxShape*)(sBox1);
+	BoxShape& pBox2 = *(BoxShape*)(sBox2);
 
 	//Getting Positions and Rotation Matrices
 	Vector2 Position1 = _Contact->RigidBodies[0]->GetPosition();
 	Vector2 Position2 = _Contact->RigidBodies[1]->GetPosition();
-	Matrix2 RotMat1 = _Contact->RigidBodies[0]->GetRotationMatrix();
-	Matrix2 RotMat2 = _Contact->RigidBodies[1]->GetRotationMatrix();
-
-	//Transforming the Shapes
-	pBox1.Transform(Position1, RotMat1);
-	pBox2.Transform(Position2, RotMat2);
 	
 	//Getting the Vertices
 	const Vector2* pVertices1 = pBox1.GetVertices();
@@ -121,8 +107,10 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 		Axis2[i] = Normal;
 	}
 
+	//Correcting the Main Axis
+	Vector2 VectorBetweenCenters = Position1 - Position2;
 	//Starting Overlap
-	Real Overlap = (Real)10;
+	Real Overlap = VectorBetweenCenters.SquaredMagnitude();
 	//Main Axis of Collision
 	Vector2 MainAxis;
 	//Contact Point
@@ -188,8 +176,6 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 	//Contact Point
 	pContact->ContactPoint = ContactPoint;
 
-	//Correcting the Main Axis
-	Vector2 VectorBetweenCenters = Position1 - Position2;
 	if (VectorBetweenCenters.DotProduct(MainAxis) < (Real)0)
 	{
 		MainAxis = MainAxis * -1;

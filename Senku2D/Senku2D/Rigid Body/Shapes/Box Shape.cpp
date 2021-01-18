@@ -36,13 +36,14 @@ void Senku2D::BoxShape::Transform(const Vector2& Position, const Matrix2& Rotati
 
 	//Setting the Vertices in World Coordinates
 	SetVertices();
+	
 	//Rotating the Vertices of the Box
 	for (unsigned int i = 0; i < 4; ++i)
 	{
+		m_Vertices[i] -= m_CenterPosition;
 		m_Vertices[i] = Rotation_Matrix * m_Vertices[i];
+		m_Vertices[i] += m_CenterPosition;
 	}
-	//Rotating the Center
-	m_CenterPosition = Rotation_Matrix * m_CenterPosition;
 }
 
 void Senku2D::BoxShape::SetBox(const Real& Width, const Real& Height)
@@ -61,10 +62,10 @@ void Senku2D::BoxShape::SetBox(const Real& Width, const Real& Height)
 void Senku2D::BoxShape::SetVertices()
 {
 	//Setting Vertices in World Coordinates
-	m_Vertices[0] = Vector2(-m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
-	m_Vertices[1] = Vector2(m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
-	m_Vertices[2] = Vector2(m_HalfWidth, m_HalfHeight) + m_CenterPosition;
-	m_Vertices[3] = Vector2(-m_HalfWidth, m_HalfHeight) + m_CenterPosition;
+	m_Vertices[0] = Vector2(-m_HalfWidth, m_HalfHeight) + m_CenterPosition;
+	m_Vertices[1] = Vector2(-m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
+	m_Vertices[2] = Vector2(m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
+	m_Vertices[3] = Vector2(m_HalfWidth, m_HalfHeight) + m_CenterPosition;
 }
 
 const Real Senku2D::BoxShape::GetHalfWidth() const

@@ -21,7 +21,8 @@ Real Senku2D::MOICalculation::CalculateBox(BoxShape* Box)
 
 Real Senku2D::MOICalculation::CalculateCircle(CircleShape* Circle)
 {
-	return Real();
+	//Using the Formula: PI * Diameter^4 / 64
+	return ( ( PI * Real_Pow(Circle->GetRadius() * 2, 4) ) / 64.0f );
 }
 
 Real Senku2D::MOICalculation::Calculate(Shape* _Shape)

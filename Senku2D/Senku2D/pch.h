@@ -26,4 +26,7 @@ namespace Senku2D
 	//Angle Constants
 	const float RADTODEG = 57.2958f;
 	const float DEGTORAD = 0.01745f;
+
+	//PI
+	const float PI = 22.0f / 7.0f;
 }

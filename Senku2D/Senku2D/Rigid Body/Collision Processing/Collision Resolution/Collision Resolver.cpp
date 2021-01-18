@@ -104,7 +104,7 @@ Senku2D::Real Senku2D::CollisionResolver::CalculateSeparatingVelocity(CollisionD
 }
 
 Senku2D::CollisionResolver::CollisionResolver()	:
-	Restitution(0.1)
+	Restitution(0.1f)
 {
 
 }

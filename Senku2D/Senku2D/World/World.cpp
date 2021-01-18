@@ -56,7 +56,7 @@ void Senku2D::World::SetWorldArena(const Vector2 & Position, const Vector2 & Siz
 	WorldArena.Position = Position;
 	WorldArena.Size = Size;
 	WorldArena.Position -= Vector2(WorldArena.Size * WORLD_ARENA_SCALE_FACTOR);
-	WorldArena.Size *= WORLD_ARENA_SCALE_FACTOR;
+	WorldArena.Size *= WORLD_ARENA_SCALE_FACTOR * 2.0f;
 }
 
 void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList)
@@ -100,6 +100,7 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 		{
 			continue;
 		}
+		
 		//Potential Contacts Were Found
 		TotalNumOfPotentialContactsFound += NumOfPotentialContacts;
 

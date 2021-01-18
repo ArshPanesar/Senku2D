@@ -12,11 +12,6 @@ Senku2D::Shape::~Shape()
 	m_CenterPosition.Clear();
 }
 
-void Senku2D::Shape::SetCenterPosition(const Vector2& Position)
-{
-	m_CenterPosition = Position;
-}
-
 void Senku2D::Shape::SetShapeType(const ShapeType& ST)
 {
 	m_ShapeType = ST;
