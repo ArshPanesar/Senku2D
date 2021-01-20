@@ -15,9 +15,6 @@ void Senku2D::CircleShape::Transform(const Vector2& Position, const Matrix2& Rot
 {
 	//Setting the Center Position
 	SetCenterPosition(Position);
-
-	//Transforming the Center With the Rotation Matrix
-	m_CenterPosition = Rotation_Matrix * m_CenterPosition;
 }
 
 void Senku2D::CircleShape::SetRadius(const Real& Radius)

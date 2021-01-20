@@ -74,7 +74,6 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	m_Shape->Transform(m_Position, m_RotationMat);
 
 	//Setting AABB Position
-	//m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
 	m_BoundingBox = AABB::CalculateForShape(m_Shape);
 
 	//Clear the Accumulator

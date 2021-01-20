@@ -192,5 +192,81 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 
 bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contact, CollisionData* CollData)
 {
-	return false;
+	const BoxShape* Box = nullptr;
+	const CircleShape* Circle = nullptr;
+	Real Angle;
+
+	if (_Contact->RigidBodies[0]->GetShape()->GetShapeType() == ShapeType::CIRCLE)
+	{
+		Circle = (CircleShape*)_Contact->RigidBodies[0]->GetShape();
+		Box = (BoxShape*)_Contact->RigidBodies[1]->GetShape();
+		Angle = _Contact->RigidBodies[1]->GetAngle();
+	}
+	else
+	{
+		Circle = (CircleShape*)_Contact->RigidBodies[1]->GetShape();
+		Box = (BoxShape*)_Contact->RigidBodies[0]->GetShape();
+		Angle = _Contact->RigidBodies[0]->GetAngle();
+	}
+
+	//Calculate Rotation Matrix (In Negative Angles)
+	Matrix2 RotationMat;
+	RotationMat.Data[0] = Real_Cos(-Angle);
+	RotationMat.Data[1] = -Real_Sin(-Angle);
+	RotationMat.Data[2] = Real_Sin(-Angle);
+	RotationMat.Data[3] = Real_Cos(-Angle);
+
+	//Converting Circle Center's World Coordinates to the Box's Local Coordinates
+	Vector2 BoxCenter = Box->GetCenterPosition();
+	Vector2 CircleCenter = (RotationMat * Vector2(Vector2(Circle->GetCenterPosition()) - BoxCenter)) + BoxCenter;
+	
+	//Closest Point on Rectangle From the Circle's Center
+	Vector2 ClosestPoint;
+
+	if (CircleCenter.x < (BoxCenter.x - Box->GetHalfWidth()))
+	{
+		ClosestPoint.x = (BoxCenter.x - Box->GetHalfWidth());
+	}
+	else if(CircleCenter.x > ((BoxCenter.x + Box->GetHalfWidth())))
+	{
+		ClosestPoint.x = (BoxCenter.x + Box->GetHalfWidth());
+	}
+	else
+	{
+		ClosestPoint.x = CircleCenter.x;
+	}
+
+	if (CircleCenter.y < (BoxCenter.y - Box->GetHalfHeight()))
+	{
+		ClosestPoint.y = BoxCenter.y - Box->GetHalfHeight();
+	}
+	else if (CircleCenter.y > (BoxCenter.y + Box->GetHalfHeight()))
+	{
+		ClosestPoint.y = (BoxCenter.y + Box->GetHalfHeight());
+	}
+	else
+	{
+		ClosestPoint.y = CircleCenter.y;
+	}
+
+	Real Dist = Vector2(CircleCenter - ClosestPoint).Magnitude();
+	
+	if (Dist > Circle->GetRadius())
+	{
+		return false;
+	}
+	
+	//Bodies
+	CollData->_Bodies.RigidBodies[0] = _Contact->RigidBodies[0];
+	CollData->_Bodies.RigidBodies[1] = _Contact->RigidBodies[1];
+
+	//Penetration
+	CollData->_Contact.Penetration = Circle->GetRadius() - Dist;
+	//Contact Normal
+	CollData->_Contact.ContactNormal = Vector2(CircleCenter - ClosestPoint);
+	CollData->_Contact.ContactNormal.Normalize();
+	//Contact Point
+	CollData->_Contact.ContactPoint = ClosestPoint;
+
+	return true;
 }

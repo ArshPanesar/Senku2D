@@ -62,10 +62,10 @@ void Senku2D::BoxShape::SetBox(const Real& Width, const Real& Height)
 void Senku2D::BoxShape::SetVertices()
 {
 	//Setting Vertices in World Coordinates
-	m_Vertices[0] = Vector2(-m_HalfWidth, m_HalfHeight) + m_CenterPosition;
-	m_Vertices[1] = Vector2(-m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
-	m_Vertices[2] = Vector2(m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
-	m_Vertices[3] = Vector2(m_HalfWidth, m_HalfHeight) + m_CenterPosition;
+	m_Vertices[0] = Vector2(-m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
+	m_Vertices[1] = Vector2(-m_HalfWidth, m_HalfHeight) + m_CenterPosition;
+	m_Vertices[2] = Vector2(m_HalfWidth, m_HalfHeight) + m_CenterPosition;
+	m_Vertices[3] = Vector2(m_HalfWidth, -m_HalfHeight) + m_CenterPosition;
 }
 
 const Real Senku2D::BoxShape::GetHalfWidth() const
