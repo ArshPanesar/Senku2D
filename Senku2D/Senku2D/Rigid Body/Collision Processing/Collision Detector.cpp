@@ -222,12 +222,12 @@ bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contac
 	
 	//Closest Point on Rectangle From the Circle's Center
 	Vector2 ClosestPoint;
-
+	
 	if (CircleCenter.x < (BoxCenter.x - Box->GetHalfWidth()))
 	{
 		ClosestPoint.x = (BoxCenter.x - Box->GetHalfWidth());
 	}
-	else if(CircleCenter.x > ((BoxCenter.x + Box->GetHalfWidth())))
+	else if (CircleCenter.x > ((BoxCenter.x + Box->GetHalfWidth())))
 	{
 		ClosestPoint.x = (BoxCenter.x + Box->GetHalfWidth());
 	}
@@ -263,8 +263,10 @@ bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contac
 	//Penetration
 	CollData->_Contact.Penetration = Circle->GetRadius() - Dist;
 	//Contact Normal
-	CollData->_Contact.ContactNormal = Vector2(CircleCenter - ClosestPoint);
+	RotationMat.Invert();
+	CollData->_Contact.ContactNormal = RotationMat * Vector2(CircleCenter - ClosestPoint);
 	CollData->_Contact.ContactNormal.Normalize();
+	
 	//Contact Point
 	CollData->_Contact.ContactPoint = ClosestPoint;
 
