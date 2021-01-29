@@ -13,7 +13,7 @@ namespace Senku2D
 		Vector2 ContactNormal;
 
 		//Amount of Penetration
-		Real Penetration;
+		Real Penetration = 0.0f;
 	};
 }
 

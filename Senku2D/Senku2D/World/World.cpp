@@ -13,10 +13,11 @@ void Senku2D::World::IntegrateAllBodies(const Real& Timestep)
 Senku2D::World::World()	:
 	m_RigidBodyList(),
 	WorldArena(DEFAULT_WORLD_ARENA_POSITION, DEFAULT_WORLD_ARENA_SIZE),
-	m_GridList()
+	FinalPCList(POTENTIAL_CONTACT_LIST_LIMIT),
+	PrimitiveTestResultList(POTENTIAL_CONTACT_LIST_LIMIT),
+	ContactPairList(MAX_CONTACTS)
 {
-	//Reserving Memory for Grid List
-	m_GridList.reserve(MAX_GRIDS);
+
 }
 
 Senku2D::World::~World()
@@ -39,17 +40,6 @@ void Senku2D::World::DestroyBody(RigidBody* rRB)
 	}
 }
 
-void Senku2D::World::AddGrid(Grid* pGrid)
-{
-	m_GridList.push_back(pGrid);
-}
-
-void Senku2D::World::RemoveGrid(Grid* pGrid)
-{
-	auto itr = std::find(m_GridList.begin(), m_GridList.end(), pGrid);
-	m_GridList.erase(itr);
-}
-
 void Senku2D::World::SetWorldArena(const Vector2 & Position, const Vector2 & Size)
 {
 	//Setting Scaled Position and Size for the World
@@ -61,86 +51,32 @@ void Senku2D::World::SetWorldArena(const Vector2 & Position, const Vector2 & Siz
 
 void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList)
 {
+	//Timer
+	/*
+	auto t1 = std::chrono::high_resolution_clock::now();
+	auto t2 = std::chrono::high_resolution_clock::now();
+
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+
+	PRT(duration);
+	*/
+
 	//Update All Bodies
 	IntegrateAllBodies(Timestep);
-
+	
 	//Clearing the List
 	CollidingPairsList.Clear();
 
 	//Collision Detection
 	//
 	//Final Potential Contact List
-	PotentialContactList FinalPCList(POTENTIAL_CONTACT_LIST_LIMIT);
-	//
-
-	//Broad Phase
-	//Initializing a Quadtree
-	Quadtree m_Quadtree(WorldArena.Position, WorldArena.Size, 0);
-	//Inserting All Bodies Into the Quadtree
-	BroadPhase::InsertBodiesToQuadtree(&m_Quadtree, m_RigidBodyList);
-	//
+	FinalPCList.Clear();
 	
-	//Traversing the Body List
-	uint8_t FinalPCListIndex = 0;
+	//Broad Phase
+	//
 	//Total Number of Contacts Found
 	unsigned int TotalNumOfPotentialContactsFound = 0;
-	//Dynamic Bodies Against Dynamic Bodies
-	for (unsigned int i = 0; i < m_RigidBodyList.GetDynamicBodyListSize(); ++i)
-	{
-		//Local Potential Contact List For This Rigid Body
-		PotentialContactList PCList(LOCAL_POTENTIAL_CONTACT_LIMIT);
-
-		//Querying a Rigid Body from the QuadTree
-		unsigned int NumOfPotentialContacts = BroadPhase::QueryNeighboursFromQuadtree(&m_Quadtree, m_RigidBodyList.GetRigidBodyFromDynamicList(i), &PCList);
-		//
-		//Local Potential Contacts Generated!
-		
-		//Continue if No Contacts Were Found
-		if (NumOfPotentialContacts == 0)
-		{
-			continue;
-		}
-		
-		//Potential Contacts Were Found
-		TotalNumOfPotentialContactsFound += NumOfPotentialContacts;
-
-		//Adding the Potential Contacts to the Final List
-		for (unsigned int LocalPCListIndex = 0; LocalPCListIndex < PCList.GetLimit(); ++LocalPCListIndex)
-		{
-			if (FinalPCListIndex >= POTENTIAL_CONTACT_LIST_LIMIT)
-			{
-				break;
-			}
-
-			if (PCList.GetContact(FinalPCListIndex).RigidBodies[0] != nullptr && PCList.GetContact(FinalPCListIndex).RigidBodies[1] != nullptr)
-			{
-				FinalPCList.GetContact(FinalPCListIndex).RigidBodies[0] = PCList.GetContact(LocalPCListIndex).RigidBodies[0];
-				FinalPCList.GetContact(FinalPCListIndex).RigidBodies[1] = PCList.GetContact(LocalPCListIndex).RigidBodies[1];
-
-				++FinalPCListIndex;
-			}
-		}
-	}
-
-	//Clearing the Quadtree
-	m_Quadtree.Clear();
-
-	//Grid Potential Contact List
-	PotentialContactList GridPotentialList(POTENTIAL_CONTACT_LIST_LIMIT);
-	//Grid Test
-	U32 NumOfContactsFoundInGrid = 0;
-	for (unsigned int i = 0; i < m_RigidBodyList.GetDynamicBodyListSize(); ++i)
-	{
-		RigidBody* pRB = m_RigidBodyList.GetRigidBodyFromDynamicList(i);
-		
-		for (auto& _Grid : m_GridList)
-		{
-			NumOfContactsFoundInGrid += _Grid->Query(pRB, &GridPotentialList);
-		}
-
-		TotalNumOfPotentialContactsFound += NumOfContactsFoundInGrid;
-	}
-
+	//
 	//If There are No Potential Contacts Then Dont Do Anything
 	if (TotalNumOfPotentialContactsFound == 0)
 	{
@@ -152,28 +88,14 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Final Potential Contacts Generated!
 	//
 	//Narrow Phase Collision Detection
-	//Primitive List Contact List
-	PotentialContactList PrimitiveTestResultList(POTENTIAL_CONTACT_LIST_LIMIT);
+	PrimitiveTestResultList.Clear();
 	//Generating Resultant List From Final List
 	unsigned int PrimitiveTestResult = NarrowPhase::GeneratePrimitiveTestResultsList(&FinalPCList, &PrimitiveTestResultList);
 	//Collision Detected List: Shape Test List
-	ContactList ContactPairList(MAX_CONTACTS);
+	ContactPairList.Clear();
 	//Generating Shape Result List
 	unsigned int NumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&PrimitiveTestResultList, &ContactPairList);
-	//
-	
-	//Grid Collision Test
-	//Narrow Phase Collision Detection
-	//Primitive List Contact List
-	PotentialContactList GridPrimitiveTestResultList(POTENTIAL_CONTACT_LIST_LIMIT);
-	//Generating Resultant List From Final List
-	unsigned int GridPrimitiveTestResult = NarrowPhase::GeneratePrimitiveTestResultsList(&GridPotentialList, &GridPrimitiveTestResultList);
-	//Collision Detected List: Shape Test List
-	ContactList GridContactPairList(MAX_CONTACTS);
-	//Generating Shape Result List
-	unsigned int GridNumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&GridPrimitiveTestResultList, &GridContactPairList);
-	//
-	NumOfContactsFound += GridNumOfContactsFound;
+
 
 	//Collision Detection Completed!
 	//
@@ -183,13 +105,10 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 		//
 		//
 		//Resolving the Collision Pairs
-		CollisionResolver _CollisionResolver;
 		_CollisionResolver.Resolve(&ContactPairList, Timestep);
-		_CollisionResolver.Resolve(&GridContactPairList, Timestep);
 		//
 		//Copying the Collision Pair List
 		CollidingPairsList.CopyFromContactList(ContactPairList);
-		CollidingPairsList.CopyFromContactList(GridContactPairList);
 	}
 	//End Of Physics Update
 }

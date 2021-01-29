@@ -18,14 +18,16 @@ Senku2D::PotentialRigidBodyContact& Senku2D::PotentialContactList::GetContact(co
 {
 	//Index Should Not Exceed Limit
 	assert(Index < m_Limit);
-
 	return m_InternalList[Index];
 }
 
 void Senku2D::PotentialContactList::Clear()
 {
-	m_InternalList.clear();
-	m_InternalList.resize(m_Limit);
+	for (auto& itr : m_InternalList)
+	{
+		itr.RigidBodies[0] = nullptr;
+		itr.RigidBodies[1] = nullptr;
+	}
 }
 
 const uint8_t Senku2D::PotentialContactList::GetLimit() const

@@ -60,7 +60,7 @@ void Senku2D::Grid::Reset(const AABB& Bounds, const Vector2& TileSize)
 	{
 		for (auto& Col : Row)
 		{
-			Col = 0;
+			Col = m_DefaultNoBodyValue;
 		}
 	}
 	
@@ -83,22 +83,28 @@ void Senku2D::Grid::AddBody(RigidBody* pRB)
 		U32 StartingRow = (U32)Real_Floor(RB_RelativePosition.y / m_TileSize.y);
 
 		//Ending Column and Ending Row(Might Be the Same as Starting Row and Column)
-		U32 EndingCol = (U32)Real_Ceil(RB_RelativeSize.x / m_TileSize.x);
-		U32 EndingRow = (U32)Real_Ceil(RB_RelativeSize.y / m_TileSize.y);
+		U32 EndingCol = (U32)Real_Floor(RB_RelativeSize.x / m_TileSize.x);
+		U32 EndingRow = (U32)Real_Floor(RB_RelativeSize.y / m_TileSize.y);
 
 		//Asserting that Ending Colmmn and Row Don't Exceed the Max Limit
 		assert((EndingCol < m_NumOfCols) && (EndingRow < m_NumOfRows)
 			&& "Ending Column and/or Ending Row Exceed the Maximum Limit!");
 
 		//Filling the Matrix with an Index
-		for (U32 CurrentRow = StartingRow; CurrentRow <= EndingRow; ++CurrentRow)
+		if(StartingRow == EndingRow && StartingCol == EndingCol)
+		{ 
+			m_Matrix[StartingRow][StartingCol] = m_RBCurrentIndex;
+		}
+		else
 		{
-			for (U32 CurrentCol = StartingCol; CurrentCol <= EndingCol; ++CurrentCol)
+			for (U32 CurrentRow = StartingRow; CurrentRow <= EndingRow; ++CurrentRow)
 			{
-				m_Matrix[CurrentRow][CurrentCol] = m_RBCurrentIndex;
+				for (U32 CurrentCol = StartingCol; CurrentCol <= EndingCol; ++CurrentCol)
+				{
+					m_Matrix[CurrentRow][CurrentCol] = m_RBCurrentIndex;
+				}
 			}
 		}
-
 		//Adding the Body to the Grid List at this Index
 		m_GridBodyList.AddAtIndex(m_RBCurrentIndex, pRB);
 
@@ -127,21 +133,45 @@ Senku2D::U32 Senku2D::Grid::Query(RigidBody* pRB, PotentialContactList* pList)
 		U32 EndingCol = (U32)Real_Floor(RB_RelativeSize.x / m_TileSize.x);
 		U32 EndingRow = (U32)Real_Floor(RB_RelativeSize.y / m_TileSize.y);
 
-		//Making Sire that Ending Colmmn and Row Don't Exceed the Max Limit
+		//Making Sure that Ending Colmmn and Row Don't Exceed the Max Limit
 		if ((EndingCol < m_NumOfCols) && (EndingRow < m_NumOfRows))
 		{
-			//Queying the Matrix
-			for (U32 CurrentRow = StartingRow; CurrentRow <= EndingRow; ++CurrentRow)
+			if (StartingRow == EndingRow && StartingCol == EndingCol)
 			{
-				for (U32 CurrentCol = StartingCol; CurrentCol <= EndingCol; ++CurrentCol)
+				U32 RBIndex = m_Matrix[StartingRow][StartingCol];
+				PRT(RBIndex);
+				if (RBIndex != m_DefaultNoBodyValue)
 				{
-					U32 RBIndex = m_Matrix[CurrentRow][CurrentCol];
-					if (RBIndex != m_DefaultNoBodyValue)
+					//A Static Body Might Be Colliding with the Given Rigid Body!
+					pList->GetContact(NumOfPotentialContactsFound).RigidBodies[0] = pRB;
+					pList->GetContact(NumOfPotentialContactsFound).RigidBodies[1] = m_GridBodyList.GetFromIndex(RBIndex);
+					++NumOfPotentialContactsFound;
+				}
+
+				return NumOfPotentialContactsFound;
+			}
+			else
+			{
+				//Queying the Matrix
+				for (U32 CurrentRow = StartingRow; CurrentRow <= EndingRow; ++CurrentRow)
+				{
+					for (U32 CurrentCol = StartingCol; CurrentCol <= EndingCol; ++CurrentCol)
 					{
-						//A Static Body Might Be Colliding with the Given Rigid Body!
-						pList->GetContact(NumOfPotentialContactsFound).RigidBodies[0] = pRB;
-						pList->GetContact(NumOfPotentialContactsFound).RigidBodies[1] = m_GridBodyList.GetFromIndex(RBIndex);
-						++NumOfPotentialContactsFound;
+						U32 RBIndex = m_Matrix[CurrentRow][CurrentCol];
+						if (RBIndex != m_DefaultNoBodyValue)
+						{
+							if (NumOfPotentialContactsFound < pList->GetLimit())
+							{
+								//A Static Body Might Be Colliding with the Given Rigid Body!
+								pList->GetContact(NumOfPotentialContactsFound).RigidBodies[0] = pRB;
+								pList->GetContact(NumOfPotentialContactsFound).RigidBodies[1] = m_GridBodyList.GetFromIndex(RBIndex);
+								++NumOfPotentialContactsFound;
+							}
+							else
+							{
+								return NumOfPotentialContactsFound;
+							}
+						}
 					}
 				}
 			}

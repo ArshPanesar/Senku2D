@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <assert.h>
+#include <chrono>
 
 namespace Senku2D
 {

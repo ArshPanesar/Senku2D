@@ -4,7 +4,7 @@
 #include "../Rigid Body/Collision Processing/Collision Detection/Narrow Phase.h"
 #include "../Rigid Body/Collision Processing/Collision Resolution/Collision Resolver.h"
 #include "Rigid Body Contact Pair List.h"
-#include "../Rigid Body/Collision Processing/Grid/Grid.h"
+#include <chrono>
 
 namespace Senku2D
 {
@@ -16,12 +16,9 @@ namespace Senku2D
 	//World Arena Scale Factor
 	const Real WORLD_ARENA_SCALE_FACTOR = 2.0f;
 
-	//Number of Grids Allowed
-	const U32 MAX_GRIDS = 6;
-
 	//Default World Arena Position and Size
 	const Vector2 DEFAULT_WORLD_ARENA_POSITION = Vector2(-1600.0f, -1200.0f);
-	const Vector2 DEFAULT_WORLD_ARENA_SIZE = Vector2(1600.0f, 1200.0f) * 2.0f;
+	const Vector2 DEFAULT_WORLD_ARENA_SIZE = Vector2(3200.0f, 2400.0f) * 2.0f;
 
 	//A Physics World Class
 	/*
@@ -35,11 +32,19 @@ namespace Senku2D
 		//The Rigid Body List
 		RigidBodyList m_RigidBodyList;
 
-		//The Grid List
-		std::vector<Grid*> m_GridList;
-
 		//World Arena
 		AABB WorldArena;
+
+		//Final Potential Contact List
+		PotentialContactList FinalPCList;
+		//Primitive List Contact List
+		PotentialContactList PrimitiveTestResultList;
+
+		//Contact List
+		ContactList ContactPairList;
+
+		//Collision Resolver
+		CollisionResolver _CollisionResolver;
 
 		//Update All Bodies
 		void IntegrateAllBodies(const Real& Timestep);
@@ -53,11 +58,6 @@ namespace Senku2D
 		void AddBody(RigidBody* rRB);
 		//Removing a Rigid Body to the Global List
 		void DestroyBody(RigidBody* rRB);
-
-		//Adding a Grid
-		void AddGrid(Grid* pGrid);
-		//Removing a Grid
-		void RemoveGrid(Grid* pGrid);
 
 		//Setting World Position and Size
 		void SetWorldArena(const Vector2& Position, const Vector2& Size);

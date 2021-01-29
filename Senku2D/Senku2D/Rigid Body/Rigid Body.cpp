@@ -149,12 +149,11 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 {
 	//Setting the Shape
 	m_Shape = _Shape;
-	//Setting the Bounds Size
-	m_BoundingBox.Size = _Shape->GetBoundSize();
-	//Multiplying with the Scale Factor
-	m_BoundingBox.Size *= AABB_SCALE_FACTOR;
 	//Setting Center Position
-	m_Shape->SetCenterPosition(m_Position);
+	m_Shape->Transform(m_Position, m_RotationMat);
+
+	//Setting AABB Position
+	m_BoundingBox = AABB::CalculateForShape(m_Shape);
 
 	//Calculating Moment of Inertia
 	m_MomentOfInertia = MOICalculation::Calculate(m_Shape);

@@ -17,17 +17,23 @@ Senku2D::CollisionData* Senku2D::ContactList::GetContactData(const size_t& Index
 {
 	//Asserting that the Index Be Less than the Limit
 	assert(Index < m_Limit);
-
 	return &m_InternalList[Index];
 }
 
 void Senku2D::ContactList::Clear()
 {
-	m_InternalList.clear();
-	m_InternalList.resize(m_Limit);
+	for (auto& itr : m_InternalList)
+	{
+		itr._Bodies.RigidBodies[0] = nullptr;
+		itr._Bodies.RigidBodies[1] = nullptr;
+
+		itr._Contact.ContactNormal = Vector2();
+		itr._Contact.ContactPoint = Vector2();
+		itr._Contact.Penetration = 0.0f;
+	}
 }
 
 const size_t Senku2D::ContactList::GetLimit() const
 {
-	return m_InternalList.size();
+	return m_Limit;
 }
