@@ -3,7 +3,11 @@
 
 namespace Senku2D
 {
-	//A Particle is Just a Point in Space
+	//A Particle
+	/*
+	** A Particle Uses the Same Integrator as the Rigid Body but has No Rotation.
+	** This Class Can be Used for Particle Effects In-Game and Such.
+	*/
 	class Particle
 	{
 	private:

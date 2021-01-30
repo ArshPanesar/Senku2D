@@ -59,6 +59,54 @@ bool Senku2D::AABB::operator!=(const AABB& Other) const
 	return false;
 }
 
+Senku2D::AABB Senku2D::AABB::CalculateForShape(const Shape* Shape)
+{
+	AABB Bounds;
+
+	switch (Shape->GetShapeType())
+	{
+	case ShapeType::BOX:
+	{
+		//Getting Necessary Variables
+		const BoxShape& Box = *(BoxShape*)Shape;
+
+		/*
+		Get All Vertices and Find the Min X Coord, Max X Coord,
+		Min Y Coord and Max Y Coord.
+		Your AABB will be:
+		Position(MinX, MinY) & Size(MaxX - MinX, MaxY - MinY)
+		*/
+		Real MinX, MinY, MaxX, MaxY;
+
+		//Finding Minimums and Maximums
+		MinX = Box.GetVertex(0).x;
+		MinY = Box.GetVertex(0).y;
+		MaxX = MinX;
+		MaxY = MaxX;
+		for (unsigned int i = 1; i < 4; ++i)
+		{
+			MinX = Real_Min(MinX, Box.GetVertex(i).x);
+			MinY = Real_Min(MinY, Box.GetVertex(i).y);
+			MaxX = Real_Max(MaxX, Box.GetVertex(i).x);
+			MaxY = Real_Max(MaxY, Box.GetVertex(i).y);
+		}
+
+		//Filling the AABB
+		Bounds.Position = Vector2(MinX, MinY);
+		Bounds.Size = Vector2(MaxX - MinX, MaxY - MinY);
+	}
+	break;
+
+	case ShapeType::CIRCLE:
+
+		Bounds.Position = Vector2(Shape->GetCenterPosition()) - (Vector2(Shape->GetBoundSize()) / (Real)2);
+		Bounds.Size = Shape->GetBoundSize();
+		break;
+	}
+
+	return Bounds;
+}
+
 void Senku2D::AABB::Clear()
 {
 	Position.Clear();

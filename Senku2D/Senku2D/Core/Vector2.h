@@ -19,6 +19,10 @@ namespace Senku2D
 		Vector2(const Real& _x, const Real& _y);
 
 		//Inverting the Vector
+		/*
+		** Vector's Direction will be Inverted while the Magnitude
+		** Remains Same.
+		*/
 		void Invert();
 
 		//Magnitude of the Vector
@@ -44,7 +48,11 @@ namespace Senku2D
 		//Dot Product
 		Real DotProduct(const Vector2& Vec) const;
 
-		//Cross Product(Since You Cant Do a Cross Product in 2D Space, This Simply Returns the Would be Z Component)
+		//Cross Product
+		/*
+		** Since You Cant Do a Cross Product in 2D Space, This Simply 
+		** Returns the (Would be) Z Component
+		*/
 		Real CrossProduct(const Vector2& Vec) const;
 
 		//Operator Overloading

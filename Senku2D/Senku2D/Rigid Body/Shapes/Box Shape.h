@@ -4,7 +4,9 @@
 namespace Senku2D
 {
 	//A Box Shape Class
-	//This Shape Will be Used for Both Rectangles and Squares
+	/*
+	** This Shape Will Can be Used for Both Rectangles and Squares.
+	*/
 	class BoxShape : public Shape
 	{
 	private:
@@ -29,9 +31,6 @@ namespace Senku2D
 		//Setters
 		void SetBox(const Real& Width, const Real& Height);
 		
-		//Operator=
-
-
 		//Getters
 		const Real GetHalfWidth() const;
 		const Real GetHalfHeight() const;

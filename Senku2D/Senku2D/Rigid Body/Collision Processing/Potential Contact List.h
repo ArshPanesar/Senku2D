@@ -1,6 +1,5 @@
 #pragma once
 #include "Potential Contact.h"
-#include <assert.h>
 
 namespace Senku2D
 {
@@ -9,25 +8,25 @@ namespace Senku2D
 	class PotentialContactList
 	{
 	private:
-		//Fixed Size
-		const uint8_t m_Limit;
-
+		//Fixed Capacity
+		const size_t m_Limit;
+		
 		//Internal Array
 		std::vector<PotentialRigidBodyContact> m_InternalList;
 
 	public:
 		//Constructor
-		PotentialContactList(const uint8_t& Limit);
+		PotentialContactList(const size_t& Limit);
 		//Destructor
 		~PotentialContactList();
 
 		//Getting A Specific Contact By A Given Index From the List
-		PotentialRigidBodyContact& GetContact(const uint8_t& Index);
+		PotentialRigidBodyContact& GetContact(const size_t& Index);
 
 		//Clearing the List
 		void Clear();
 
 		//Getting Limit
-		const uint8_t GetLimit() const;
+		const size_t GetLimit() const;
 	};
 }

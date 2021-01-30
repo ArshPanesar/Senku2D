@@ -6,12 +6,10 @@ namespace Senku2D
 	//A Pair of Rigid Bodies
 	typedef std::pair<RigidBody*, RigidBody*> RigidBodyPair;
 
-	//Maximum Amount of Contacts Generated
-	const unsigned int MAX_CONTACTS = 12;
-
-	//A Rigid Body List That Are in Contact
+	//A Rigid Body List For those in Contact
 	/*
-	Only Used For Extra Stuff For a Game
+	** Can be Used For Doing Special Effects In-Game For a
+	** Particular Collision!
 	*/
 	class RigidBodyPairList
 	{
@@ -28,6 +26,10 @@ namespace Senku2D
 		~RigidBodyPairList();
 
 		//Copying Data From a Contact List
+		/*
+		This Function is Only Used by the the Update Function in World Class and
+		Should not be Used Anywhere Else in Any Game Code!
+		*/
 		void CopyFromContactList(ContactList& List);
 
 		//Clearing the List
@@ -35,7 +37,7 @@ namespace Senku2D
 
 		//Getting Size
 		const size_t GetSize() const;
-		//Getting A Rigid Body Pair At Some Index
+		//Getting A Rigid Body Pair At An Index
 		const RigidBodyPair GetRigidBodyPair(const size_t& Index);
 	};
 }

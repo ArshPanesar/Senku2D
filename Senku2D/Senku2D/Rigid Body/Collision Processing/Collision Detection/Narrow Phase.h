@@ -12,10 +12,14 @@ namespace Senku2D
 	public:
 		//Primitive AABB Test: Generates a New List of Possible Collisions
 		//And Returns the Number of New Potential Contacts Generated
-		static unsigned int GeneratePrimitiveTestResultsList(PotentialContactList* OldContacts, PotentialContactList* NewContacts);
+		static unsigned int GeneratePrimitiveTestResultsList(
+			PotentialContactList* OldContacts, PotentialContactList* NewContacts,
+			const uint32_t& NumOfPotentialContacts);
 
 		//Shape Test: Generates a List of Actual Collisions Taking Place
 		//And Returns the Number of Actual Collisions
-		static unsigned int GenerateShapeTestResultsList(PotentialContactList* PotentialContacts, ContactList* CList);
+		static unsigned int GenerateShapeTestResultsList(
+			PotentialContactList* PotentialContacts, ContactList* CList, 
+			const uint32_t& NumOfPotentialContacts);
 	};
 }

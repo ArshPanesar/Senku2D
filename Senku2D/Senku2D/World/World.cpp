@@ -12,10 +12,18 @@ void Senku2D::World::IntegrateAllBodies(const Real& Timestep)
 
 Senku2D::World::World()	:
 	m_RigidBodyList(),
-	WorldArena(DEFAULT_WORLD_ARENA_POSITION, DEFAULT_WORLD_ARENA_SIZE),
-	FinalPCList(POTENTIAL_CONTACT_LIST_LIMIT),
-	PrimitiveTestResultList(POTENTIAL_CONTACT_LIST_LIMIT),
-	ContactPairList(MAX_CONTACTS)
+	FinalPCList(DEFAULT_POTENTIAL_CONTACT_LIST_LIMIT),
+	PrimitiveTestResultList(DEFAULT_MAX_CONTACTS),
+	ContactPairList(DEFAULT_MAX_CONTACTS)
+{
+
+}
+
+Senku2D::World::World(const size_t& PotentialContactsLimit, const size_t& ContactsLimit)	:
+	m_RigidBodyList(),
+	FinalPCList(PotentialContactsLimit),
+	PrimitiveTestResultList(ContactsLimit),
+	ContactPairList(ContactsLimit)
 {
 
 }
@@ -38,15 +46,6 @@ void Senku2D::World::DestroyBody(RigidBody* rRB)
 		rRB->Destroy();
 		m_RigidBodyList.Remove(rRB);
 	}
-}
-
-void Senku2D::World::SetWorldArena(const Vector2 & Position, const Vector2 & Size)
-{
-	//Setting Scaled Position and Size for the World
-	WorldArena.Position = Position;
-	WorldArena.Size = Size;
-	WorldArena.Position -= Vector2(WorldArena.Size * WORLD_ARENA_SCALE_FACTOR);
-	WorldArena.Size *= WORLD_ARENA_SCALE_FACTOR * 2.0f;
 }
 
 void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList)
@@ -75,7 +74,40 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Broad Phase
 	//
 	//Total Number of Contacts Found
-	unsigned int TotalNumOfPotentialContactsFound = 0;
+	uint32_t TotalNumOfPotentialContactsFound = 0;
+	//
+
+	//Checking Every Body Against the Other
+	/*
+	size_t NumOfDynamicBodies = m_RigidBodyList.GetDynamicBodyListSize();
+	size_t NumOfStaticBodies = m_RigidBodyList.GetStaticBodyListSize();
+	size_t NumOfContacts = 0;
+	if (NumOfDynamicBodies == 0)
+	{
+		return;
+	}
+
+	for (size_t i = 0; i < NumOfDynamicBodies; ++i)
+	{
+		for (U8 j = 0; j < NumOfStaticBodies; ++j)
+		{
+			if (NumOfContacts < FinalPCList.GetLimit())
+			{
+				FinalPCList.GetContact(NumOfContacts).RigidBodies[0] = m_RigidBodyList.GetRigidBodyFromDynamicList(i);
+				FinalPCList.GetContact(NumOfContacts).RigidBodies[1] = m_RigidBodyList.GetRigidBodyFromStaticList(j);
+				++NumOfContacts;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	//
+	TotalNumOfPotentialContactsFound = NumOfContacts;
+
+	*/
+
 	//
 	//If There are No Potential Contacts Then Dont Do Anything
 	if (TotalNumOfPotentialContactsFound == 0)
@@ -90,23 +122,22 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Narrow Phase Collision Detection
 	PrimitiveTestResultList.Clear();
 	//Generating Resultant List From Final List
-	unsigned int PrimitiveTestResult = NarrowPhase::GeneratePrimitiveTestResultsList(&FinalPCList, &PrimitiveTestResultList);
+	unsigned int PrimitiveTestResult = NarrowPhase::GeneratePrimitiveTestResultsList(
+		&FinalPCList, &PrimitiveTestResultList, 0);
+	
 	//Collision Detected List: Shape Test List
 	ContactPairList.Clear();
 	//Generating Shape Result List
-	unsigned int NumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(&PrimitiveTestResultList, &ContactPairList);
-
-
+	unsigned int NumOfContactsFound = NarrowPhase::GenerateShapeTestResultsList(
+		&PrimitiveTestResultList, &ContactPairList, 0);
+	
 	//Collision Detection Completed!
 	//
 	if (NumOfContactsFound > 0)
 	{
 		//Now We Have A List of Actual Colliding Pair of Rigid Bodies
-		//
-		//
 		//Resolving the Collision Pairs
 		_CollisionResolver.Resolve(&ContactPairList, Timestep);
-		//
 		//Copying the Collision Pair List
 		CollidingPairsList.CopyFromContactList(ContactPairList);
 	}

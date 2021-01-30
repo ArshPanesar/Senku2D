@@ -1,10 +1,11 @@
 #pragma once
 #include "Collision Data.h"
-#include <assert.h>
 
 namespace Senku2D
 {
-	
+	//Maximum Amount of Contacts Generated
+	const size_t DEFAULT_MAX_CONTACTS = 256;
+
 	//A Rigid Body Contact List With a Fixed Limit
 	class ContactList
 	{

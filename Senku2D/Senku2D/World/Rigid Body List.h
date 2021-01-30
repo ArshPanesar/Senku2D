@@ -5,11 +5,11 @@ namespace Senku2D
 {
 	//A Global Rigid Body List to be used by the Physics World
 	/*
-	This Class Acts as the List of All Currently Non-Destroyed Rigid Bodies
-	The List is only of Pointers to Rigid Bodies! When a Rigid Body's Constructor
-	is Called its Pointer Gets Added to the List. When its Destructor is Called(Or
-	if it is Destroyed Manually Due to Say Game Logic), its Pointer Gets Removed 
-	from the List, while Calling the Destructor Does Nothing!
+	** This Class Acts as the List of All Non-Destroyed Rigid Bodies
+	** The List is only of Pointers to Rigid Bodies! When a Rigid Body's Constructor
+	** is Called its Pointer Gets Added to the List. When its Destructor is Called(Or
+	** if it is Destroyed Manually Due to Say Game Logic), its Pointer Gets Removed 
+	** from the List, while Calling the Destructor Does Nothing!
 	*/
 	class RigidBodyList
 	{

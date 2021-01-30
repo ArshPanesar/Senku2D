@@ -1,6 +1,5 @@
 #pragma once
 #include "../../Shapes/Shape.h"
-#include <map>
 
 namespace Senku2D
 {

@@ -4,7 +4,7 @@ Senku2D::RigidBodyPairList::RigidBodyPairList()	:
 	m_CurrentAvailableIndex(0)
 {
 	//Reserving Memory
-	m_List.reserve(MAX_CONTACTS);
+	m_List.reserve(DEFAULT_MAX_CONTACTS);
 }
 
 Senku2D::RigidBodyPairList::~RigidBodyPairList()

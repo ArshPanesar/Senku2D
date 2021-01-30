@@ -1,20 +1,22 @@
 #include "Narrow Phase.h"
 
-unsigned int Senku2D::NarrowPhase::GeneratePrimitiveTestResultsList(PotentialContactList* OldContacts, PotentialContactList* NewContacts)
+unsigned int Senku2D::NarrowPhase::GeneratePrimitiveTestResultsList(PotentialContactList* OldContacts, PotentialContactList* NewContacts, const uint32_t& NumOfPotentialContacts)
 {
 	unsigned int NumOfContacts = 0;
 
 	//Primitive AABB Test
-	for (unsigned int i = 0; i < OldContacts->GetLimit(); ++i)
+	for (unsigned int i = 0; i < NumOfPotentialContacts; ++i)
 	{
 		//Getting the Rigid Bodies
 		RigidBody* pRB1 = OldContacts->GetContact(i).RigidBodies[0];
 		RigidBody* pRB2 = OldContacts->GetContact(i).RigidBodies[1];
 		
+		/*
 		if (pRB1 == nullptr && pRB2 == nullptr)
 		{
 			continue;
 		}
+		*/
 
 		//Checking if their AABBs Overlap
 		if (pRB1->Overlaps(pRB2->GetAABB()))
@@ -31,14 +33,14 @@ unsigned int Senku2D::NarrowPhase::GeneratePrimitiveTestResultsList(PotentialCon
 	return NumOfContacts;
 }
 
-unsigned int Senku2D::NarrowPhase::GenerateShapeTestResultsList(PotentialContactList* PotentialContacts, ContactList* CList)
+unsigned int Senku2D::NarrowPhase::GenerateShapeTestResultsList(PotentialContactList* PotentialContacts, ContactList* CList, const uint32_t& NumOfPotentialContacts)
 {
 	unsigned int NumOfContacts = 0;
 
-	for (unsigned int i = 0; i < PotentialContacts->GetLimit(); ++i)
+	for (unsigned int i = 0; i < NumOfPotentialContacts; ++i)
 	{
 		//Maximum Limit For the Contact List Reached?
-		if (NumOfContacts >= CList->GetLimit())
+		if (NumOfContacts == CList->GetLimit())
 		{
 			break;
 		}
@@ -47,11 +49,12 @@ unsigned int Senku2D::NarrowPhase::GenerateShapeTestResultsList(PotentialContact
 		PotentialRigidBodyContact& rPRBC = PotentialContacts->GetContact(i);
 		
 		//Check if Rigid Bodies are Valid
+		/*
 		if (rPRBC.RigidBodies[0] == nullptr && rPRBC.RigidBodies[1] == nullptr)
 		{
 			continue;
 		}
-
+		*/
 		//Getting the Shape Pair
 		ShapePairs CurrentShapePair = ShapeSolver::Get().GetShapePair(rPRBC.RigidBodies[0]->GetShape()->GetShapeType(), rPRBC.RigidBodies[1]->GetShape()->GetShapeType());
 
