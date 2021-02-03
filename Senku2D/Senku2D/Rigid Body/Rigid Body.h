@@ -4,6 +4,7 @@
 #include "Shapes/Shape.h"
 #include "MOI Calculation.h"
 #include "../World/Event Interface.h"
+#include "Collision Processing/Collision Filters.h"
 
 namespace Senku2D
 {
@@ -69,6 +70,9 @@ namespace Senku2D
 
 		//Restitution
 		Real m_Restitution;
+
+		//Filters
+		Filters m_Filters;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -107,6 +111,8 @@ namespace Senku2D
 		void SetBodyType(const BodyType& BT);
 		//Setting Restitution
 		void SetRestitution(const Real& Restitution);
+		//Setting Collision Filters
+		void SetCollisionFilters(const Filters& CollisionFilters);
 
 		//Destroy this Body Forever
 		void Destroy();
@@ -139,6 +145,7 @@ namespace Senku2D
 		const bool IsDestroyed() const;
 		const BodyType GetBodyType() const;
 		const Real GetRestitution() const;
+		const Filters GetCollisionFilters() const;
 
 		//Transforming Coordinates
 		//Local to World Coordinates

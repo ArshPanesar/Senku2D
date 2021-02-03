@@ -184,6 +184,12 @@ void Senku2D::RigidBody::SetRestitution(const Real& Restitution)
 	m_Restitution = Restitution;
 }
 
+void Senku2D::RigidBody::SetCollisionFilters(const Filters& CollisionFilters)
+{
+	m_Filters.CategoryBits = CollisionFilters.CategoryBits;
+	m_Filters.MaskBits = CollisionFilters.MaskBits;
+}
+
 void Senku2D::RigidBody::Destroy()
 {
 	//Body Will Not be Updated Anymore
@@ -297,6 +303,11 @@ const BodyType Senku2D::RigidBody::GetBodyType() const
 const Real Senku2D::RigidBody::GetRestitution() const
 {
 	return m_Restitution;
+}
+
+const Filters Senku2D::RigidBody::GetCollisionFilters() const
+{
+	return m_Filters;
 }
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)

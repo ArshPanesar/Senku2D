@@ -182,6 +182,7 @@
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Detection\Narrow Phase.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Detection\Shape Solver.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Detector.h" />
+    <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Filters.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Contact List.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Contact.h" />

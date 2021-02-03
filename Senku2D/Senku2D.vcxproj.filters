@@ -54,5 +54,6 @@
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Cell Handler.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Grid.h" />
     <ClInclude Include="Senku2D\World\Event Interface.h" />
+    <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Filters.h" />
   </ItemGroup>
 </Project>

@@ -30,22 +30,30 @@ unsigned int Senku2D::NarrowPhase::GeneratePrimitiveTestResultsList(PotentialCon
 		{
 			continue;
 		}
-		
-		//Checking if their AABBs Overlap
-		if (pRB1->Overlaps(pRB2->GetAABB()))
-		{
-			if (NumOfContacts < NewContacts->GetLimit())
-			{
-				//Potential Contact Generated
-				NewContacts->GetContact(NumOfContacts).RigidBodies[0] = pRB1;
-				NewContacts->GetContact(NumOfContacts).RigidBodies[1] = pRB2;
 
-				//Increment Number of Contacts
-				++NumOfContacts;
-			}
-			else
+		//Getting Collision Filters
+		const Filters& Filter1 = pRB1->GetCollisionFilters();
+		const Filters& Filter2 = pRB2->GetCollisionFilters();
+
+		if ((Filter1.CategoryBits & Filter2.MaskBits) != 0x0000
+			|| (Filter1.MaskBits & Filter2.CategoryBits) != 0x0000)
+		{
+			//Checking if their AABBs Overlap
+			if (pRB1->Overlaps(pRB2->GetAABB()))
 			{
-				break;
+				if (NumOfContacts < NewContacts->GetLimit())
+				{
+					//Potential Contact Generated
+					NewContacts->GetContact(NumOfContacts).RigidBodies[0] = pRB1;
+					NewContacts->GetContact(NumOfContacts).RigidBodies[1] = pRB2;
+
+					//Increment Number of Contacts
+					++NumOfContacts;
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 	}
