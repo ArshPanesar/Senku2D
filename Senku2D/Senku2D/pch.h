@@ -1,15 +1,19 @@
 #pragma once
 
 //Includes
-#include <iostream>
 #include <vector>
 #include <assert.h>
-#include <chrono>
 #include <map>
+#include <unordered_map>
+#include <bitset>
+
+//Debug Only For Testing
+#ifdef _DEBUG
+#include <iostream>
+#include <chrono>
 
 namespace Senku2D
 {
-
 	//Logging To Console
 	template<typename T>
 	inline void PRT(const T& x)
@@ -22,3 +26,5 @@ namespace Senku2D
 		std::cout << x << "\t" << y << std::endl;
 	}
 }
+
+#endif

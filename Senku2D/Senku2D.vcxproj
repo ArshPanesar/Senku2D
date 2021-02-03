@@ -156,12 +156,16 @@
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Collision Detector.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Contact List.cpp" />
+    <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Cell Data.cpp" />
+    <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Cell Handler.cpp" />
+    <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Grid.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Potential Contact List.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\MOI Calculation.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Rigid Body.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Box Shape.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Circle Shape.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Shapes\Shape.cpp" />
+    <ClCompile Include="Senku2D\World\Event Interface.cpp" />
     <ClCompile Include="Senku2D\World\Rigid Body Contact Pair List.cpp" />
     <ClCompile Include="Senku2D\World\Rigid Body List.cpp" />
     <ClCompile Include="Senku2D\World\World.cpp" />
@@ -181,6 +185,9 @@
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Resolution\Collision Resolver.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Contact List.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Contact.h" />
+    <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Cell Data.h" />
+    <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Cell Handler.h" />
+    <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Grid.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Potential Contact List.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Potential Contact.h" />
     <ClInclude Include="Senku2D\Rigid Body\MOI Calculation.h" />
@@ -188,6 +195,7 @@
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Box Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Circle Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Shape.h" />
+    <ClInclude Include="Senku2D\World\Event Interface.h" />
     <ClInclude Include="Senku2D\World\Rigid Body Contact Pair List.h" />
     <ClInclude Include="Senku2D\World\Rigid Body List.h" />
     <ClInclude Include="Senku2D\World\World.h" />

@@ -9,6 +9,10 @@ namespace Senku2D
 	//A Narrow Phase Collision Detection Service Class
 	class NarrowPhase
 	{
+	private:
+		static bool CheckCollision(const ShapePairs& CurrentShapePair, 
+			PotentialRigidBodyContact& rPRBC, CollisionData* pCollData);
+
 	public:
 		//Primitive AABB Test: Generates a New List of Possible Collisions
 		//And Returns the Number of New Potential Contacts Generated

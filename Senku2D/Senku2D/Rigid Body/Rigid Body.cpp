@@ -20,7 +20,8 @@ Senku2D::RigidBody::RigidBody()	:
 	m_Shape(nullptr),
 	m_IsDestroyed(false),
 	m_VoidPointerUserData(nullptr),
-	m_BodyType(BodyType::DYNAMIC)
+	m_BodyType(BodyType::DYNAMIC),
+	m_Restitution(0.1f)
 {
 	//Calculate the Rotation Matrix
 	m_RotationMat.Data[0] = Real_Cos(m_Angle);
@@ -43,7 +44,7 @@ Senku2D::RigidBody::~RigidBody()
 }
 
 void Senku2D::RigidBody::Integrate(const Real& Timestep)
-{
+{	
 	//Update the Linear Position of the Particle
 	m_Position.AddScaledVector(m_LinearVelocity, Timestep);
 	m_Angle += m_AngularVelocity * Timestep;
@@ -99,10 +100,24 @@ void Senku2D::RigidBody::SetMass(const Real& Mass)
 
 void Senku2D::RigidBody::SetPosition(const Vector2& Position)
 {
+	Vector2 ChangeInPosition = m_Position - Position;
 	m_Position = Position;
 	
-	//Setting AABB Position
-	m_BoundingBox.Position = m_Position - (m_BoundingBox.Size / (Real)2);
+	//Resetting Static Grid Incase of Static Body
+	if (m_BodyType == BodyType::STATIC && (ChangeInPosition.SquaredMagnitude() > 0))
+	{
+		//Transform Shape
+		if (m_Shape != nullptr)
+		{
+			m_Shape->Transform(m_Position, m_RotationMat);
+
+			//Setting AABB Position
+			m_BoundingBox = AABB::CalculateForShape(m_Shape);
+		}
+
+		//Redo Static Grid
+		EventInterface::Get().SetRedoStaticGrid(true);
+	}
 }
 
 void Senku2D::RigidBody::SetLinearVelocity(const Vector2& Velocity)
@@ -162,6 +177,11 @@ void Senku2D::RigidBody::SetShape(Shape* _Shape)
 void Senku2D::RigidBody::SetBodyType(const BodyType& BT)
 {
 	m_BodyType = BT;
+}
+
+void Senku2D::RigidBody::SetRestitution(const Real& Restitution)
+{
+	m_Restitution = Restitution;
 }
 
 void Senku2D::RigidBody::Destroy()
@@ -272,6 +292,11 @@ const bool Senku2D::RigidBody::IsDestroyed() const
 const BodyType Senku2D::RigidBody::GetBodyType() const
 {
 	return m_BodyType;
+}
+
+const Real Senku2D::RigidBody::GetRestitution() const
+{
+	return m_Restitution;
 }
 
 void Senku2D::RigidBody::LocalToWorldCoords(Vector2& Coords)

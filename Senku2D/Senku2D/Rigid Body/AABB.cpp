@@ -82,7 +82,7 @@ Senku2D::AABB Senku2D::AABB::CalculateForShape(const Shape* Shape)
 		MinX = Box.GetVertex(0).x;
 		MinY = Box.GetVertex(0).y;
 		MaxX = MinX;
-		MaxY = MaxX;
+		MaxY = MinY;
 		for (unsigned int i = 1; i < 4; ++i)
 		{
 			MinX = Real_Min(MinX, Box.GetVertex(i).x);

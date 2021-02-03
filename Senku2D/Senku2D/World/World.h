@@ -4,11 +4,12 @@
 #include "../Rigid Body/Collision Processing/Collision Detection/Narrow Phase.h"
 #include "../Rigid Body/Collision Processing/Collision Resolution/Collision Resolver.h"
 #include "Rigid Body Contact Pair List.h"
+#include "../Rigid Body/Collision Processing/Hashed Grid/Grid.h"
 
 namespace Senku2D
 {
 	//Fixed Limit of Potential Contacts That Can be Generated
-	const size_t DEFAULT_POTENTIAL_CONTACT_LIST_LIMIT = 512;
+	const size_t DEFAULT_POTENTIAL_CONTACT_LIST_LIMIT = 128;
 	
 	//World Arena Scale Factor
 	const Real WORLD_ARENA_SCALE_FACTOR = 2.0f;
@@ -40,6 +41,15 @@ namespace Senku2D
 		//Collision Resolver
 		CollisionResolver _CollisionResolver;
 
+		//Broad Phase
+		//Dynamic Grid (Holds Only Dynamic Bodies)
+		HashedGrid::Grid DynamicGrid;
+		//Static Grid (Holds Only Static Bodies)
+		HashedGrid::Grid StaticGrid;
+		
+		//Need to Rebuild Static Grid?
+		const bool& rRebuildStaticGrid;
+		
 		//Update All Bodies
 		void IntegrateAllBodies(const Real& Timestep);
 	public:
@@ -59,6 +69,14 @@ namespace Senku2D
 		//Destructor
 		~World();
 
+		//Setting World Division Size
+		/*
+		** Senku2D Uses a Hashed Grid for Broad Phase Collision Detection thus it Needs a
+		** Cell Division Size. The Default Value is 128 x 128 Pixels. 
+		** This Size Should not be too Fine or too Coarse!
+		*/
+		void SetCellDivisionSize(const Real& CellWidth, const Real& CellHeight);
+
 		//Adding a Rigid Body to the World
 		void AddBody(RigidBody* rRB);
 		//Removing a Rigid Body from the World
@@ -67,8 +85,8 @@ namespace Senku2D
 		//Updating the World
 		/*
 		** CollidingPairsList - This List will Contain the Pair of Rigid Bodies 
-								Currently in Contact. This can be used for Doing
-								Special Effects when Two Specific Bodies Collide!
+		**						Currently in Contact. This can be used for Doing
+		**						Special Effects when Two Specific Bodies Collide!
 		*/
 		void Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList);
 	};

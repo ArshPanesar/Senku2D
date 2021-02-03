@@ -16,8 +16,12 @@ void Senku2D::CollisionResolver::ResolvePenetration(ContactList* pContactList)
 			continue;
 		}
 
+		//Setting References to Bodies
+		RigidBody& RB1 = *pContactData->_Bodies.RigidBodies[0];
+		RigidBody& RB2 = *pContactData->_Bodies.RigidBodies[1];
+
 		//Getting the Total Inverse Mass of the Pair of Rigid Bodies
-		Real TotalInvMass = pContactData->_Bodies.RigidBodies[0]->GetInverseMass() + pContactData->_Bodies.RigidBodies[1]->GetInverseMass();
+		Real TotalInvMass = RB1.GetInverseMass() + RB2.GetInverseMass();
 
 		//If Both Rigid Bodies have Infinite Mass, Then Do Nothing
 		if (TotalInvMass <= 0)
@@ -29,8 +33,8 @@ void Senku2D::CollisionResolver::ResolvePenetration(ContactList* pContactList)
 		Vector2 MovePerInvMass = pContactData->_Contact.ContactNormal * (pContactData->_Contact.Penetration / TotalInvMass);
 		
 		//Setting Positions of Rigid Bodies
-		pContactData->_Bodies.RigidBodies[0]->SetPosition((MovePerInvMass * pContactData->_Bodies.RigidBodies[0]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[0]->GetPosition());
-		pContactData->_Bodies.RigidBodies[1]->SetPosition((MovePerInvMass * -pContactData->_Bodies.RigidBodies[1]->GetInverseMass()) + pContactData->_Bodies.RigidBodies[1]->GetPosition());
+		RB1.SetPosition((MovePerInvMass * RB1.GetInverseMass()) + RB1.GetPosition());
+		RB2.SetPosition((MovePerInvMass * -RB2.GetInverseMass()) + RB2.GetPosition());
 	}
 }
 
@@ -54,15 +58,24 @@ void Senku2D::CollisionResolver::ResolveVelocity(ContactList* pContactList, cons
 		//Check if Resolution is Required
 		if (SeparatingVelocity > 0)
 		{
-			return;
+			continue;
 		}
 
+		//Setting RigidBody References
+		RigidBody& RB1 = *pContactData->_Bodies.RigidBodies[0];
+		RigidBody& RB2 = *pContactData->_Bodies.RigidBodies[1];
+
 		//Getting Velocity Caused By Acceleration Build Up
-		Vector2 AccCausedVel = Vector2(pContactData->_Bodies.RigidBodies[0]->GetLinearAcceleration())
-			- pContactData->_Bodies.RigidBodies[1]->GetLinearAcceleration();
+		Vector2 AccCausedVel = Vector2(RB1.GetLinearAcceleration())
+			- RB2.GetLinearAcceleration();
 		//Getting Separating Velocity Caused By Acceleration Build Up
 		Real AccCausedSeparatingVel = AccCausedVel * pContactData->_Contact.ContactNormal * Timestep;
 		
+		//Calculating Restitution
+		Restitution = Real_Min(RB1.GetRestitution(), 
+			RB2.GetRestitution());
+
+		//New Separating Velocity
 		Real NewSepVelocity = -SeparatingVelocity * Restitution;
 
 		if (AccCausedSeparatingVel < 0)
@@ -78,21 +91,21 @@ void Senku2D::CollisionResolver::ResolveVelocity(ContactList* pContactList, cons
 		Real DeltaVelocity = NewSepVelocity - SeparatingVelocity;
 
 		//Getting Inverse Mass
-		Real TotalInvMass = pContactData->_Bodies.RigidBodies[0]->GetInverseMass()
-			+ pContactData->_Bodies.RigidBodies[1]->GetInverseMass();
+		Real TotalInvMass = RB1.GetInverseMass()
+			+ RB2.GetInverseMass();
 
 		//Calculating the Impulse to Apply
 		Real Impulse = DeltaVelocity / TotalInvMass;
 		Vector2 ImpulsePerInvMass = pContactData->_Contact.ContactNormal * Impulse;
 
 		//Setting Impulses
-		pContactData->_Bodies.RigidBodies[0]->SetLinearVelocity(ImpulsePerInvMass * 
-			pContactData->_Bodies.RigidBodies[0]->GetInverseMass() +
-			pContactData->_Bodies.RigidBodies[0]->GetLinearVelocity());
+		RB1.SetLinearVelocity(ImpulsePerInvMass * 
+			RB1.GetInverseMass() +
+			RB1.GetLinearVelocity());
 
-		pContactData->_Bodies.RigidBodies[1]->SetLinearVelocity(ImpulsePerInvMass *
-			-pContactData->_Bodies.RigidBodies[1]->GetInverseMass() +
-			pContactData->_Bodies.RigidBodies[1]->GetLinearVelocity());
+		RB2.SetLinearVelocity(ImpulsePerInvMass *
+			-RB2.GetInverseMass() +
+			RB2.GetLinearVelocity());
 	}
 }
 

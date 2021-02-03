@@ -3,12 +3,10 @@
 #include "AABB.h"
 #include "Shapes/Shape.h"
 #include "MOI Calculation.h"
+#include "../World/Event Interface.h"
 
 namespace Senku2D
 {
-	//AABB Scale Factor For Rigid Bodies For Any Shape
-	const Real AABB_SCALE_FACTOR = (Real)1;
-
 	//Body Type(Dynamic By Default)
 	enum class BodyType
 	{
@@ -68,6 +66,9 @@ namespace Senku2D
 
 		//Body Type
 		BodyType m_BodyType;
+
+		//Restitution
+		Real m_Restitution;
 	public:
 		//Default Constructor
 		RigidBody();
@@ -104,6 +105,8 @@ namespace Senku2D
 		void SetShape(Shape* _Shape);
 		//Setting BodyType
 		void SetBodyType(const BodyType& BT);
+		//Setting Restitution
+		void SetRestitution(const Real& Restitution);
 
 		//Destroy this Body Forever
 		void Destroy();
@@ -135,6 +138,7 @@ namespace Senku2D
 		Shape* GetShape();
 		const bool IsDestroyed() const;
 		const BodyType GetBodyType() const;
+		const Real GetRestitution() const;
 
 		//Transforming Coordinates
 		//Local to World Coordinates
