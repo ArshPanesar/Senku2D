@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Senku2D\Core\Matrix2.cpp" />
     <ClCompile Include="Senku2D\Core\Particle.cpp" />
+    <ClCompile Include="Senku2D\Core\Ray.cpp" />
     <ClCompile Include="Senku2D\Core\Vector2.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\AABB.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Collision Detection\Broad Phase.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Senku2D\Core\Matrix2.h" />
     <ClInclude Include="Senku2D\Core\Particle.h" />
     <ClInclude Include="Senku2D\Core\Precision.h" />
+    <ClInclude Include="Senku2D\Core\Ray.h" />
     <ClInclude Include="Senku2D\Core\Vector2.h" />
     <ClInclude Include="Senku2D\pch.h" />
     <ClInclude Include="Senku2D\Rigid Body\AABB.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Box Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Circle Shape.h" />
     <ClInclude Include="Senku2D\Rigid Body\Shapes\Shape.h" />
+    <ClInclude Include="Senku2D\Senku2D.h" />
     <ClInclude Include="Senku2D\World\Event Interface.h" />
     <ClInclude Include="Senku2D\World\Rigid Body Contact Pair List.h" />
     <ClInclude Include="Senku2D\World\Rigid Body List.h" />

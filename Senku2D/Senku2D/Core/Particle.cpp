@@ -53,13 +53,14 @@ void Senku2D::Particle::Integrate(const Real& Timestep)
 {
 	//Update the Linear Position of the Particle
 	m_Position.AddScaledVector(m_Velocity, Timestep);
+	m_Position.AddScaledVector(m_Acceleration, Timestep * Timestep * 0.5f);
 
 	//Update the Acceleration from the Force
 	Vector2 ResultingAcc = m_Acceleration;
 	ResultingAcc.AddScaledVector(m_ForceAccum, m_InverseMass);
 
 	//Update Linear Velocity from the Resulting Acceleration
-	m_Velocity.AddScaledVector(ResultingAcc, Timestep);
+	m_Velocity.AddScaledVector(ResultingAcc, Timestep * 0.5f);
 
 	//Impose Drag on Particle's Velocity
 	m_Velocity *= Real_Pow(m_Damping, Timestep);
@@ -92,7 +93,6 @@ const Senku2D::Real Senku2D::Particle::GetDamping() const
 {
 	return m_Damping;
 }
-
 
 void Senku2D::Particle::ClearAccumulator()
 {

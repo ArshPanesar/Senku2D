@@ -82,7 +82,7 @@ namespace Senku2D
 
 		//Integrating
 		void Integrate(const Real& Timestep);
-
+		
 		//Setters
 		//Setting Mass
 		void SetInverseMass(const Real& InvMass);
@@ -157,14 +157,6 @@ namespace Senku2D
 		void SetUserData(void* Data);
 
 		//Getting User Data
-		template<typename T>
-		T* GetUserData();
+		void* GetUserData();
 	};
-	
-	template<typename T>
-	inline T* RigidBody::GetUserData()
-	{
-		return (T*)(m_VoidPointerUserData);
-	}
-
 }

@@ -123,7 +123,6 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	}
 	//
 
-
 	//Final Potential Contacts Generated!
 	//
 	//Narrow Phase Collision Detection
@@ -150,4 +149,102 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 		CollidingPairsList.CopyFromContactList(ContactPairList);
 	}
 	//End Of Physics Update
+}
+
+unsigned int Senku2D::World::RayCast(Ray& QueryRay, RigidBody** BodiesFound, const size_t& Size)
+{
+	unsigned int NumOfBodies = 0;
+	
+	//Local List of Rigid Body Pointers
+	std::vector<RigidBody*> RBList;
+	RBList.reserve(Size * 2);
+	
+	//Querying
+	NumOfBodies = DynamicGrid.QueryRay(QueryRay, RBList);
+	NumOfBodies += StaticGrid.QueryRay(QueryRay, RBList);
+
+	if (NumOfBodies == 0)
+	{
+		return 0;
+	}
+
+	//Removing Duplicates
+	for (size_t i = 0; i < RBList.size() - 1; ++i)
+	{
+		if (RBList[i] != nullptr)
+		{
+			for (size_t j = i + 1; j < RBList.size(); ++j)
+			{
+				if (RBList[i] == RBList[j])
+				{
+					RBList[j] = nullptr;
+				}
+			}
+		}
+	}
+
+	//Checking Intersection with Ray
+	for (size_t i = 0; i < RBList.size(); ++i)
+	{
+		if (RBList[i] == nullptr)
+		{
+			continue;
+		}
+
+		if (!(CollisionDetector::ShapeAndRayIntersectionTest(RBList[i]->GetShape(),
+			&QueryRay, RBList[i]->GetAngle())))
+		{
+			RBList[i] = nullptr;
+		}
+	}
+
+	//Sorting (Bubble Sort)
+	Real iDist = 0.0f, jDist = 0.0f;
+	for (size_t i = 0; i < RBList.size() - 1; ++i)
+	{
+		if (RBList[i] == nullptr)
+		{
+			continue;
+		}
+
+		//Calculating Distance
+		iDist = Vector2(RBList[i]->GetPosition() - QueryRay.PointA).SquaredMagnitude();
+
+		for (size_t j = i + 1; j < RBList.size(); ++j)
+		{
+			if (RBList[j] == nullptr)
+			{
+				continue;
+			}
+
+			//Calculating Distance
+			jDist = Vector2(RBList[j]->GetPosition() - QueryRay.PointA).SquaredMagnitude();
+
+			if (jDist < iDist)
+			{
+				//Swapping
+				RigidBody* Temp = RBList[j];
+				RBList[j] = RBList[i];
+				RBList[i] = Temp;
+			}
+		}
+	}
+	
+	//Copying the Sorted List
+	NumOfBodies = 0;
+	for (size_t i = 0; i < RBList.size(); ++i)
+	{
+		if (RBList[i] != nullptr)
+		{
+			BodiesFound[NumOfBodies] = RBList[i];
+			++NumOfBodies;
+
+			if (NumOfBodies == Size)
+			{
+				break;
+			}
+		}
+	}
+
+	return NumOfBodies;
 }

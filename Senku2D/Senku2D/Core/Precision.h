@@ -32,9 +32,9 @@ namespace Senku2D
 	typedef uint8_t U8;
 
 	//Angle Constants
-	const float RADTODEG = 57.2958f;
-	const float DEGTORAD = 0.01745f;
-
-	//PI
-	const float PI = 22.0f / 7.0f;
+	const Real RADTODEG = 57.2958f;
+	const Real DEGTORAD = 0.01745f;
+		  
+	//PI  
+	const Real PI = 22.0f / 7.0f;
 }

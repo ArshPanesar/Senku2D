@@ -3,6 +3,8 @@
 //Shapes
 #include "../Shapes/Box Shape.h"
 #include "../Shapes/Circle Shape.h"
+//Ray
+#include "../../Core/Ray.h"
 
 namespace Senku2D
 {
@@ -25,9 +27,14 @@ namespace Senku2D
 		static bool BoxAndBox(PotentialRigidBodyContact* Contact, CollisionData* CollData);
 		//Box and Circle
 		static bool BoxAndCircle(PotentialRigidBodyContact* Contact, CollisionData* CollData);
+
+		//Ray Intersection Tests
+		static bool ShapeAndRayIntersectionTest(Shape* p_Shape, Ray* p_Ray, const Real& Angle);
+		static bool CircleAndPoint(CircleShape* p_Circle, Vector2* p_Point);
+		static bool CircleAndRay(CircleShape* p_Circle, Ray* p_Ray);
+		static bool BoxAndPoint(BoxShape* p_Box, Vector2* p_Point, const Real& BoxAngle);
+		static bool BoxAndRay(BoxShape* p_Box, Ray* p_Ray, const Real& BoxAngle);
 	};
-
-
 
 	//SAT Collision Test Helpers
 	struct SAT

@@ -24,6 +24,7 @@
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Cell Handler.cpp" />
     <ClCompile Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Grid.cpp" />
     <ClCompile Include="Senku2D\World\Event Interface.cpp" />
+    <ClCompile Include="Senku2D\Core\Ray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Detection\Broad Phase.h" />
@@ -55,5 +56,7 @@
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Hashed Grid\Grid.h" />
     <ClInclude Include="Senku2D\World\Event Interface.h" />
     <ClInclude Include="Senku2D\Rigid Body\Collision Processing\Collision Filters.h" />
+    <ClInclude Include="Senku2D\Senku2D.h" />
+    <ClInclude Include="Senku2D\Core\Ray.h" />
   </ItemGroup>
 </Project>

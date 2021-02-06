@@ -89,5 +89,14 @@ namespace Senku2D
 		**						Special Effects when Two Specific Bodies Collide!
 		*/
 		void Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList);
+
+		//Raycasting
+		/*
+		** World can be Queried for Rigid Bodies By Casting a Ray From One Point to Another
+		** Point. This Function Returns the Number of Bodies Found by the Ray Cast Query and
+		** Fills Up the Given Array of Rigid Body Pointers till it Reaches the Given Size.
+		** An Array of Pointers Can be Defined Like This - RigidBody* Bodies[Size];
+		*/
+		unsigned int RayCast(Ray& QueryRay, RigidBody** BodiesFound, const size_t& Size);
 	};
 }

@@ -10,8 +10,8 @@ Real Senku2D::MOICalculation::CalculateBox(BoxShape* Box)
 	//Getting Variables
 	Real Length = Box->GetHalfWidth() * (Real)2;
 	Real Breadth = Box->GetHalfHeight() * (Real)2;
-	Real LengthSquared = Real_Pow(Length, 2);
-	Real BreadthSquared = Real_Pow(Breadth, 2);
+	Real LengthSquared = Length * Length;
+	Real BreadthSquared = Breadth * Breadth;
 	//
 	//Calculating
 	MOI = (LengthSquared + BreadthSquared) / ((Real)12);

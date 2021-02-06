@@ -67,17 +67,17 @@ void Senku2D::Vector2::operator*=(const Real& Value)
 	y *= Value;
 }
 
-Senku2D::Vector2 Senku2D::Vector2::operator*(const Real& Value)
+Senku2D::Vector2 Senku2D::Vector2::operator*(const Real& Value) const
 {
 	return Vector2(x * Value, y * Value);
 }
 
-Senku2D::Real Senku2D::Vector2::operator*(const Vector2& Vec)
+Senku2D::Real Senku2D::Vector2::operator*(const Vector2& Vec) const
 {
 	return (x * Vec.x + y * Vec.y);
 }
 
-Senku2D::Vector2 Senku2D::Vector2::operator/(const Real& Value)
+Senku2D::Vector2 Senku2D::Vector2::operator/(const Real& Value) const
 {
 	Vector2 Vec(*this);
 	if (Value != 0)
@@ -100,7 +100,7 @@ void Senku2D::Vector2::operator+=(const Vector2& Vec)
 	y += Vec.y;
 }
 
-Senku2D::Vector2 Senku2D::Vector2::operator+(const Vector2& Vec)
+Senku2D::Vector2 Senku2D::Vector2::operator+(const Vector2& Vec) const
 {
 	return Vector2(x + Vec.x, y + Vec.y);
 }
@@ -111,7 +111,7 @@ void Senku2D::Vector2::operator-=(const Vector2& Vec)
 	y -= Vec.y;
 }
 
-Senku2D::Vector2 Senku2D::Vector2::operator-(const Vector2& Vec)
+Senku2D::Vector2 Senku2D::Vector2::operator-(const Vector2& Vec) const
 {
 	return Vector2(x - Vec.x, y - Vec.y);
 }

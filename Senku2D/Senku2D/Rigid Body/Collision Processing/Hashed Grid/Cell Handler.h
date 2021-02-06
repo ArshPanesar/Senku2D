@@ -29,13 +29,16 @@ namespace Senku2D
 			//Adding Data to a Cell
 			void AddData(CellData& CD, RigidBody* pRB, const size_t& Index);
 
-			//Querying a Rigid Body From a Cell
+			//Querying a Rigid Body From a Cell For Filling Contact List
 			unsigned int QueryRigidBody(CellData& CD, RigidBody* pRB, const size_t& Index,
 				PotentialContactList* pList, const unsigned int& RegisteredNumOfContacts = 0);
 			
-			//Querying Through Size (Index + 1)
+			//Querying Through Size (Index + 1) For Filling Contact List
 			unsigned int QueryWithSize(CellData& CD, const size_t& Size, 
 				PotentialContactList* pList, const unsigned int& RegisteredNumOfContacts = 0);
+
+			//Querying Through a Ray
+			unsigned int QueryForRay(CellData& CD, const size_t& Index, std::vector<RigidBody*>& RBList);
 
 			//Clearing a Cell
 			void ClearData(CellData& CD, const size_t& Size);

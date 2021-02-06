@@ -1,6 +1,7 @@
 #include "Matrix2.h"
 
-Senku2D::Matrix2::Matrix2()
+Senku2D::Matrix2::Matrix2()	:
+	Data()
 {
 	for (unsigned int i = 0; i < 4; ++i)
 	{
@@ -8,7 +9,8 @@ Senku2D::Matrix2::Matrix2()
 	}
 }
 
-Senku2D::Matrix2::Matrix2(const Matrix2& Other)
+Senku2D::Matrix2::Matrix2(const Matrix2& Other)	:
+	Data()
 {
 	for (unsigned int i = 0; i < 4; ++i)
 	{
@@ -94,7 +96,7 @@ Senku2D::Matrix2 Senku2D::Matrix2::operator*(const Matrix2& Mat2) const
 	return Mat;
 }
 
-Senku2D::Matrix2 Senku2D::Matrix2::operator*(const Real& Num)
+Senku2D::Matrix2 Senku2D::Matrix2::operator*(const Real& Num) const
 {
 	Matrix2 Mat;
 

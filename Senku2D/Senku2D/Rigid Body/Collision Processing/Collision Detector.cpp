@@ -17,28 +17,24 @@ bool Senku2D::CollisionDetector::CircleAndCircle(PotentialRigidBodyContact* _Con
 	//Getting The Vector Between the Centers
 	Vector2 VectorBetweenCenters = Center1 - Center2;
 	//Getting Squared Distance
-	Real Dist_Sq = VectorBetweenCenters.SquaredMagnitude();
+	Real Dist = VectorBetweenCenters.Magnitude();
 	//Getting the Squared Radii
-	Real RadiusSq1 = Real_Pow(pCircle1->GetRadius(), 2);
-	Real RadiusSq2 = Real_Pow(pCircle2->GetRadius(), 2);
+	Real Radius1 = pCircle1->GetRadius();
+	Real Radius2 = pCircle2->GetRadius();
 
 	//Checking if the Squared Distance is Less than the Sum of Squared Radii
-	if (Dist_Sq < (RadiusSq1 + RadiusSq2))
+	if (Dist < (Radius1 + Radius2))
 	{
 		//Collision Happened
 		//Fill the Contact Data
 		Contact* pContact = &CollData->_Contact;
 		
-		//Contact point
-		Vector2 ContactPoint = Center1 + (VectorBetweenCenters * Real_Sqrt(RadiusSq1));
-		pContact->ContactPoint = ContactPoint;
-
 		//Contact Normal
 		VectorBetweenCenters.Normalize();
 		pContact->ContactNormal = VectorBetweenCenters;
 
 		//Penetration
-		Real Penetration = Real_Sqrt((RadiusSq1 + RadiusSq2) - Dist_Sq);
+		Real Penetration = (Radius1 + Radius2) - Dist;
 		pContact->Penetration = Penetration;
 
 		//Fill Contact
@@ -218,7 +214,7 @@ bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contac
 
 	//Converting Circle Center's World Coordinates to the Box's Local Coordinates
 	Vector2 BoxCenter = Box->GetCenterPosition();
-	Vector2 CircleCenter = (RotationMat * Vector2(Vector2(Circle->GetCenterPosition()) - BoxCenter)) + BoxCenter;
+	Vector2 CircleCenter = (RotationMat * (Circle->GetCenterPosition() - BoxCenter)) + BoxCenter;
 	
 	//Closest Point on Rectangle From the Circle's Center
 	Vector2 ClosestPoint;
@@ -271,4 +267,145 @@ bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contac
 	CollData->_Contact.ContactPoint = ClosestPoint;
 
 	return true;
+}
+
+bool Senku2D::CollisionDetector::ShapeAndRayIntersectionTest(Shape* p_Shape, Ray* p_Ray, const Real& Angle)
+{
+	switch (p_Shape->GetShapeType())
+	{
+	case ShapeType::BOX:
+		return BoxAndRay((BoxShape*)p_Shape, p_Ray, Angle);
+	case ShapeType::CIRCLE:
+		return CircleAndRay((CircleShape*)p_Shape, p_Ray);
+	}
+
+	return false;
+}
+
+bool Senku2D::CollisionDetector::CircleAndPoint(CircleShape* p_Circle, Vector2* p_Point)
+{
+	//Getting Distance Between Center and Point
+	Vector2 DistBetweenCenterAndPoint = p_Circle->GetCenterPosition() - (*p_Point);
+
+	if (DistBetweenCenterAndPoint.SquaredMagnitude() <
+		(p_Circle->GetRadius() * p_Circle->GetRadius()))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Senku2D::CollisionDetector::CircleAndRay(CircleShape* p_Circle, Ray* p_Ray)
+{
+	//Getting End Points
+	Vector2& PointA = p_Ray->PointA;
+	Vector2& PointB = p_Ray->PointB;
+
+	//Checking Corners
+	if (CircleAndPoint(p_Circle, &PointA) || CircleAndPoint(p_Circle, &PointB))
+	{
+		return true;
+	}
+
+	//Getting Vector From Closest End Point
+	Vector2 CenterToClosestPoint = p_Circle->GetCenterPosition() - PointA;
+	Vector2 ClosestPoint = PointA;
+	Real Direction = 1;
+	if (Vector2(p_Circle->GetCenterPosition() - PointB).SquaredMagnitude()
+		< CenterToClosestPoint.SquaredMagnitude())
+	{
+		CenterToClosestPoint = p_Circle->GetCenterPosition() - PointB;
+		ClosestPoint = PointB;
+		Direction = -1;
+	}
+
+	//Angle with Ray's Direction Should Not Be Greater than 90 Degrees
+	if (CenterToClosestPoint.DotProduct(p_Ray->GetDirection() * Direction) < 0)
+	{
+		return false;
+	}
+
+	//Projecting Vector CenterToClosestPoint to Ray's Direction to Get the Projection Point
+	Vector2 ProjectedPoint = ClosestPoint + 
+		(p_Ray->GetDirection() * Direction * (CenterToClosestPoint.DotProduct(p_Ray->GetDirection() * Direction) /
+			(p_Ray->GetDirection().SquaredMagnitude())));
+	
+	if (CircleAndPoint(p_Circle, &ProjectedPoint))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Senku2D::CollisionDetector::BoxAndPoint(BoxShape* p_Box, Vector2* p_Point, const Real& BoxAngle)
+{
+	//Rotation Matrix
+	Matrix2 RotationMat;
+	RotationMat.Data[0] = Real_Cos(BoxAngle);
+	RotationMat.Data[1] = -Real_Sin(BoxAngle);
+	RotationMat.Data[2] = Real_Sin(BoxAngle);
+	RotationMat.Data[3] = Real_Cos(BoxAngle);
+
+	//Rotating The Point
+	Vector2 NewPoint = RotationMat * (*p_Point - p_Box->GetCenterPosition()) + p_Box->GetCenterPosition();
+
+	//Checking Intersection
+	Vector2 Position(p_Box->GetCenterPosition().x - p_Box->GetHalfWidth(), p_Box->GetCenterPosition().y - p_Box->GetHalfHeight());
+	Vector2 Size(p_Box->GetHalfWidth() * 2, p_Box->GetHalfHeight() * 2);
+	//
+	if (Position.x < (NewPoint.x)
+		&& (Position.x + Size.x) > NewPoint.x
+		&& Position.y < (NewPoint.y)
+		&& (Position.y + Size.y) > NewPoint.y)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Senku2D::CollisionDetector::BoxAndRay(BoxShape* p_Box, Ray* p_Ray, const Real& BoxAngle)
+{
+	//Checking Corners
+	if (BoxAndPoint(p_Box, &p_Ray->PointA, BoxAngle) ||
+		BoxAndPoint(p_Box, &p_Ray->PointB, BoxAngle))
+	{
+		return true;
+	}
+
+	//Getting Vector From Closest End Point
+	Vector2 CenterToClosestPoint = p_Box->GetCenterPosition() - p_Ray->PointA;
+	Vector2 ClosestPoint = p_Ray->PointA;
+	Real Direction = 1;
+	if (Vector2(p_Box->GetCenterPosition() - p_Ray->PointB).SquaredMagnitude()
+		< CenterToClosestPoint.SquaredMagnitude())
+	{
+		CenterToClosestPoint = p_Box->GetCenterPosition() - p_Ray->PointB;
+		ClosestPoint = p_Ray->PointB;
+		Direction = -1;
+	}
+
+	//Angle with Ray's Direction Should Not Be Greater than 90 Degrees
+	if (CenterToClosestPoint.DotProduct(p_Ray->GetDirection() * Direction) < 0)
+	{
+		return false;
+	}
+
+	//Projecting Vector CenterToClosestVertex to Ray's Direction to Get the Projection Point
+	for (unsigned int i = 0; i < 4; ++i)
+	{
+		Vector2 CornerToClosestVertex = p_Box->GetVertex(i) - ClosestPoint;
+		Vector2 ProjectedPoint = ClosestPoint +
+			(p_Ray->GetDirection() * Direction * (CornerToClosestVertex.DotProduct(p_Ray->GetDirection() * Direction) /
+				(p_Ray->GetDirection().SquaredMagnitude())));
+
+		if (BoxAndPoint(p_Box, &ProjectedPoint, -BoxAngle))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

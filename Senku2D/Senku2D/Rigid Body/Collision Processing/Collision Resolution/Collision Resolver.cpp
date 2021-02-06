@@ -46,8 +46,7 @@ void Senku2D::CollisionResolver::ResolveVelocity(ContactList* pContactList, cons
 		//Getting the Contact Data For Each Pair of Rigid Bodies
 		CollisionData* pContactData = pContactList->GetContactData(i);
 
-		if (pContactData->_Bodies.RigidBodies[0] == nullptr ||
-			pContactData->_Bodies.RigidBodies[1] == nullptr)
+		if (pContactData->_Bodies.RigidBodies[0] == nullptr)
 		{
 			continue;
 		}
@@ -66,10 +65,10 @@ void Senku2D::CollisionResolver::ResolveVelocity(ContactList* pContactList, cons
 		RigidBody& RB2 = *pContactData->_Bodies.RigidBodies[1];
 
 		//Getting Velocity Caused By Acceleration Build Up
-		Vector2 AccCausedVel = Vector2(RB1.GetLinearAcceleration())
+		Vector2 AccCausedVel = RB1.GetLinearAcceleration()
 			- RB2.GetLinearAcceleration();
 		//Getting Separating Velocity Caused By Acceleration Build Up
-		Real AccCausedSeparatingVel = AccCausedVel * pContactData->_Contact.ContactNormal * Timestep;
+		Real AccCausedSeparatingVel = AccCausedVel * pContactData->_Contact.ContactNormal * Timestep * 0.5f;
 		
 		//Calculating Restitution
 		Restitution = Real_Min(RB1.GetRestitution(), 
@@ -111,7 +110,7 @@ void Senku2D::CollisionResolver::ResolveVelocity(ContactList* pContactList, cons
 
 Senku2D::Real Senku2D::CollisionResolver::CalculateSeparatingVelocity(CollisionData* CD)
 {
-	Vector2 RelativeVelocity = Senku2D::Vector2(CD->_Bodies.RigidBodies[0]->GetLinearVelocity())
+	Vector2 RelativeVelocity = CD->_Bodies.RigidBodies[0]->GetLinearVelocity()
 		- CD->_Bodies.RigidBodies[1]->GetLinearVelocity();
 	return RelativeVelocity * CD->_Contact.ContactNormal;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Cell Handler.h"
+#include "../../../Core/Ray.h"
 
 namespace Senku2D
 {
@@ -54,10 +55,12 @@ namespace Senku2D
 			
 			//Querying Through Index
 			/*
-			** This Will Check All Non-Empty Cells For Any Collisions
+			** This Will Check All Non-Empty Cells For Any Collisions and Fill the Contact List
 			*/
 			unsigned int QueryActiveCells(PotentialContactList* pList, const unsigned int& RegisteredNumOfContacts = 0);
 
+			//Querying For Ray
+			unsigned int QueryRay(const Ray& QueryRay, std::vector<RigidBody*>& RBList);
 
 			//Clearing the Grid
 			void Clear();

@@ -16,6 +16,9 @@ namespace Senku2D
 
 			//Operator Equals
 			bool operator==(const CellPosition& Other) const;
+
+			//Operator Not Equals
+			bool operator!=(const CellPosition& Other) const;
 		};
 
 		//Cell Position Hasher

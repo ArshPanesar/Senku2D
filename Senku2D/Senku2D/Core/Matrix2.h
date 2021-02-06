@@ -49,7 +49,7 @@ namespace Senku2D
 		Matrix2 operator*(const Matrix2& Mat2) const;
 
 		//* For Multiplying By a Constant
-		Matrix2 operator*(const Real& Num);
+		Matrix2 operator*(const Real& Num) const;
 
 		//*= For Multiplying By a Constant
 		void operator*=(const Real& Num);

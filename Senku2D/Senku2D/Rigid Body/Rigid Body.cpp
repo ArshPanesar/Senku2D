@@ -44,20 +44,25 @@ Senku2D::RigidBody::~RigidBody()
 }
 
 void Senku2D::RigidBody::Integrate(const Real& Timestep)
-{	
+{
 	//Update the Linear Position of the Particle
 	m_Position.AddScaledVector(m_LinearVelocity, Timestep);
-	m_Angle += m_AngularVelocity * Timestep;
-	
+	m_Position.AddScaledVector(m_LinearAcceleration, Timestep * Timestep * 0.5f);
+
 	//Update the Acceleration from the Force
 	Vector2 ResultingAcc = m_LinearAcceleration;
 	ResultingAcc.AddScaledVector(m_ForceAccum, m_InverseMass);
+
+	//Update Linear Velocity from the Resulting Acceleration
+	m_LinearVelocity.AddScaledVector(ResultingAcc, Timestep * 0.5f);
+	
+	//Calculating Angle
+	m_Angle += m_AngularVelocity * Timestep;
+	
 	//Update Angular Acceleration from Torque
 	Real ResultingAngularAcc = m_AngularAcceleration;
 	ResultingAngularAcc += m_TorqueAccum / m_MomentOfInertia;
 	
-	//Update Linear Velocity from the Resulting Acceleration
-	m_LinearVelocity.AddScaledVector(ResultingAcc, Timestep);
 	//Update the Angular Velocity
 	m_AngularVelocity += ResultingAngularAcc * Timestep;
 
@@ -80,6 +85,7 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	//Clear the Accumulator
 	ClearAccumulators();
 }
+
 
 void Senku2D::RigidBody::SetInverseMass(const Real& InvMass)
 {
@@ -323,4 +329,9 @@ void Senku2D::RigidBody::WorldToLocalCoords(Vector2& Coords)
 void Senku2D::RigidBody::SetUserData(void* Data)
 {
 	m_VoidPointerUserData = Data;
+}
+
+void* Senku2D::RigidBody::GetUserData()
+{
+	return m_VoidPointerUserData;
 }

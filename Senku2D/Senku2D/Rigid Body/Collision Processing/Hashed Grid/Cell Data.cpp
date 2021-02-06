@@ -28,3 +28,13 @@ bool Senku2D::HashedGrid::CellPosition::operator==(const CellPosition& Other) co
 
 	return false;
 }
+
+bool Senku2D::HashedGrid::CellPosition::operator!=(const CellPosition& Other) const
+{
+	if (!(*this == Other))
+	{
+		return true;
+	}
+
+	return false;
+}

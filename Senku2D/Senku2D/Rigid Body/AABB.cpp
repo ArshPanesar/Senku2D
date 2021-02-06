@@ -99,7 +99,7 @@ Senku2D::AABB Senku2D::AABB::CalculateForShape(const Shape* Shape)
 
 	case ShapeType::CIRCLE:
 
-		Bounds.Position = Vector2(Shape->GetCenterPosition()) - (Vector2(Shape->GetBoundSize()) / (Real)2);
+		Bounds.Position = Shape->GetCenterPosition() - (Shape->GetBoundSize() / (Real)2);
 		Bounds.Size = Shape->GetBoundSize();
 		break;
 	}
