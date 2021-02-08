@@ -169,9 +169,6 @@ bool Senku2D::CollisionDetector::BoxAndBox(PotentialRigidBodyContact* _Contact, 
 	//Fill the Contact Info
 	Contact* pContact = &CollData->_Contact;
 
-	//Contact Point
-	pContact->ContactPoint = ContactPoint;
-
 	if (VectorBetweenCenters.DotProduct(MainAxis) < (Real)0)
 	{
 		MainAxis = MainAxis * -1;
@@ -263,9 +260,6 @@ bool Senku2D::CollisionDetector::BoxAndCircle(PotentialRigidBodyContact* _Contac
 	CollData->_Contact.ContactNormal = RotationMat * Vector2(CircleCenter - ClosestPoint);
 	CollData->_Contact.ContactNormal.Normalize();
 	
-	//Contact Point
-	CollData->_Contact.ContactPoint = ClosestPoint;
-
 	return true;
 }
 

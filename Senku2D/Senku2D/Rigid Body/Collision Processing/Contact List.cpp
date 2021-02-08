@@ -28,7 +28,6 @@ void Senku2D::ContactList::Clear()
 		itr._Bodies.RigidBodies[1] = nullptr;
 
 		itr._Contact.ContactNormal = Vector2();
-		itr._Contact.ContactPoint = Vector2();
 		itr._Contact.Penetration = 0.0f;
 	}
 }

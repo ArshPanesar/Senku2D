@@ -59,9 +59,6 @@ namespace Senku2D
 		//Shape
 		Shape* m_Shape;
 
-		//Is this Body Destroyed?
-		bool m_IsDestroyed;
-
 		//Void Pointer to Hold the User Data
 		void* m_VoidPointerUserData;
 
@@ -113,9 +110,6 @@ namespace Senku2D
 		void SetRestitution(const Real& Restitution);
 		//Setting Collision Filters
 		void SetCollisionFilters(const Filters& CollisionFilters);
-		
-		//Destroy this Body Forever
-		void Destroy();
 
 		//Clear Accumulators
 		void ClearAccumulators();
@@ -142,7 +136,6 @@ namespace Senku2D
 		const AABB GetAABB() const;
 		const Matrix2 GetRotationMatrix() const;
 		Shape* GetShape();
-		const bool IsDestroyed() const;
 		const BodyType GetBodyType() const;
 		const Real GetRestitution() const;
 		const Filters GetCollisionFilters() const;

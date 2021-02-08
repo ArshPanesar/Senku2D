@@ -34,7 +34,7 @@ namespace Senku2D
 	//Angle Constants
 	const Real RADTODEG = 57.2958f;
 	const Real DEGTORAD = 0.01745f;
-		  
+
 	//PI  
 	const Real PI = 22.0f / 7.0f;
 }

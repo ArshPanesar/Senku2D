@@ -2,7 +2,7 @@
 
 Senku2D::Shape::Shape()	:
 	m_CenterPosition((Real)0, (Real)0),
-	m_ShapeType(ShapeType::BOX)
+	m_ShapeType(ShapeType::NONE)
 {
 
 }

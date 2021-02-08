@@ -18,7 +18,6 @@ Senku2D::RigidBody::RigidBody()	:
 	m_TorqueAccum(0),
 	m_BoundingBox(),
 	m_Shape(nullptr),
-	m_IsDestroyed(false),
 	m_VoidPointerUserData(nullptr),
 	m_BodyType(BodyType::DYNAMIC),
 	m_Restitution(0.1f)
@@ -36,11 +35,8 @@ Senku2D::RigidBody::RigidBody()	:
 
 Senku2D::RigidBody::~RigidBody()
 {
-	//Removing from the List if Not Already Destroyed
-	if (!m_IsDestroyed)
-	{
-		Destroy();
-	}
+	m_Shape = nullptr;
+	m_VoidPointerUserData = nullptr;
 }
 
 void Senku2D::RigidBody::Integrate(const Real& Timestep)
@@ -196,12 +192,6 @@ void Senku2D::RigidBody::SetCollisionFilters(const Filters& CollisionFilters)
 	m_Filters.MaskBits = CollisionFilters.MaskBits;
 }
 
-void Senku2D::RigidBody::Destroy()
-{
-	//Body Will Not be Updated Anymore
-	m_IsDestroyed = true;
-}
-
 void Senku2D::RigidBody::ClearAccumulators()
 {
 	m_ForceAccum.Clear();
@@ -216,7 +206,7 @@ void Senku2D::RigidBody::AddForce(const Vector2& Force)
 void Senku2D::RigidBody::AddForceToPoint(const Vector2& Force, const Vector2& Point)
 {
 	//Accumulating Linear Force
-	AddForce(Force);
+	m_ForceAccum += Force;
 	//Accumulating Torque
 	m_TorqueAccum = Point.CrossProduct(Force);
 }
@@ -294,11 +284,6 @@ const Matrix2 Senku2D::RigidBody::GetRotationMatrix() const
 Shape* Senku2D::RigidBody::GetShape()
 {
 	return m_Shape;
-}
-
-const bool Senku2D::RigidBody::IsDestroyed() const
-{
-	return m_IsDestroyed;
 }
 
 const BodyType Senku2D::RigidBody::GetBodyType() const

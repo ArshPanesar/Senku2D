@@ -43,6 +43,5 @@ const size_t Senku2D::RigidBodyPairList::GetSize() const
 const Senku2D::RigidBodyPair Senku2D::RigidBodyPairList::GetRigidBodyPair(const size_t& Index)
 {
 	assert(Index < GetSize());
-
 	return m_List[Index];
 }

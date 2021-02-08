@@ -27,7 +27,7 @@ Senku2D::Real Senku2D::Vector2::Magnitude() const
 
 Senku2D::Real Senku2D::Vector2::SquaredMagnitude() const
 {
-	return(x * x + y * y);
+	return (x * x + y * y);
 }
 
 void Senku2D::Vector2::Normalize()
@@ -91,7 +91,11 @@ Senku2D::Vector2 Senku2D::Vector2::operator/(const Real& Value) const
 
 void Senku2D::Vector2::operator/=(const Real& Value)
 {
-	*this = *this / Value;
+	if (Value != 0)
+	{
+		this->x /= Value;
+		this->y /= Value;
+	}
 }
 
 void Senku2D::Vector2::operator+=(const Vector2& Vec)

@@ -60,38 +60,24 @@ void Senku2D::World::AddBody(RigidBody* rRB)
 
 void Senku2D::World::DestroyBody(RigidBody* rRB)
 {
-	if (!rRB->IsDestroyed())
-	{
-		rRB->Destroy();
-		m_RigidBodyList.Remove(rRB);
-	}
+	m_RigidBodyList.Remove(rRB);
 }
 
 void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPairsList)
 {
-	//Timer
-	/*
-	auto t1 = std::chrono::high_resolution_clock::now();
-	auto t2 = std::chrono::high_resolution_clock::now();
-
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-
-	PRT(duration);
-	*/
-
 	//Update All Bodies
 	IntegrateAllBodies(Timestep);
 	
 	//Clearing the List
 	CollidingPairsList.Clear();
 
-	//Collision Detection
-	//
+	//** Collision Detection **//
+
 	//Final Potential Contact List
 	FinalPCList.Clear();
 	
-	//Broad Phase
-	//
+	//** Broad Phase **//
+	
 	//Clearing the Grid for Current Frame
 	DynamicGrid.Clear();
 	
@@ -115,16 +101,12 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 	//Querying Static vs Dynamic
 	TotalNumOfPotentialContactsFound += BroadPhase::QueryStaticBodiesUsingGrid(&StaticGrid, &m_RigidBodyList, &FinalPCList, TotalNumOfPotentialContactsFound);
 	
-	//
 	//If There are No Potential Contacts Then Dont Do Anything
 	if (TotalNumOfPotentialContactsFound == 0)
 	{
 		return;
 	}
-	//
 
-	//Final Potential Contacts Generated!
-	//
 	//Narrow Phase Collision Detection
 	PrimitiveTestResultList.Clear();
 	//Generating Resultant List From Final List
@@ -138,17 +120,15 @@ void Senku2D::World::Update(const Real& Timestep, RigidBodyPairList& CollidingPa
 		&PrimitiveTestResultList, &ContactPairList, PrimitiveTestResult);
 	
 	//Collision Detection Completed!
-	//
 	if (NumOfContactsFound > 0)
 	{
-		//Now We Have A List of Actual Colliding Pair of Rigid Bodies
 		//Resolving the Collision Pairs
 		_CollisionResolver.Resolve(&ContactPairList, Timestep);
 		
 		//Copying the Collision Pair List
 		CollidingPairsList.CopyFromContactList(ContactPairList);
 	}
-	//End Of Physics Update
+	//** End Of Physics Update **//
 }
 
 unsigned int Senku2D::World::RayCast(Ray& QueryRay, RigidBody** BodiesFound, const size_t& Size)

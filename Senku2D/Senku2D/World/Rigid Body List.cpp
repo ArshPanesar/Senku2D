@@ -3,7 +3,7 @@
 using namespace Senku2D;
 
 Senku2D::RigidBodyList::RigidBodyList() :
-	m_MaxBodiesAllowed(96),
+	m_MaxBodiesAllowed(102),
 	m_StaticBodyList(),
 	m_DynamicBodyList()
 {
@@ -67,13 +67,11 @@ const size_t Senku2D::RigidBodyList::GetDynamicBodyListSize() const
 RigidBody* Senku2D::RigidBodyList::GetRigidBodyFromStaticList(const size_t& Index)
 {
 	assert(Index < GetStaticBodyListSize());
-
 	return m_StaticBodyList[Index];
 }
 
 RigidBody* Senku2D::RigidBodyList::GetRigidBodyFromDynamicList(const size_t& Index)
 {
 	assert(Index < GetDynamicBodyListSize());
-
 	return m_DynamicBodyList[Index];
 }

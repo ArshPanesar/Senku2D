@@ -101,7 +101,7 @@ namespace Senku2D
 
 		//Area Querying
 		/*
-		** Any Area of the World Can Be Queried By An Area Specified by an AABB.
+		** Any Sector of the World Can Be Queried By An Area Specified by an AABB.
 		*/
 		unsigned int QueryArea(AABB& AreaBox, RigidBody** BodiesFound, const size_t& Size);
 	};

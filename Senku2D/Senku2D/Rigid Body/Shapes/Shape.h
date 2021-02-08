@@ -6,7 +6,8 @@ namespace Senku2D
 	//Enumeration for the Type of Existing Shapes
 	enum class ShapeType
 	{
-		CIRCLE = 0,
+		NONE = 0,
+		CIRCLE,
 		BOX
 	};
 

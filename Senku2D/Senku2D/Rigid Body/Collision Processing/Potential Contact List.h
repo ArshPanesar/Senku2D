@@ -3,7 +3,6 @@
 
 namespace Senku2D
 {
-	
 	//A List of Potential Contacts of a Fixed Size(Limit)
 	class PotentialContactList
 	{
