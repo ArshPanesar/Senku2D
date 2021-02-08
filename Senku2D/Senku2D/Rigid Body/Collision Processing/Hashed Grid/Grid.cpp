@@ -205,6 +205,35 @@ unsigned int Senku2D::HashedGrid::Grid::QueryRay(const Ray& QueryRay, std::vecto
 	return NumOfBodies;
 }
 
+unsigned int Senku2D::HashedGrid::Grid::QueryAABB(AABB& Box, std::vector<RigidBody*>& RBList)
+{
+	unsigned int NumOfBodies = 0;
+
+	CellPosition StartPosition, EndPosition;
+	StartPosition.x = (int)(Box.Position.x / m_CellSize.x);
+	StartPosition.y = (int)(Box.Position.y / m_CellSize.y);
+	EndPosition.x = (int)((Box.Position.x + Box.Size.x) / m_CellSize.x);
+	EndPosition.y = (int)((Box.Position.y + Box.Size.y) / m_CellSize.y);
+
+	CellPosition CurrentPosition;
+	for (int i = StartPosition.x; i <= EndPosition.x; ++i)
+	{
+		for (int j = StartPosition.y; j <= EndPosition.y; ++j)
+		{
+			CurrentPosition.x = i;
+			CurrentPosition.y = j;
+
+			if (m_Map.count(CurrentPosition) > 0)
+			{
+				NumOfBodies += m_CellHandler.QueryForAABB(m_CellData, m_Map[CurrentPosition],
+					RBList, Box);
+			}
+		}
+	}
+
+	return NumOfBodies;
+}
+
 void Senku2D::HashedGrid::Grid::Clear()
 {
 	//Clearing Map

@@ -40,6 +40,10 @@ namespace Senku2D
 			//Querying Through a Ray
 			unsigned int QueryForRay(CellData& CD, const size_t& Index, std::vector<RigidBody*>& RBList);
 
+			//Querying For an AABB
+			unsigned int QueryForAABB(CellData& CD, const size_t& Index, 
+				std::vector<RigidBody*>& RBList, AABB& QueryBox);
+
 			//Clearing a Cell
 			void ClearData(CellData& CD, const size_t& Size);
 		};

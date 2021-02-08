@@ -98,5 +98,11 @@ namespace Senku2D
 		** An Array of Pointers Can be Defined Like This - RigidBody* Bodies[Size];
 		*/
 		unsigned int RayCast(Ray& QueryRay, RigidBody** BodiesFound, const size_t& Size);
+
+		//Area Querying
+		/*
+		** Any Area of the World Can Be Queried By An Area Specified by an AABB.
+		*/
+		unsigned int QueryArea(AABB& AreaBox, RigidBody** BodiesFound, const size_t& Size);
 	};
 }

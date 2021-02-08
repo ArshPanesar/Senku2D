@@ -68,7 +68,7 @@ void Senku2D::CollisionResolver::ResolveVelocity(ContactList* pContactList, cons
 		Vector2 AccCausedVel = RB1.GetLinearAcceleration()
 			- RB2.GetLinearAcceleration();
 		//Getting Separating Velocity Caused By Acceleration Build Up
-		Real AccCausedSeparatingVel = AccCausedVel * pContactData->_Contact.ContactNormal * Timestep * 0.5f;
+		Real AccCausedSeparatingVel = AccCausedVel * pContactData->_Contact.ContactNormal * Timestep;
 		
 		//Calculating Restitution
 		Restitution = Real_Min(RB1.GetRestitution(), 
@@ -128,6 +128,7 @@ Senku2D::CollisionResolver::~CollisionResolver()
 
 void Senku2D::CollisionResolver::Resolve(ContactList* pContactList, const Real& Timestep)
 {
+	//Resolution
 	ResolvePenetration(pContactList);
 	ResolveVelocity(pContactList, Timestep);
 }

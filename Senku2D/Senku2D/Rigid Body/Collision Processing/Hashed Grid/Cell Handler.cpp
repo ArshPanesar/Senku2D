@@ -127,6 +127,27 @@ unsigned int Senku2D::HashedGrid::CellHandler::QueryForRay(CellData& CD, const s
 	return NumOfBodies;
 }
 
+unsigned int Senku2D::HashedGrid::CellHandler::QueryForAABB(CellData& CD, const size_t& Index, std::vector<RigidBody*>& RBList, AABB& QueryBox)
+{
+	unsigned int NumOfBodies = 0;
+
+	if (CD.Flags[Index].test(EmptyBitFlag) == false)
+	{
+		//Running Through the Rigid Body List in the Given Cell
+		std::vector<RigidBody*>& BodiesInCell = CD.BodyList[Index];
+		for (size_t i = 0; i < BodiesInCell.size(); ++i)
+		{
+			if (QueryBox.Overlaps(BodiesInCell[i]->GetAABB()))
+			{
+				RBList.push_back(BodiesInCell[i]);
+				++NumOfBodies;
+			}
+		}
+	}
+
+	return NumOfBodies;
+}
+
 void Senku2D::HashedGrid::CellHandler::ClearData(CellData& CD, const size_t& Size)
 {
 	for (size_t i = 0; i < Size; ++i)

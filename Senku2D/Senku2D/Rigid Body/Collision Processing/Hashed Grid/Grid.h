@@ -62,6 +62,9 @@ namespace Senku2D
 			//Querying For Ray
 			unsigned int QueryRay(const Ray& QueryRay, std::vector<RigidBody*>& RBList);
 
+			//Querying For AABB
+			unsigned int QueryAABB(AABB& Box, std::vector<RigidBody*>& RBList);
+
 			//Clearing the Grid
 			void Clear();
 		};

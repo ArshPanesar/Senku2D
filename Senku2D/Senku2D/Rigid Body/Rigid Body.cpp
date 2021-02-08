@@ -81,7 +81,7 @@ void Senku2D::RigidBody::Integrate(const Real& Timestep)
 	
 	//Setting AABB Position
 	m_BoundingBox = AABB::CalculateForShape(m_Shape);
-	
+
 	//Clear the Accumulator
 	ClearAccumulators();
 }

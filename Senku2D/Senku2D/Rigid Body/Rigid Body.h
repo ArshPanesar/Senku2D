@@ -113,7 +113,7 @@ namespace Senku2D
 		void SetRestitution(const Real& Restitution);
 		//Setting Collision Filters
 		void SetCollisionFilters(const Filters& CollisionFilters);
-
+		
 		//Destroy this Body Forever
 		void Destroy();
 
@@ -146,7 +146,7 @@ namespace Senku2D
 		const BodyType GetBodyType() const;
 		const Real GetRestitution() const;
 		const Filters GetCollisionFilters() const;
-
+		
 		//Transforming Coordinates
 		//Local to World Coordinates
 		void LocalToWorldCoords(Vector2& Coords);

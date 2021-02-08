@@ -248,3 +248,54 @@ unsigned int Senku2D::World::RayCast(Ray& QueryRay, RigidBody** BodiesFound, con
 
 	return NumOfBodies;
 }
+
+unsigned int Senku2D::World::QueryArea(AABB& AreaBox, RigidBody** BodiesFound, const size_t& Size)
+{
+	unsigned int NumOfBodies = 0;
+
+	//Local List of Rigid Body Pointers
+	std::vector<RigidBody*> RBList;
+	RBList.reserve(Size * 2);
+
+	//Querying
+	NumOfBodies = DynamicGrid.QueryAABB(AreaBox, RBList);
+	NumOfBodies += StaticGrid.QueryAABB(AreaBox, RBList);
+
+	if (NumOfBodies == 0)
+	{
+		return 0;
+	}
+
+	//Removing Duplicates
+	for (size_t i = 0; i < RBList.size() - 1; ++i)
+	{
+		if (RBList[i] != nullptr)
+		{
+			for (size_t j = i + 1; j < RBList.size(); ++j)
+			{
+				if (RBList[i] == RBList[j])
+				{
+					RBList[j] = nullptr;
+				}
+			}
+		}
+	}
+
+	//Copying To Array
+	NumOfBodies = 0;
+	for (size_t i = 0; i < RBList.size(); ++i)
+	{
+		if (RBList[i] != nullptr)
+		{
+			BodiesFound[NumOfBodies] = RBList[i];
+			++NumOfBodies;
+
+			if (NumOfBodies == Size)
+			{
+				break;
+			}
+		}
+	}
+
+	return NumOfBodies;
+}
