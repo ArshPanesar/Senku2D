@@ -5,6 +5,6 @@ and Rigid Body Dynamics.
 <br></br>It offers: 
 - Fast Broad Phase Collision Detection using Uniform Hashed Grids.
 - A Collision Shape Solver for Boxes, Triangles and Circles.
-- A Physics Integrator for Rigid Body Dynamics.
+- A Physics Integrator for Linear Rigid Body Dynamics.
 - World Queries using Raycasts and AABB Casts.
 - Collision Filtering.
